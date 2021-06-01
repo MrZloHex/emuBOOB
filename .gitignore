@@ -1,0 +1,5 @@
+### Rust ###
+target/
+
+### Git ###
+gt.sh
