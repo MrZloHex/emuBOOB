@@ -202,6 +202,9 @@ impl CPU {
         let length: u8 = self.length(instructions, &instr);
         let kind: String = self.kind(instructions, &instr);
 
+        println!("Instruction:");
+        println!("{}\t{}\t{}\t{}", instr, cycles, length, kind);
+
         let _load: String = "load".to_string();
         let _machine: String = "machine".to_string();
 
@@ -213,8 +216,6 @@ impl CPU {
             };
             cycles -= 1;
         }
-        println!("Instruction:");
-        println!("{}\t{}\t{}\t{}", instr, cycles, length, kind);
     }
  
     fn fetch_opcode(&mut self, mem: &mut MEM) -> u8 {
