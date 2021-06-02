@@ -1,11 +1,11 @@
 use std::collections::HashMap;
 
 
-const MAX_MEM: usize = 1024 * 8; // orig 16384 * 8 
+const MAX_MEM: usize = 16; // orig 16384 * 8 
 
 
-fn opcodes(){
-    let mut instr_set = HashMap::new();
+fn opcodes() -> HashMap<u8, String> {
+    let mut instr_set: HashMap<u8, String> = HashMap::new();
 
     // load reg2 -> reg1
     // reg1 == reg2 => NOP
@@ -15,76 +15,76 @@ fn opcodes(){
         for reg2 in 0..7 {
             let op = reg1 + reg2;
             if nop.contains(&op) {
-                instr_set.insert(op, "NOP");
+                instr_set.insert(op, "NOP".to_string());
             } else {
                 if reg1 == 192 {
                     match reg2 {
-                        1 => instr_set.insert(op, "LAB"),
-                        2 => instr_set.insert(op, "LAC"),
-                        3 => instr_set.insert(op, "LAD"),
-                        4 => instr_set.insert(op, "LAE"),
-                        5 => instr_set.insert(op, "LAH"),
-                        6 => instr_set.insert(op, "LAL"),
+                        1 => instr_set.insert(op, "LAB".to_string()),
+                        2 => instr_set.insert(op, "LAC".to_string()),
+                        3 => instr_set.insert(op, "LAD".to_string()),
+                        4 => instr_set.insert(op, "LAE".to_string()),
+                        5 => instr_set.insert(op, "LAH".to_string()),
+                        6 => instr_set.insert(op, "LAL".to_string()),
                         _ => continue
                     };
                 } else if reg1 == 201 {
                     match reg2 {
-                        0 => instr_set.insert(op, "LBA"),
-                        2 => instr_set.insert(op, "LBC"),
-                        3 => instr_set.insert(op, "LBD"),
-                        4 => instr_set.insert(op, "LBE"),
-                        5 => instr_set.insert(op, "LBH"),
-                        6 => instr_set.insert(op, "LBL"),
+                        0 => instr_set.insert(op, "LBA".to_string()),
+                        2 => instr_set.insert(op, "LBC".to_string()),
+                        3 => instr_set.insert(op, "LBD".to_string()),
+                        4 => instr_set.insert(op, "LBE".to_string()),
+                        5 => instr_set.insert(op, "LBH".to_string()),
+                        6 => instr_set.insert(op, "LBL".to_string()),
                         _ => continue
                     };
                 } else if reg1 == 210 {
                     match reg2 {
-                        0 => instr_set.insert(op, "LCA"),
-                        1 => instr_set.insert(op, "LCB"),
-                        3 => instr_set.insert(op, "LCD"),
-                        4 => instr_set.insert(op, "LCE"),
-                        5 => instr_set.insert(op, "LCH"),
-                        6 => instr_set.insert(op, "LCL"),
+                        0 => instr_set.insert(op, "LCA".to_string()),
+                        1 => instr_set.insert(op, "LCB".to_string()),
+                        3 => instr_set.insert(op, "LCD".to_string()),
+                        4 => instr_set.insert(op, "LCE".to_string()),
+                        5 => instr_set.insert(op, "LCH".to_string()),
+                        6 => instr_set.insert(op, "LCL".to_string()),
                         _ => continue
                     };
                 } else if reg1 == 219 {
                     match reg2 {
-                        0 => instr_set.insert(op, "LDA"),
-                        1 => instr_set.insert(op, "LDB"),
-                        2 => instr_set.insert(op, "LDC"),
-                        4 => instr_set.insert(op, "LDE"),
-                        5 => instr_set.insert(op, "LDH"),
-                        6 => instr_set.insert(op, "LDL"),
+                        0 => instr_set.insert(op, "LDA".to_string()),
+                        1 => instr_set.insert(op, "LDB".to_string()),
+                        2 => instr_set.insert(op, "LDC".to_string()),
+                        4 => instr_set.insert(op, "LDE".to_string()),
+                        5 => instr_set.insert(op, "LDH".to_string()),
+                        6 => instr_set.insert(op, "LDL".to_string()),
                         _ => continue
                     };
                 } else if reg1 == 228 {
                     match reg2 {
-                        0 => instr_set.insert(op, "LEA"),
-                        1 => instr_set.insert(op, "LEB"),
-                        2 => instr_set.insert(op, "LEC"),
-                        3 => instr_set.insert(op, "LED"),
-                        5 => instr_set.insert(op, "LEH"),
-                        6 => instr_set.insert(op, "LEL"),
+                        0 => instr_set.insert(op, "LEA".to_string()),
+                        1 => instr_set.insert(op, "LEB".to_string()),
+                        2 => instr_set.insert(op, "LEC".to_string()),
+                        3 => instr_set.insert(op, "LED".to_string()),
+                        5 => instr_set.insert(op, "LEH".to_string()),
+                        6 => instr_set.insert(op, "LEL".to_string()),
                         _ => continue
                     };
                 } else if reg1 == 237 {
                     match reg2 {
-                        0 => instr_set.insert(op, "LHA"),
-                        1 => instr_set.insert(op, "LHB"),
-                        2 => instr_set.insert(op, "LHC"),
-                        3 => instr_set.insert(op, "LHD"),
-                        4 => instr_set.insert(op, "LHE"),
-                        6 => instr_set.insert(op, "LHL"),
+                        0 => instr_set.insert(op, "LHA".to_string()),
+                        1 => instr_set.insert(op, "LHB".to_string()),
+                        2 => instr_set.insert(op, "LHC".to_string()),
+                        3 => instr_set.insert(op, "LHD".to_string()),
+                        4 => instr_set.insert(op, "LHE".to_string()),
+                        6 => instr_set.insert(op, "LHL".to_string()),
                         _ => continue
                     };
                 } else if reg1 == 246 {
                     match reg2 {
-                        0 => instr_set.insert(op, "LLA"),
-                        1 => instr_set.insert(op, "LLB"),
-                        2 => instr_set.insert(op, "LLC"),
-                        3 => instr_set.insert(op, "LLD"),
-                        4 => instr_set.insert(op, "LLE"),
-                        5 => instr_set.insert(op, "LLH"),
+                        0 => instr_set.insert(op, "LLA".to_string()),
+                        1 => instr_set.insert(op, "LLB".to_string()),
+                        2 => instr_set.insert(op, "LLC".to_string()),
+                        3 => instr_set.insert(op, "LLD".to_string()),
+                        4 => instr_set.insert(op, "LLE".to_string()),
+                        5 => instr_set.insert(op, "LLH".to_string()),
                         _ => continue
                     };
                 }
@@ -92,6 +92,7 @@ fn opcodes(){
             
         }
     }
+    return instr_set;
 }
 
 
@@ -122,8 +123,9 @@ struct CPU {
 
 impl CPU {
     fn reset(&mut self, mem: &mut MEM) -> () {
-        self.r_pc = 0 ;
+        self.r_pc = 0;
         self.r_sp = 0;
+        self.r_b = 0x0A;
         mem.initialize();
     }
 
@@ -146,7 +148,6 @@ impl CPU {
 }
 
 
-
 struct MEM {
     data: [u8; MAX_MEM]
 }
@@ -161,12 +162,23 @@ impl MEM {
     fn get_byte(&mut self, addres: usize) -> u8 {
         return self.data[addres];
     }
+
+    fn load_instr(&mut self) -> () {
+        self.data[0x0] = 0b11_001_000; // LAB
+        self.data[0x1] = 0b11_100_000; // LEA
+    }
+
+    fn print_dump(&mut self) -> () {
+        for i in 0..self.data.len() {
+            println!("{number:>0width$}\t{bute:b}", number=i, width=3, bute=self.data[i]);
+        }
+    }
 }
 
 
 
 fn main() {
-    opcodes();
+    let instr_set: HashMap<u8, String> = opcodes();
 
     let mut cpu: CPU = CPU {r_pc: 0, r_sp: 0, r_a: 0, r_b: 0, r_c: 0, r_d: 0, r_e: 0, r_h: 0, r_l: 0, 
                             f_c: false, f_z: false, f_s: false, f_p: false};
@@ -174,5 +186,8 @@ fn main() {
     let mut mem: MEM = MEM {data: [0; MAX_MEM]};
     
     cpu.reset(&mut mem);
+    // for test ROM
+    mem.load_instr();
+    mem.print_dump();
     //cpu.execute(&mut mem, 2);
 }
