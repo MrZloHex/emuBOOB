@@ -95,7 +95,7 @@ fn opcodes() -> HashMap<u8, String> {
     return instr_set;
 }
 
-fn type_instr() -> [Vec<String>; 3] {
+fn time_instr() -> [Vec<String>; 3] {
     let one_cycle_instrs: Vec<String> = vec![
         "LAB".to_string(),"LAC".to_string(),"LAD".to_string(),"LAE".to_string(),"LAH".to_string(),"LAL".to_string(),
         "LBA".to_string(),"LBC".to_string(),"LBD".to_string(),"LBE".to_string(),"LBH".to_string(),"LBL".to_string(),
@@ -162,13 +162,13 @@ impl CPU {
         mem.initialize();
     }
 
-    fn execute(&mut self, mem: &mut MEM, instr_set: HashMap<u8, String>, instr_type: [Vec<String>; 3], instr_length: [Vec<String>; 3]) -> () {
+    fn execute(&mut self, mem: &mut MEM, instr_set: HashMap<u8, String>, instr_time: [Vec<String>; 3], instr_length: [Vec<String>; 3]) -> () {
         let instr: u8 = self.fetch_opcode(mem);
         let instr: String = self.decode(instr, instr_set);
         println!("{}", instr);
-        let mut cycles: u8 = if instr_type[0].contains(&instr) {
+        let mut cycles: u8 = if instr_time[0].contains(&instr) {
             1
-        } else if instr_type[1].contains(&instr) {
+        } else if instr_time[1].contains(&instr) {
             2
         } else {
             3
@@ -183,6 +183,7 @@ impl CPU {
         };
         println!("{}", length);
         while cycles > 0 {
+
             cycles -= 1;
         }
     }
@@ -251,7 +252,7 @@ impl MEM {
 
 fn main() {
     let instr_set: HashMap<u8, String> = opcodes();
-    let instr_type: [Vec<String>; 3] = type_instr();
+    let instr_time: [Vec<String>; 3] = time_instr();
     let instr_length: [Vec<String>; 3] = length_instr();
 
     let mut cpu: CPU = CPU {r_pc: 0, r_sp: 0, r_a: 0, r_b: 0, r_c: 0, r_d: 0, r_e: 0, r_h: 0, r_l: 0, 
@@ -266,5 +267,5 @@ fn main() {
     cpu.print_reg();
     println!();
     //execute commands
-    cpu.execute(&mut mem, instr_set, instr_type, instr_length);
+    cpu.execute(&mut mem, instr_set, instr_time, instr_length);
 }
