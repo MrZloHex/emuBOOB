@@ -125,7 +125,7 @@ impl CPU {
     fn reset(&mut self, mem: &mut MEM) -> () {
         self.r_pc = 0;
         self.r_sp = 0;
-        self.r_b = 0x0A;
+        self.r_b = 0x0A; // for tests
         mem.initialize();
     }
 
@@ -169,6 +169,7 @@ impl MEM {
     }
 
     fn print_dump(&mut self) -> () {
+        println!("MEM DUMP");
         for i in 0..self.data.len() {
             println!("{number:>0width$}\t{bute:b}", number=i, width=3, bute=self.data[i]);
         }
