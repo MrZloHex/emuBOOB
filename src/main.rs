@@ -213,7 +213,8 @@ impl CPU {
             };
             cycles -= 1;
         }
-        println!();
+        println!("Instruction:");
+        println!("{}\t{}\t{}\t{}", instr, cycles, length, kind);
     }
  
     fn fetch_opcode(&mut self, mem: &mut MEM) -> u8 {
