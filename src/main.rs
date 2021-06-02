@@ -3,7 +3,7 @@ use std::collections::HashMap;
 
 const MAX_MEM: usize = 16; // orig 16384 * 8 
 
-
+// в струтуры загнать
 fn opcodes() -> HashMap<u8, String> {
     let mut instr_set: HashMap<u8, String> = HashMap::new();
 
@@ -129,6 +129,21 @@ fn length_instr() -> [Vec<String>; 3] {
     return instrs;
 }
 
+fn type_instr() -> [Vec<String>; 2] {
+    let index_register_instrs: Vec<String> = vec![
+        "LAB".to_string(),"LAC".to_string(),"LAD".to_string(),"LAE".to_string(),"LAH".to_string(),"LAL".to_string(),
+        "LBA".to_string(),"LBC".to_string(),"LBD".to_string(),"LBE".to_string(),"LBH".to_string(),"LBL".to_string(),
+        "LCA".to_string(),"LCB".to_string(),"LCD".to_string(),"LCE".to_string(),"LCH".to_string(),"LCL".to_string(),
+        "LDA".to_string(),"LDB".to_string(),"LDC".to_string(),"LDE".to_string(),"LDH".to_string(),"LDL".to_string(),
+        "LEA".to_string(),"LEB".to_string(),"LEC".to_string(),"LED".to_string(),"LEH".to_string(),"LEL".to_string(),
+        "LHA".to_string(),"LHB".to_string(),"LHC".to_string(),"LHD".to_string(),"LHE".to_string(),"LHL".to_string(),
+        "LLA".to_string(),"LLB".to_string(),"LLC".to_string(),"LLD".to_string(),"LLE".to_string(),"LLH".to_string()
+    ];
+    let machine_instr: Vec<String> = vec!["NOP".to_string(), "HLT".to_string()];
+    let instrs: [Vec<String>; 2] = [index_register_instrs, machine_instr];
+    return instrs;
+}
+
 
 
 struct CPU {
@@ -162,10 +177,11 @@ impl CPU {
         mem.initialize();
     }
 
-    fn execute(&mut self, mem: &mut MEM, instr_set: HashMap<u8, String>, instr_time: [Vec<String>; 3], instr_length: [Vec<String>; 3]) -> () {
+    fn execute(&mut self, mem: &mut MEM, instr_set: HashMap<u8, String>, instr_time: [Vec<String>; 3], instr_length: [Vec<String>; 3], instr_type: [Vec<String>; 2]) -> () {
         let instr: u8 = self.fetch_opcode(mem);
         let instr: String = self.decode(instr, instr_set);
         println!("{}", instr);
+        //  все увыделить в отдельные функции
         let mut cycles: u8 = if instr_time[0].contains(&instr) {
             1
         } else if instr_time[1].contains(&instr) {
@@ -182,6 +198,12 @@ impl CPU {
             3
         };
         println!("{}", length);
+        let kind: String = if instr_type[0].contains(&instr) {
+            "load".to_string()
+        } else {
+            "machine".to_string()
+        };
+        println!("{}", kind);
         while cycles > 0 {
 
             cycles -= 1;
@@ -254,6 +276,7 @@ fn main() {
     let instr_set: HashMap<u8, String> = opcodes();
     let instr_time: [Vec<String>; 3] = time_instr();
     let instr_length: [Vec<String>; 3] = length_instr();
+    let instr_type: [Vec<String>; 2] = type_instr();
 
     let mut cpu: CPU = CPU {r_pc: 0, r_sp: 0, r_a: 0, r_b: 0, r_c: 0, r_d: 0, r_e: 0, r_h: 0, r_l: 0, 
                             f_c: false, f_z: false, f_s: false, f_p: false};
@@ -267,5 +290,5 @@ fn main() {
     cpu.print_reg();
     println!();
     //execute commands
-    cpu.execute(&mut mem, instr_set, instr_time, instr_length);
+    cpu.execute(&mut mem, instr_set, instr_time, instr_length, instr_type);
 }
