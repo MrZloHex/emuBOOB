@@ -343,10 +343,11 @@ impl MEM {
     }
 
     fn load_instr(&mut self) -> () {
-        self.prom[0x1] = 0b11_001_001; // LBB -> NOP
+        self.prom[0x0] = 0b11_001_001; // LBB -> NOP
         self.prom[0x1] = 0b11_000_001; // LAB
         self.prom[0x2] = 0b11_100_000; // LEA
         self.prom[0xA] = 0b11_000_110; // LAL
+        self.prom[0xB] = 0b11_011_011; // LDD -> NOP
     }
 
     fn print_dump(&mut self) -> () {
@@ -358,7 +359,7 @@ impl MEM {
                     println!("{ad_1:>0width$}\t{data:>0wi$}\t\t{ad_2:>0width$}\t{data:>0wi$}",
                             ad_1=i, width=3, data=self.prom[i], wi=8, ad_2=i+offset);
                 } else {
-                    println!("{ad_1:>0width$}\t{data:>0wi$}\t\t{ad_2:>0width$}\t{data_1:>0wi$}",
+                    println!("{ad_1:>0width$}\t{data:>0wi$}\t\t{ad_2:>0width$}\t{data_1:b}",
                             ad_1=i, width=3, data=self.prom[i], wi=8, ad_2=i+offset, data_1=self.prom[i+offset]);
                 }
             } else {
