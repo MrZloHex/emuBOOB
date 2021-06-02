@@ -145,6 +145,23 @@ impl CPU {
         *cycles -= 1;
         return data_byte;
     }
+
+    fn print_reg(&mut self) -> () {
+        println!("\nCPU DUMP");
+        println!("REG A\t{:X}", self.r_a);
+        println!("REG B\t{:X}", self.r_b);
+        println!("REG C\t{:X}", self.r_c);
+        println!("REG D\t{:X}", self.r_d);
+        println!("REG E\t{:X}", self.r_e);
+        println!("REG H\t{:X}", self.r_h);
+        println!("REG L\t{}\n", self.r_l);
+        println!("FLAG C\t{}", self.f_c);
+        println!("FLAG Z\t{}", self.f_z);
+        println!("FLAG S\t{}", self.f_s);
+        println!("FLAG P\t{}\n", self.f_p);
+        println!("REG PC\t{:x}", self.r_pc);
+        println!("REG SP\t{:x}", self.r_sp);
+    }
 }
 
 
@@ -169,7 +186,7 @@ impl MEM {
     }
 
     fn print_dump(&mut self) -> () {
-        println!("MEM DUMP");
+        println!("\nMEM DUMP");
         for i in 0..self.data.len() {
             println!("{number:>0width$}\t{bute:b}", number=i, width=3, bute=self.data[i]);
         }
@@ -190,5 +207,6 @@ fn main() {
     // for test ROM
     mem.load_instr();
     mem.print_dump();
+    cpu.print_reg();
     //cpu.execute(&mut mem, 2);
 }
