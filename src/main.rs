@@ -27,7 +27,7 @@ fn opcodes() -> HashMap<u8, String> {
                         6 => instr_set.insert(op, "LAL".to_string()),
                         _ => continue
                     };
-                } else if reg1 == 201 {
+                } else if reg1 == 200 {
                     match reg2 {
                         0 => instr_set.insert(op, "LBA".to_string()),
                         2 => instr_set.insert(op, "LBC".to_string()),
@@ -37,7 +37,7 @@ fn opcodes() -> HashMap<u8, String> {
                         6 => instr_set.insert(op, "LBL".to_string()),
                         _ => continue
                     };
-                } else if reg1 == 210 {
+                } else if reg1 == 208 {
                     match reg2 {
                         0 => instr_set.insert(op, "LCA".to_string()),
                         1 => instr_set.insert(op, "LCB".to_string()),
@@ -47,7 +47,7 @@ fn opcodes() -> HashMap<u8, String> {
                         6 => instr_set.insert(op, "LCL".to_string()),
                         _ => continue
                     };
-                } else if reg1 == 219 {
+                } else if reg1 == 216 {
                     match reg2 {
                         0 => instr_set.insert(op, "LDA".to_string()),
                         1 => instr_set.insert(op, "LDB".to_string()),
@@ -57,7 +57,7 @@ fn opcodes() -> HashMap<u8, String> {
                         6 => instr_set.insert(op, "LDL".to_string()),
                         _ => continue
                     };
-                } else if reg1 == 228 {
+                } else if reg1 == 224 {
                     match reg2 {
                         0 => instr_set.insert(op, "LEA".to_string()),
                         1 => instr_set.insert(op, "LEB".to_string()),
@@ -67,7 +67,7 @@ fn opcodes() -> HashMap<u8, String> {
                         6 => instr_set.insert(op, "LEL".to_string()),
                         _ => continue
                     };
-                } else if reg1 == 237 {
+                } else if reg1 == 232 {
                     match reg2 {
                         0 => instr_set.insert(op, "LHA".to_string()),
                         1 => instr_set.insert(op, "LHB".to_string()),
@@ -77,7 +77,7 @@ fn opcodes() -> HashMap<u8, String> {
                         6 => instr_set.insert(op, "LHL".to_string()),
                         _ => continue
                     };
-                } else if reg1 == 246 {
+                } else if reg1 == 240 {
                     match reg2 {
                         0 => instr_set.insert(op, "LLA".to_string()),
                         1 => instr_set.insert(op, "LLB".to_string()),
@@ -93,6 +93,23 @@ fn opcodes() -> HashMap<u8, String> {
         }
     }
     return instr_set;
+}
+
+fn type_instr() -> [Vec<String>; 3] {
+    let one_byte_instrs: Vec<String> = vec![
+        "LAB".to_string(),"LAC".to_string(),"LAD".to_string(),"LAE".to_string(),"LAH".to_string(),"LAL".to_string(),
+        "LBA".to_string(),"LBC".to_string(),"LBD".to_string(),"LBE".to_string(),"LBH".to_string(),"LBL".to_string(),
+        "LCA".to_string(),"LCB".to_string(),"LCD".to_string(),"LCE".to_string(),"LCH".to_string(),"LCL".to_string(),
+        "LDA".to_string(),"LDB".to_string(),"LDC".to_string(),"LDE".to_string(),"LDH".to_string(),"LDL".to_string(),
+        "LEA".to_string(),"LEB".to_string(),"LEC".to_string(),"LED".to_string(),"LEH".to_string(),"LEL".to_string(),
+        "LHA".to_string(),"LHB".to_string(),"LHC".to_string(),"LHD".to_string(),"LHE".to_string(),"LHL".to_string(),
+        "LLA".to_string(),"LLB".to_string(),"LLC".to_string(),"LLD".to_string(),"LLE".to_string(),"LLH".to_string(),
+        "NOP".to_string()
+    ];
+    let two_byte_instrs: Vec<String> = vec!["LMI".to_string()];
+    let three_byte_instrs: Vec<String> = vec!["CAL".to_string()];
+    let instrs: [Vec<String>; 3] = [one_byte_instrs, two_byte_instrs, three_byte_instrs];
+    return instrs;
 }
 
 
@@ -129,21 +146,35 @@ impl CPU {
         mem.initialize();
     }
 
-    fn execute(&mut self, mem: &mut MEM, ticks: u32) -> () {
-        let mut cycles: u32 = ticks;
-
+    fn execute(&mut self, mem: &mut MEM, instr_set: HashMap<u8, String>, instr_type: [Vec<String>; 3]) -> () {
+        let instr: u8 = self.fetch_opcode(mem);
+        let instr: String = self.decode(instr, instr_set);
+        println!("{}", instr);
+        let mut cycles: u8 = if instr_type[0].contains(&instr) {
+            1
+        } else if instr_type[1].contains(&instr) {
+            2
+        } else {
+            3
+        };
+        println!("{}", cycles);
         while cycles > 0 {
-            let instr: u8 = self.fetch_mem(&mut cycles, mem);
             
+            cycles -= 1;
         }
     }
-
-    fn fetch_mem(&mut self, cycles: &mut u32, mem: &mut MEM) -> u8 {
-        let data_byte: u8 = mem.get_byte(self.r_pc as usize);
-
+ 
+    fn fetch_opcode(&mut self, mem: &mut MEM) -> u8 {
+        let opcode: u8 = mem.get_byte(self.r_pc as usize);
         self.r_pc += 1;
-        *cycles -= 1;
-        return data_byte;
+        return opcode;
+    }
+
+    fn decode(&mut self, opcode: u8, instr_set: HashMap<u8, String>) -> String {
+        match instr_set.get(&opcode) {
+            Some(instr) => return instr.to_string(),
+            None => return "NOP".to_string()
+        }
     }
 
     fn print_reg(&mut self) -> () {
@@ -197,6 +228,7 @@ impl MEM {
 
 fn main() {
     let instr_set: HashMap<u8, String> = opcodes();
+    let instr_type: [Vec<String>; 3] = type_instr();
 
     let mut cpu: CPU = CPU {r_pc: 0, r_sp: 0, r_a: 0, r_b: 0, r_c: 0, r_d: 0, r_e: 0, r_h: 0, r_l: 0, 
                             f_c: false, f_z: false, f_s: false, f_p: false};
@@ -208,5 +240,7 @@ fn main() {
     mem.load_instr();
     mem.print_dump();
     cpu.print_reg();
-    //cpu.execute(&mut mem, 2);
+    println!();
+    //execute commands
+    cpu.execute(&mut mem, instr_set, instr_type);
 }
