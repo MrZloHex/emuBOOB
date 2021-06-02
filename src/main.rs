@@ -401,6 +401,7 @@ fn main() {
     println!();
     //execute commands
     println!("Instructions:");
+    println!("Mnem\tCycle\tBytes\tType");
     for _i in 0..MAX_PROM {
         cpu.execute(&mut mem, &instructions);
     }
