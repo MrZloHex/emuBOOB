@@ -198,15 +198,9 @@ impl CPU {
     fn execute(&mut self, mem: &mut MEM, instructions: &INSTRUCTION) -> () {
         let instr: u8 = self.fetch_opcode(mem);
         let instr: String = self.decode(instr, instructions);
-        println!("{}", instr);
-        //  все увыделить в отдельные функции
         let mut cycles: u8 = self.cycles(instructions, &instr);
-        println!("{}", cycles);
         let length: u8 = self.length(instructions, &instr);
-        println!("{}", length);
-
         let kind: String = self.kind(instructions, &instr);
-        println!("{}", kind);
 
         let _load: String = "load".to_string();
         let _machine: String = "machine".to_string();
