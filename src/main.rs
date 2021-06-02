@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
-
-const MAX_MEM: usize = 16; // orig 16384 * 8 
+const MAX_PROM: usize = 16; // orig 16384 * 8 
+const MAX_DATA: usize = 8;
 
 struct INSTRUCTION {
     instr_set: HashMap<u8, String>,
@@ -327,30 +327,31 @@ impl CPU {
 
 
 struct MEM {
-    data: [u8; MAX_MEM]
+    prom: [u8; MAX_PROM],
+    data: [u8; MAX_DATA]
 }
 
 impl MEM {
     fn initialize(&mut self) -> () {
-        for byte in self.data.iter_mut() {
+        for byte in self.prom.iter_mut() {
             *byte = 0;
         }
     }
 
     fn get_byte(&mut self, addres: usize) -> u8 {
-        return self.data[addres];
+        return self.prom[addres];
     }
 
     fn load_instr(&mut self) -> () {
-        self.data[0x1] = 0b11_001_001; // LBB -> NOP
-        self.data[0x1] = 0b11_000_001; // LAB
-        self.data[0x2] = 0b11_100_000; // LEA
+        self.prom[0x1] = 0b11_001_001; // LBB -> NOP
+        self.prom[0x1] = 0b11_000_001; // LAB
+        self.prom[0x2] = 0b11_100_000; // LEA
     }
 
     fn print_dump(&mut self) -> () {
         println!("\nMEM DUMP");
-        for i in 0..self.data.len() {
-            println!("{number:>0width$}\t{bute:b}", number=i, width=3, bute=self.data[i]);
+        for i in 0..self.prom.len() {
+            println!("{number:>0width$}\t{bute:b}", number=i, width=3, bute=self.prom[i]);
         }
     }
 }
@@ -363,7 +364,7 @@ fn main() {
     let mut cpu: CPU = CPU {r_pc: 0, r_sp: 0, r_a: 0, r_b: 0, r_c: 0, r_d: 0, r_e: 0, r_h: 0, r_l: 0, 
                             f_c: false, f_z: false, f_s: false, f_p: false};
 
-    let mut mem: MEM = MEM {data: [0; MAX_MEM]};
+    let mut mem: MEM = MEM {prom: [0; MAX_PROM], data: [0; MAX_DATA]};
     
     cpu.reset(&mut mem);
     // for test ROM
