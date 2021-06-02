@@ -195,30 +195,18 @@ impl CPU {
         mem.initialize();
     }
 
-    fn execute(&mut self, mem: &mut MEM, instrucitions: &INSTRUCTION) -> () {
+    fn execute(&mut self, mem: &mut MEM, instructions: &INSTRUCTION) -> () {
         let instr: u8 = self.fetch_opcode(mem);
-        let instr: String = self.decode(instr, instrucitions);
+        let instr: String = self.decode(instr, instructions);
         println!("{}", instr);
         //  все увыделить в отдельные функции
-        let mut cycles: u8 = if instrucitions.instr_time[0].contains(&instr) {
-            1
-        } else if instrucitions.instr_time[1].contains(&instr) {
-            2
-        } else {
-            3
-        };
+        let mut cycles: u8 = self.cycles(instructions, &instr);
         println!("{}", cycles);
 
-        let length: u8 = if instrucitions.instr_length[0].contains(&instr) {
-            1
-        } else if instrucitions.instr_length[1].contains(&instr) {
-            2
-        } else {
-            3
-        };
+        let length: u8 = self.length(instructions, &instr);
         println!("{}", length);
 
-        let kind: String = if instrucitions.instr_type[0].contains(&instr) {
+        let kind: String = if instructions.instr_type[0].contains(&instr) {
             "load".to_string()
         } else {
             "machine".to_string()
@@ -250,6 +238,17 @@ impl CPU {
             Some(instr) => return instr.to_string(),
             None => return "NOP".to_string()
         }
+    }
+
+    fn cycles(&mut self, instructions: &INSTRUCTION, instr: &String) -> u8 {
+        if instructions.instr_time[0].contains(instr) {return 1}
+        else if instructions.instr_time[1].contains(instr) {return 2}
+        else {return 3};
+    }
+    fn length(&mut self, instructions: &INSTRUCTION, instr: &String) -> u8 {
+        if instructions.instr_length[0].contains(instr) {return 1}
+        else if instructions.instr_length[1].contains(instr) {return 2}
+        else {return 3};
     }
 
     fn load_command(&mut self, instr: &String) -> () {
