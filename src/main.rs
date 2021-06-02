@@ -177,7 +177,7 @@ impl CPU {
         mem.initialize();
     }
 
-    fn execute(&mut self, mem: &mut MEM, instr_set: HashMap<u8, String>, instr_time: [Vec<String>; 3], instr_length: [Vec<String>; 3], instr_type: [Vec<String>; 2]) -> () {
+    fn execute(&mut self, mem: &mut MEM, instr_set: &HashMap<u8, String>, instr_time: &[Vec<String>; 3], instr_length: &[Vec<String>; 3], instr_type: &[Vec<String>; 2]) -> () {
         let instr: u8 = self.fetch_opcode(mem);
         let instr: String = self.decode(instr, instr_set);
         println!("{}", instr);
@@ -218,6 +218,7 @@ impl CPU {
             };
             cycles -= 1;
         }
+        println!();
     }
  
     fn fetch_opcode(&mut self, mem: &mut MEM) -> u8 {
@@ -226,7 +227,7 @@ impl CPU {
         return opcode;
     }
 
-    fn decode(&mut self, opcode: u8, instr_set: HashMap<u8, String>) -> String {
+    fn decode(&mut self, opcode: u8, instr_set: &HashMap<u8, String>) -> String {
         match instr_set.get(&opcode) {
             Some(instr) => return instr.to_string(),
             None => return "NOP".to_string()
@@ -234,7 +235,9 @@ impl CPU {
     }
 
     fn load_command(&mut self, instr: &String) -> () {
-
+        // a register
+        if instr == "LAB" {self.r_a = self.r_b.clone();}
+        else if instr == "LEA" {self.r_e = self.r_a.clone();}
     }
 
     fn machine_command(&mut self, instr: &String) -> () {
@@ -278,8 +281,9 @@ impl MEM {
     }
 
     fn load_instr(&mut self) -> () {
-        self.data[0x0] = 0b11_001_001; // LAB
-        self.data[0x1] = 0b11_100_000; // LEA
+        self.data[0x1] = 0b11_001_001; // LBB -> NOP
+        self.data[0x1] = 0b11_000_001; // LAB
+        self.data[0x2] = 0b11_100_000; // LEA
     }
 
     fn print_dump(&mut self) -> () {
@@ -310,5 +314,10 @@ fn main() {
     cpu.print_reg();
     println!();
     //execute commands
-    cpu.execute(&mut mem, instr_set, instr_time, instr_length, instr_type);
+    cpu.execute(&mut mem, &instr_set, &instr_time, &instr_length, &instr_type);
+    cpu.execute(&mut mem, &instr_set, &instr_time, &instr_length, &instr_type);
+    cpu.execute(&mut mem, &instr_set, &instr_time, &instr_length, &instr_type);
+    cpu.execute(&mut mem, &instr_set, &instr_time, &instr_length, &instr_type);
+    cpu.print_reg();
+    println!();
 }
