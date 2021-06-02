@@ -216,11 +216,11 @@ impl CPU {
             };
             cycles -= 1;
         }
+        self.r_pc += 1;
     }
  
     fn fetch_opcode(&mut self, mem: &mut MEM) -> u8 {
         let opcode: u8 = mem.get_byte(self.r_pc as usize);
-        self.r_pc += 1;
         return opcode;
     }
 
@@ -320,7 +320,7 @@ impl CPU {
         println!("FLAG Z\t{}", self.f_z);
         println!("FLAG S\t{}", self.f_s);
         println!("FLAG P\t{}\n", self.f_p);
-        println!("REG PC\t{:x}", self.r_pc);
+        println!("REG PC\t{:X}", self.r_pc);
         println!("REG SP\t{:x}", self.r_sp);
     }
 }
@@ -352,25 +352,34 @@ impl MEM {
 
     fn print_dump(&mut self) -> () {
         println!("\nMEM DUMP");
+        println!("PROM:");
         let offset: usize = self.prom.len()/2;
         for i in 0..(self.prom.len()/2) {
             if self.prom[i] == 0 {
                 if self.prom[i+offset] == 0 {
-                    println!("{ad_1:>0width$}\t{data:>0wi$}\t\t{ad_2:>0width$}\t{data:>0wi$}",
+                    println!("\t{ad_1:>0width$}\t{data:>0wi$}\t\t{ad_2:>0width$}\t{data:>0wi$}",
                             ad_1=i, width=3, data=self.prom[i], wi=8, ad_2=i+offset);
                 } else {
-                    println!("{ad_1:>0width$}\t{data:>0wi$}\t\t{ad_2:>0width$}\t{data_1:b}",
+                    println!("\t{ad_1:>0width$}\t{data:>0wi$}\t\t{ad_2:>0width$}\t{data_1:b}",
                             ad_1=i, width=3, data=self.prom[i], wi=8, ad_2=i+offset, data_1=self.prom[i+offset]);
                 }
             } else {
                 if self.prom[i+offset] == 0 {
-                    println!("{ad_1:>0width$}\t{data:b}\t\t{ad_2:>0width$}\t{data_1:>0wi$}",
+                    println!("\t{ad_1:>0width$}\t{data:b}\t\t{ad_2:>0width$}\t{data_1:>0wi$}",
                             ad_1=i, width=3, data=self.prom[i], wi=8, ad_2=i+offset, data_1=self.prom[i+offset]);
                 } else {
-                    println!("{ad_1:>0width$}\t{data_1:b}\t\t{ad_2:>0width$}\t{data_2:b}",
+                    println!("\t{ad_1:>0width$}\t{data_1:b}\t\t{ad_2:>0width$}\t{data_2:b}",
                             ad_1=i, width=3, data_1=self.prom[i], ad_2=i+offset, data_2=self.prom[i+offset]);
                 }
             }
+        }
+        println!("DATA:");
+        for i in 0..self.data.len() {
+            if self.data[i] == 0 {
+                println!("\t{ad:>0width$}\t{data:>0wi$}", ad=i, width=3, data=self.data[i], wi=8);
+            } else {
+                println!("\t{ad:>0width$}\t{data:b}", ad=i, width=3, data=self.data[i]);
+            };
         }
     }
 }
@@ -389,13 +398,12 @@ fn main() {
     // for test ROM
     mem.load_instr();
     mem.print_dump();
-    cpu.print_reg();
+    //cpu.print_reg();
     println!();
     //execute commands
-    cpu.execute(&mut mem, &instructions);
-    cpu.execute(&mut mem, &instructions);
-    cpu.execute(&mut mem, &instructions);
-    cpu.execute(&mut mem, &instructions);
+    for _i in 0..MAX_PROM {
+        cpu.execute(&mut mem, &instructions);
+    }
     cpu.print_reg();
     println!();
 }
