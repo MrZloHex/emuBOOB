@@ -346,15 +346,29 @@ impl MEM {
         self.prom[0x1] = 0b11_001_001; // LBB -> NOP
         self.prom[0x1] = 0b11_000_001; // LAB
         self.prom[0x2] = 0b11_100_000; // LEA
+        self.prom[0xA] = 0b11_000_110; // LAL
     }
 
     fn print_dump(&mut self) -> () {
         println!("\nMEM DUMP");
+        let offset: usize = self.prom.len()/2;
         for i in 0..(self.prom.len()/2) {
             if self.prom[i] == 0 {
-                println!("{number:>0width$}\t{bute:>0wi$}\t\t\t", number=i, width=3, bute=self.prom[i], wi=8);
+                if self.prom[i+offset] == 0 {
+                    println!("{ad_1:>0width$}\t{data:>0wi$}\t\t{ad_2:>0width$}\t{data:>0wi$}",
+                            ad_1=i, width=3, data=self.prom[i], wi=8, ad_2=i+offset);
+                } else {
+                    println!("{ad_1:>0width$}\t{data:>0wi$}\t\t{ad_2:>0width$}\t{data_1:>0wi$}",
+                            ad_1=i, width=3, data=self.prom[i], wi=8, ad_2=i+offset, data_1=self.prom[i+offset]);
+                }
             } else {
-                println!("{number:>0width$}\t{bute:b}\t\t\t", number=i, width=3, bute=self.prom[i]);
+                if self.prom[i+offset] == 0 {
+                    println!("{ad_1:>0width$}\t{data:b}\t\t{ad_2:>0width$}\t{data_1:>0wi$}",
+                            ad_1=i, width=3, data=self.prom[i], wi=8, ad_2=i+offset, data_1=self.prom[i+offset]);
+                } else {
+                    println!("{ad_1:>0width$}\t{data_1:b}\t\t{ad_2:>0width$}\t{data_2:b}",
+                            ad_1=i, width=3, data_1=self.prom[i], ad_2=i+offset, data_2=self.prom[i+offset]);
+                }
             }
         }
     }
