@@ -350,8 +350,12 @@ impl MEM {
 
     fn print_dump(&mut self) -> () {
         println!("\nMEM DUMP");
-        for i in 0..self.prom.len() {
-            println!("{number:>0width$}\t{bute:b}", number=i, width=3, bute=self.prom[i]);
+        for i in 0..(self.prom.len()/2) {
+            if self.prom[i] == 0 {
+                println!("{number:>0width$}\t{bute:>0wi$}\t\t\t", number=i, width=3, bute=self.prom[i], wi=8);
+            } else {
+                println!("{number:>0width$}\t{bute:b}\t\t\t", number=i, width=3, bute=self.prom[i]);
+            }
         }
     }
 }
