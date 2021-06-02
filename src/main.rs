@@ -202,15 +202,10 @@ impl CPU {
         //  все увыделить в отдельные функции
         let mut cycles: u8 = self.cycles(instructions, &instr);
         println!("{}", cycles);
-
         let length: u8 = self.length(instructions, &instr);
         println!("{}", length);
 
-        let kind: String = if instructions.instr_type[0].contains(&instr) {
-            "load".to_string()
-        } else {
-            "machine".to_string()
-        };
+        let kind: String = self.kind(instructions, &instr);
         println!("{}", kind);
 
         let _load: String = "load".to_string();
@@ -249,6 +244,13 @@ impl CPU {
         if instructions.instr_length[0].contains(instr) {return 1}
         else if instructions.instr_length[1].contains(instr) {return 2}
         else {return 3};
+    }
+    fn kind(&mut self, instructions: &INSTRUCTION, instr: &String) -> String{
+        if instructions.instr_type[0].contains(&instr) {
+            return "load".to_string()
+        } else {
+            return "machine".to_string()
+        };
     }
 
     fn load_command(&mut self, instr: &String) -> () {
