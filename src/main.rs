@@ -238,8 +238,8 @@ impl CPU {
     }
 
     fn machine_command(&mut self, instr: &String) -> () {
-        match instr {
-            "NOP" => println!("qwe")
+        if instr == "NOP" {
+            //nothing
         }
     }
 
