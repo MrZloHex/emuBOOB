@@ -1,3 +1,5 @@
+const MAX_MEM: usize = 1024 * 64;
+
 struct CPU {
     // programme counter
     r_pc: u16,
@@ -28,9 +30,21 @@ impl CPU {
     }
 }
 
+struct MEM {
+    data: [u8; MAX_MEM],
+
+
+}
+
+impl MEM {
+
+}
+
 
 fn main() {
     let mut cpu: CPU = CPU {r_pc: 0, r_sp: 0, r_a: 0, r_x: 0, r_y: 0,
                             f_c: false, f_z: false, f_i: false, f_d: false, f_b: false, f_v: false, f_n: false};
+
+    let mut mem: MEM = MEM {data: [0, MAX_MEM]};
     cpu.reset();
 }
