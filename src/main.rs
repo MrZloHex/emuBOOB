@@ -29,6 +29,18 @@ impl CPU {
         self.f_d = false;
         mem.initialize();
     }
+
+    fn execute(&mut self, mem: &mut MEM, ticks: u32) -> () {
+        let mut cycles: u32 = ticks;
+        let fetch_cycles: &u32 = &cycles;
+        while cycles > 0 {
+            let instr: u8 = self.fetch(fetch_cycles, &mut mem);
+        }
+    }
+
+    fn fetch(&mut self, ticks: &u32, mem: &mut MEM) -> () {
+
+    }
 }
 
 
@@ -52,5 +64,7 @@ fn main() {
                             f_c: false, f_z: false, f_i: false, f_d: false, f_b: false, f_v: false, f_n: false};
 
     let mut mem: MEM = MEM {data: [0; MAX_MEM]};
+    
     cpu.reset(&mut mem);
+    cpu.execute(&mut mem, 2);
 }
