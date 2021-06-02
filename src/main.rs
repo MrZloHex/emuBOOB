@@ -202,7 +202,6 @@ impl CPU {
         let length: u8 = self.length(instructions, &instr);
         let kind: String = self.kind(instructions, &instr);
 
-        println!("Instruction:");
         println!("{}\t{}\t{}\t{}", instr, cycles, length, kind);
 
         let _load: String = "load".to_string();
@@ -401,6 +400,7 @@ fn main() {
     //cpu.print_reg();
     println!();
     //execute commands
+    println!("Instructions:");
     for _i in 0..MAX_PROM {
         cpu.execute(&mut mem, &instructions);
     }
