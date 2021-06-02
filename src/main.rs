@@ -190,6 +190,7 @@ impl CPU {
             3
         };
         println!("{}", cycles);
+
         let length: u8 = if instr_length[0].contains(&instr) {
             1
         } else if instr_length[1].contains(&instr) {
@@ -198,14 +199,23 @@ impl CPU {
             3
         };
         println!("{}", length);
+
         let kind: String = if instr_type[0].contains(&instr) {
             "load".to_string()
         } else {
             "machine".to_string()
         };
         println!("{}", kind);
-        while cycles > 0 {
 
+        let _load: String = "load".to_string();
+        let _machine: String = "machine".to_string();
+
+        #[allow(unreachable_patterns)]
+        while cycles > 0 {
+            match &kind {
+                _load => self.load_command(&instr),
+                _machine => self.machine_command(&instr)
+            };
             cycles -= 1;
         }
     }
@@ -220,6 +230,16 @@ impl CPU {
         match instr_set.get(&opcode) {
             Some(instr) => return instr.to_string(),
             None => return "NOP".to_string()
+        }
+    }
+
+    fn load_command(&mut self, instr: &String) -> () {
+
+    }
+
+    fn machine_command(&mut self, instr: &String) -> () {
+        match instr {
+            "NOP" => println!("qwe")
         }
     }
 
@@ -258,7 +278,7 @@ impl MEM {
     }
 
     fn load_instr(&mut self) -> () {
-        self.data[0x0] = 0b11_001_000; // LAB
+        self.data[0x0] = 0b11_001_001; // LAB
         self.data[0x1] = 0b11_100_000; // LEA
     }
 
