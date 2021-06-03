@@ -1,10 +1,10 @@
 use std::collections::HashMap;
 
 pub struct Instruction {
-    pub instr_set: HashMap<u8, String>,
-    pub instr_time: [Vec<String>; 3],
-    pub instr_length: [Vec<String>; 3],
-    pub instr_type: [Vec<String>; 2]
+    instr_set: HashMap<u8, String>,
+    instr_time: [Vec<String>; 3],
+    instr_length: [Vec<String>; 3],
+    instr_type: [Vec<String>; 2]
 }
 
 impl Instruction {
@@ -157,4 +157,10 @@ impl Instruction {
         let instrs: [Vec<String>; 2] = [index_register_instrs, machine_instr];
         instrs
     }
+
+    // ffunctions for getting all fields
+    pub fn get_instr_set(&mut self) -> &HashMap<u8, String> {&self.instr_set}
+    pub fn get_instr_time(&mut self) -> &[Vec<String>; 3] {&self.instr_time}
+    pub fn get_instr_length(&mut self) -> &[Vec<String>; 3] {&self.instr_length}
+    pub fn get_instr_type(&mut self) -> &[Vec<String>; 2] {&self.instr_type}
 }

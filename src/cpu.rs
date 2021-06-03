@@ -1,5 +1,5 @@
 use super::mem;
-use super::intstructions;
+use super::instructions;
 
 pub struct Cpu {
     // programme counter 14-bit
@@ -21,13 +21,16 @@ pub struct Cpu {
     f_c: bool,
     f_z: bool,
     f_s: bool,
-    f_p: bool
+    f_p: bool,
+
+    instruct: instructions::Instruction
 }
 
 impl Cpu {
     pub fn new() -> Cpu {
         Cpu {r_pc: 0, r_sp: 0, r_a: 0, r_b: 0, r_c: 0, r_d: 0, r_e: 0, r_h: 0, r_l: 0, 
-            f_c: false, f_z: false, f_s: false, f_p: false}
+            f_c: false, f_z: false, f_s: false, f_p: false,
+            instruct: instructions::Instruction::new()}
     }
 
     pub fn reset(&mut self, mem: &mut mem::Mem) {
@@ -37,12 +40,12 @@ impl Cpu {
         mem.initialize();
     }
 
-    pub fn execute(&mut self, mem: &mut mem::Mem, instructions: &intstructions::Instruction) {
+    pub fn execute(&mut self, mem: &mut mem::Mem) {
         let instr: u8 = self.fetch_opcode(mem);
-        let instr: String = self.decode(instr, instructions);
-        let mut cycles: u8 = self.cycles(instructions, &instr);
-        let length: u8 = self.length(instructions, &instr);
-        let kind: String = self.kind(instructions, &instr);
+        let instr: String = self.decode(instr);
+        let mut cycles: u8 = self.cycles(&instr);
+        let length: u8 = self.length(&instr);
+        let kind: String = self.kind(&instr);
 
         println!("{}\t{}\t{}\t{}", instr, cycles, length, kind);
 
@@ -65,25 +68,25 @@ impl Cpu {
         opcode
     }
 
-    fn decode(&mut self, opcode: u8, instructions: &intstructions::Instruction) -> String {
-        match instructions.instr_set.get(&opcode) {
+    fn decode(&mut self, opcode: u8) -> String {
+        match self.instruct.get_instr_set().get(&opcode) {
             Some(instr) => instr.to_string(),
             None => "NOP".to_string()
         }
     }
 
-    fn cycles(&mut self, instructions: &intstructions::Instruction, instr: &String) -> u8 {
-        if instructions.instr_time[0].contains(instr) {1}
-        else if instructions.instr_time[1].contains(instr) {2}
+    fn cycles(&mut self, instr: &String) -> u8 {
+        if self.instruct.get_instr_time()[0].contains(instr) {1}
+        else if self.instruct.get_instr_time()[1].contains(instr) {2}
         else {3}
     }
-    fn length(&mut self, instructions: &intstructions::Instruction, instr: &String) -> u8 {
-        if instructions.instr_length[0].contains(instr) {1}
-        else if instructions.instr_length[1].contains(instr) {2}
+    fn length(&mut self, instr: &String) -> u8 {
+        if self.instruct.get_instr_length()[0].contains(instr) {1}
+        else if self.instruct.get_instr_length()[1].contains(instr) {2}
         else {3}
     }
-    fn kind(&mut self, instructions: &intstructions::Instruction, instr: &String) -> String{
-        if instructions.instr_type[0].contains(&instr) {
+    fn kind(&mut self, instr: &String) -> String{
+        if self.instruct.get_instr_type()[0].contains(&instr) {
             "load".to_string()
         } else {
             "machine".to_string()
