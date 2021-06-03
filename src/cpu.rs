@@ -88,55 +88,72 @@ impl Cpu {
     }
 
     fn index_command(&mut self, instr: &String) {
+        // LOAD REG REG
         // a register
-        if instr == "LAB" {self.r_a = self.r_b.clone();}
+        if      instr == "LAB" {self.r_a = self.r_b.clone();}
         else if instr == "LAC" {self.r_a = self.r_c.clone();}
         else if instr == "LAD" {self.r_a = self.r_d.clone();}
         else if instr == "LAE" {self.r_a = self.r_e.clone();}
         else if instr == "LAH" {self.r_a = self.r_h.clone();}
         else if instr == "LAL" {self.r_a = self.r_l.clone();}
         // b register
-        else if instr == "LBA" {self.r_a = self.r_a.clone();}
-        else if instr == "LBC" {self.r_a = self.r_c.clone();}
-        else if instr == "LBD" {self.r_a = self.r_d.clone();}
-        else if instr == "LBE" {self.r_a = self.r_e.clone();}
-        else if instr == "LBH" {self.r_a = self.r_h.clone();}
-        else if instr == "LBL" {self.r_a = self.r_l.clone();}
+        else if instr == "LBA" {self.r_b = self.r_a.clone();}
+        else if instr == "LBC" {self.r_b = self.r_c.clone();}
+        else if instr == "LBD" {self.r_b = self.r_d.clone();}
+        else if instr == "LBE" {self.r_b = self.r_e.clone();}
+        else if instr == "LBH" {self.r_b = self.r_h.clone();}
+        else if instr == "LBL" {self.r_b = self.r_l.clone();}
         // c register
-        else if instr == "LCA" {self.r_a = self.r_a.clone();}
-        else if instr == "LCB" {self.r_a = self.r_b.clone();}
-        else if instr == "LCD" {self.r_a = self.r_d.clone();}
-        else if instr == "LCE" {self.r_a = self.r_e.clone();}
-        else if instr == "LCH" {self.r_a = self.r_h.clone();}
-        else if instr == "LCL" {self.r_a = self.r_l.clone();}
+        else if instr == "LCA" {self.r_c = self.r_a.clone();}
+        else if instr == "LCB" {self.r_c = self.r_b.clone();}
+        else if instr == "LCD" {self.r_c = self.r_d.clone();}
+        else if instr == "LCE" {self.r_c = self.r_e.clone();}
+        else if instr == "LCH" {self.r_c = self.r_h.clone();}
+        else if instr == "LCL" {self.r_c = self.r_l.clone();}
         // d register
-        else if instr == "LDA" {self.r_a = self.r_a.clone();}
-        else if instr == "LDB" {self.r_a = self.r_b.clone();}
-        else if instr == "LDC" {self.r_a = self.r_c.clone();}
-        else if instr == "LDE" {self.r_a = self.r_e.clone();}
-        else if instr == "LDH" {self.r_a = self.r_h.clone();}
-        else if instr == "LDL" {self.r_a = self.r_l.clone();}
+        else if instr == "LDA" {self.r_d = self.r_a.clone();}
+        else if instr == "LDB" {self.r_d = self.r_b.clone();}
+        else if instr == "LDC" {self.r_d = self.r_c.clone();}
+        else if instr == "LDE" {self.r_d = self.r_e.clone();}
+        else if instr == "LDH" {self.r_d = self.r_h.clone();}
+        else if instr == "LDL" {self.r_d = self.r_l.clone();}
         // e register
         else if instr == "LEA" {self.r_e = self.r_a.clone();}
-        else if instr == "LEB" {self.r_a = self.r_b.clone();}
-        else if instr == "LEC" {self.r_a = self.r_c.clone();}
-        else if instr == "LED" {self.r_a = self.r_d.clone();}
-        else if instr == "LEH" {self.r_a = self.r_h.clone();}
-        else if instr == "LEL" {self.r_a = self.r_l.clone();}
+        else if instr == "LEB" {self.r_e = self.r_b.clone();}
+        else if instr == "LEC" {self.r_e = self.r_c.clone();}
+        else if instr == "LED" {self.r_e = self.r_d.clone();}
+        else if instr == "LEH" {self.r_e = self.r_h.clone();}
+        else if instr == "LEL" {self.r_e = self.r_l.clone();}
         // h register
-        else if instr == "LHA" {self.r_a = self.r_a.clone();}
-        else if instr == "LHB" {self.r_a = self.r_b.clone();}
-        else if instr == "LHC" {self.r_a = self.r_c.clone();}
-        else if instr == "LHD" {self.r_a = self.r_d.clone();}
-        else if instr == "LHE" {self.r_a = self.r_e.clone();}
-        else if instr == "LHL" {self.r_a = self.r_l.clone();}
+        else if instr == "LHA" {self.r_h = self.r_a.clone();}
+        else if instr == "LHB" {self.r_h = self.r_b.clone();}
+        else if instr == "LHC" {self.r_h = self.r_c.clone();}
+        else if instr == "LHD" {self.r_h = self.r_d.clone();}
+        else if instr == "LHE" {self.r_h = self.r_e.clone();}
+        else if instr == "LHL" {self.r_h = self.r_l.clone();}
         // l register
-        else if instr == "LLA" {self.r_a = self.r_a.clone();}
-        else if instr == "LLB" {self.r_a = self.r_b.clone();}
-        else if instr == "LLC" {self.r_a = self.r_c.clone();}
-        else if instr == "LLD" {self.r_a = self.r_d.clone();}
-        else if instr == "LLE" {self.r_a = self.r_e.clone();}
-        else if instr == "LLH" {self.r_a = self.r_h.clone();}
+        else if instr == "LLA" {self.r_l = self.r_a.clone();}
+        else if instr == "LLB" {self.r_l = self.r_b.clone();}
+        else if instr == "LLC" {self.r_l = self.r_c.clone();}
+        else if instr == "LLD" {self.r_l = self.r_d.clone();}
+        else if instr == "LLE" {self.r_l = self.r_e.clone();}
+        else if instr == "LLH" {self.r_l = self.r_h.clone();}
+
+        // INCREMENT / DECREMENT
+        // inc
+        else if instr == "INB" {self.r_b += 1;}
+        else if instr == "INC" {self.r_c += 1;}
+        else if instr == "IND" {self.r_d += 1;}
+        else if instr == "INE" {self.r_e += 1;}
+        else if instr == "INH" {self.r_h += 1;}
+        else if instr == "INL" {self.r_l += 1;}
+        // dec
+        else if instr == "DCB" {self.r_b -= 1;}
+        else if instr == "DCC" {self.r_c -= 1;}
+        else if instr == "DCD" {self.r_d -= 1;}
+        else if instr == "DCE" {self.r_e -= 1;}
+        else if instr == "DCH" {self.r_h -= 1;}
+        else if instr == "DCL" {self.r_l -= 1;}
     }
 
     // methods for know all registers and flags value

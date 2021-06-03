@@ -43,5 +43,8 @@ impl Mem {
         }
         self.prom[0xA] = 0b11_000_110; // LAL
         self.prom[0xB] = 0b11_011_011; // LDD -> NOP
+        self.prom[0xC] = 0b00_100_000; // INE
+        self.prom[0xD] = 0b11_110_001; // LBL
+        self.prom[0xE] = 0b00_001_001; // DCB
     }
 }
