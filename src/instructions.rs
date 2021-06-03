@@ -106,6 +106,39 @@ impl Instruction {
                         }
                     }
                 }
+                // INCREMENT / DECREMENT INSTRUCTION
+                {
+                    for reg in (8..49).step_by(8) {
+                        match reg {
+                            8 => {
+                                instr_set.insert(reg, "INB".to_string());
+                                instr_set.insert(reg+1, "DCB".to_string());
+                            },
+                            16 => {
+                                instr_set.insert(reg, "INC".to_string());
+                                instr_set.insert(reg+1, "DCC".to_string());
+                            },
+                            24 => {
+                                instr_set.insert(reg, "IND".to_string());
+                                instr_set.insert(reg+1, "DCD".to_string());
+                            },
+                            32 => {
+                                instr_set.insert(reg, "INE".to_string());
+                                instr_set.insert(reg+1, "DCE".to_string());
+                            },
+                            40 => {
+                                instr_set.insert(reg, "INH".to_string());
+                                instr_set.insert(reg+1, "DCH".to_string());
+                            },
+                            48 => {
+                                instr_set.insert(reg, "INL".to_string());
+                                instr_set.insert(reg+1, "DCL".to_string());
+                            },
+                            _ => {}
+                        }
+                        
+                    }
+                }
                 // HALT INSTRUCTION
                 {
                     instr_set.insert(0, "HLT".to_string());   // 0b00_000_000
@@ -126,7 +159,9 @@ impl Instruction {
             "LEA".to_string(),"LEB".to_string(),"LEC".to_string(),"LED".to_string(),"LEH".to_string(),"LEL".to_string(),
             "LHA".to_string(),"LHB".to_string(),"LHC".to_string(),"LHD".to_string(),"LHE".to_string(),"LHL".to_string(),
             "LLA".to_string(),"LLB".to_string(),"LLC".to_string(),"LLD".to_string(),"LLE".to_string(),"LLH".to_string(),
-            "NOP".to_string(),"HLT".to_string()
+            "NOP".to_string(),"HLT".to_string(),
+            "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
+            "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
         ];
         let two_cycle_instrs: Vec<String> = vec!["LMI".to_string()];
         let three_cycle_instrs: Vec<String> = vec!["CAL".to_string()];
@@ -143,7 +178,9 @@ impl Instruction {
             "LEA".to_string(),"LEB".to_string(),"LEC".to_string(),"LED".to_string(),"LEH".to_string(),"LEL".to_string(),
             "LHA".to_string(),"LHB".to_string(),"LHC".to_string(),"LHD".to_string(),"LHE".to_string(),"LHL".to_string(),
             "LLA".to_string(),"LLB".to_string(),"LLC".to_string(),"LLD".to_string(),"LLE".to_string(),"LLH".to_string(),
-            "NOP".to_string(),"HLT".to_string()
+            "NOP".to_string(),"HLT".to_string(),
+            "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
+            "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
         ];
         let two_byte_instrs: Vec<String> = vec!["LMI".to_string()];
         let three_byte_instrs: Vec<String> = vec!["JMP".to_string()];
@@ -159,7 +196,9 @@ impl Instruction {
             "LDA".to_string(),"LDB".to_string(),"LDC".to_string(),"LDE".to_string(),"LDH".to_string(),"LDL".to_string(),
             "LEA".to_string(),"LEB".to_string(),"LEC".to_string(),"LED".to_string(),"LEH".to_string(),"LEL".to_string(),
             "LHA".to_string(),"LHB".to_string(),"LHC".to_string(),"LHD".to_string(),"LHE".to_string(),"LHL".to_string(),
-            "LLA".to_string(),"LLB".to_string(),"LLC".to_string(),"LLD".to_string(),"LLE".to_string(),"LLH".to_string()
+            "LLA".to_string(),"LLB".to_string(),"LLC".to_string(),"LLD".to_string(),"LLE".to_string(),"LLH".to_string(),
+            "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
+            "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
         ];
         let machine_instr: Vec<String> = vec!["NOP".to_string(), "HLT".to_string()];
         let instrs: [Vec<String>; 2] = [index_register_instrs, machine_instr];
