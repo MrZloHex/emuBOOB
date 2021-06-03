@@ -164,7 +164,7 @@ impl Instruction {
 
 
 
-struct CPU {
+struct Cpu {
     // programme counter 14-bit
     r_pc: u16,
     // stack pointer 3-bit
@@ -187,15 +187,15 @@ struct CPU {
     f_p: bool
 }
 
-impl CPU {
-    fn reset(&mut self, mem: &mut MEM) -> () {
+impl Cpu {
+    fn reset(&mut self, mem: &mut Mem) -> () {
         self.r_pc = 0;
         self.r_sp = 0;
         self.r_b = 0x0A; // for tests
         mem.initialize();
     }
 
-    fn execute(&mut self, mem: &mut MEM, instructions: &Instruction) -> () {
+    fn execute(&mut self, mem: &mut Mem, instructions: &Instruction) -> () {
         let instr: u8 = self.fetch_opcode(mem);
         let instr: String = self.decode(instr, instructions);
         let mut cycles: u8 = self.cycles(instructions, &instr);
@@ -218,7 +218,7 @@ impl CPU {
         self.r_pc += 1;
     }
  
-    fn fetch_opcode(&mut self, mem: &mut MEM) -> u8 {
+    fn fetch_opcode(&mut self, mem: &mut Mem) -> u8 {
         let opcode: u8 = mem.get_byte(self.r_pc as usize);
         return opcode;
     }
@@ -325,12 +325,12 @@ impl CPU {
 }
 
 
-struct MEM {
+struct Mem {
     prom: [u8; MAX_PROM],
     data: [u8; MAX_DATA]
 }
 
-impl MEM {
+impl Mem {
     fn initialize(&mut self) -> () {
         for byte in self.prom.iter_mut() {
             *byte = 0;
@@ -388,10 +388,10 @@ impl MEM {
 fn main() {
     let instructions: Instruction = Instruction::new();
 
-    let mut cpu: CPU = CPU {r_pc: 0, r_sp: 0, r_a: 0, r_b: 0, r_c: 0, r_d: 0, r_e: 0, r_h: 0, r_l: 0, 
+    let mut cpu: Cpu = Cpu {r_pc: 0, r_sp: 0, r_a: 0, r_b: 0, r_c: 0, r_d: 0, r_e: 0, r_h: 0, r_l: 0, 
                             f_c: false, f_z: false, f_s: false, f_p: false};
 
-    let mut mem: MEM = MEM {prom: [0; MAX_PROM], data: [0; MAX_DATA]};
+    let mut mem: Mem = Mem {prom: [0; MAX_PROM], data: [0; MAX_DATA]};
     
     cpu.reset(&mut mem);
     // for test ROM
