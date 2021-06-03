@@ -50,11 +50,8 @@ impl Cpu {
         println!("{}\t{}\t{}\t{}", instr, cycles, length, kind);
 
         while cycles > 0 {
-            if &kind == "load" {self.load_command(&instr)}
-            else if &kind == "machine" {
-                self.machine_command(&instr);
-                if &instr == "HLT" {return Ok(true)}
-            }
+            if &kind == "index" {self.index_command(&instr)}
+            else if &kind == "machine" && &instr == "HLT"{return Ok(true)}
             cycles -= 1;
         }
         self.r_pc += 1;
@@ -84,12 +81,13 @@ impl Cpu {
         else {3}
     }
     fn kind(&mut self, instr: &String) -> String{
-        if self.instruct.get_instr_type()[0].contains(instr) {"load".to_string()}
-        else if self.instruct.get_instr_type()[1].contains(instr) {"machine".to_string()}
+        if self.instruct.get_instr_type()[0].contains(instr) {"index".to_string()}
         else {"machine".to_string()}
+        //else if self.instruct.get_instr_type()[1].contains(instr) {"machine".to_string()}
+        
     }
 
-    fn load_command(&mut self, instr: &String) {
+    fn index_command(&mut self, instr: &String) {
         // a register
         if instr == "LAB" {self.r_a = self.r_b.clone();}
         else if instr == "LAC" {self.r_a = self.r_c.clone();}
@@ -139,11 +137,6 @@ impl Cpu {
         else if instr == "LLD" {self.r_a = self.r_d.clone();}
         else if instr == "LLE" {self.r_a = self.r_e.clone();}
         else if instr == "LLH" {self.r_a = self.r_h.clone();}
-    }
-
-    fn machine_command(&mut self, instr: &String) {
-        if instr == "NOP" {/*nothing*/}
-        else if instr == "HLT" {} 
     }
 
     // methods for know all registers and flags value
