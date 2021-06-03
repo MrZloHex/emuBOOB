@@ -167,13 +167,21 @@ impl Cpu {
             let byte_data: u8 = self.fetch_byte(mem, &addres);
             *cycle -= 1;
             // LOAD REG <- MEM
-            if      instr == "LAM" {self.r_b = byte_data;}
+            if      instr == "LAM" {self.r_a = byte_data;}
             else if instr == "LBM" {self.r_b = byte_data;}
             else if instr == "LCM" {self.r_c = byte_data;}
             else if instr == "LDM" {self.r_d = byte_data;}
             else if instr == "LEM" {self.r_e = byte_data;}
             else if instr == "LHM" {self.r_h = byte_data;}
             else if instr == "LLM" {self.r_l = byte_data;}
+            // LOAD MEM <- REG
+            else if instr == "LMA" {mem.put_byte_data(addres, self.r_a.clone());}
+            else if instr == "LMB" {mem.put_byte_data(addres, self.r_b.clone());}
+            else if instr == "LMC" {mem.put_byte_data(addres, self.r_c.clone());}
+            else if instr == "LMD" {mem.put_byte_data(addres, self.r_d.clone());}
+            else if instr == "LME" {mem.put_byte_data(addres, self.r_e.clone());}
+            else if instr == "LMH" {mem.put_byte_data(addres, self.r_h.clone());}
+            else if instr == "LML" {mem.put_byte_data(addres, self.r_l.clone());}
         }
     }   
 

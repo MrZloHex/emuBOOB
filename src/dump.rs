@@ -36,11 +36,8 @@ impl Dump for Mem {
         }
         println!("DATA:");
         for i in 0..self.get_length_data() {
-            if self.get_byte_data(i) == 0 {
-                println!("\t{ad:>0width$}\t{data:>0wi$}", ad=i, width=3, data=self.get_byte_data(i), wi=8);
-            } else {
-                println!("\t{ad:>0width$}\t{data:b}", ad=i, width=3, data=self.get_byte_data(i));
-            };
+            println!("\t{ad_1:>0width$x}\t{data_1:>0wi$b}",
+                    ad_1=i, width=2, data_1=self.get_byte_data(i), wi=8);
         }
     }
 }

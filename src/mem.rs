@@ -22,12 +22,18 @@ impl Mem {
         self.prom[addres]
     }
 
+    pub fn get_length_prom(&mut self) -> usize {
+        MAX_PROM
+    }
+    
+
+
     pub fn get_byte_data(&mut self, addres: usize) -> u8 {
         self.data[addres]
     }
 
-    pub fn get_length_prom(&mut self) -> usize {
-        MAX_PROM
+    pub fn put_byte_data(&mut self, addres: usize, value: u8) {
+        self.data[addres] = value;
     }
 
     pub fn get_length_data(&mut self) -> usize {
@@ -46,9 +52,11 @@ impl Mem {
         self.prom[0x7] = 0b00_001_001; // DCB
         self.prom[0x8] = 0b11_110_101; // LLH
         self.prom[0x9] = 0b11_010_111; // LCM
-        self.prom[0xA] = 0b11_111_111; // HLT
+        self.prom[0xA] = 0b11_110_010; // LLC
+        self.prom[0xB] = 0b11_111_001; // LMB
+        self.prom[0xC] = 0b11_111_111; // HLT
 
         // DATA
-        self.data[0x0] = 0xEF;
+        self.data[0x0] = 0x05;
     }
 }

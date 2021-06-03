@@ -21,7 +21,7 @@ fn main() {
     
     cpu.reset(&mut mem);
     // for test ROM
-    mem.print_dump();
+    //mem.print_dump();
     //cpu.print_dump();
     println!();
     //execute commands
@@ -37,5 +37,6 @@ fn main() {
         }
     }
     cpu.print_dump();
+    mem.print_dump();
     println!();
 }
