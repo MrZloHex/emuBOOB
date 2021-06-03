@@ -1,4 +1,8 @@
 #![allow(clippy::unusual_byte_groupings)]
+#![allow(clippy::clone_on_copy)]
+#![allow(clippy::ptr_arg)]
+
+#![allow(clippy::collapsible_else_if)] // TRY TO FIX IT!!!
 
 use std::collections::HashMap;
 
@@ -233,21 +237,21 @@ impl Cpu {
     }
 
     fn cycles(&mut self, instructions: &Instruction, instr: &String) -> u8 {
-        if instructions.instr_time[0].contains(instr) { 1 }
-        else if instructions.instr_time[1].contains(instr) { 2 }
-        else { 3 }
+        if instructions.instr_time[0].contains(instr) {1}
+        else if instructions.instr_time[1].contains(instr) {2}
+        else {3}
     }
     fn length(&mut self, instructions: &Instruction, instr: &String) -> u8 {
-        if instructions.instr_length[0].contains(instr) {return 1}
-        else if instructions.instr_length[1].contains(instr) {return 2}
-        else {return 3};
+        if instructions.instr_length[0].contains(instr) {1}
+        else if instructions.instr_length[1].contains(instr) {2}
+        else {3}
     }
     fn kind(&mut self, instructions: &Instruction, instr: &String) -> String{
         if instructions.instr_type[0].contains(&instr) {
-            return "load".to_string()
+            "load".to_string()
         } else {
-            return "machine".to_string()
-        };
+            "machine".to_string()
+        }
     }
 
     fn load_command(&mut self, instr: &String) {
@@ -340,7 +344,7 @@ impl Mem {
     }
 
     fn get_byte(&mut self, addres: usize) -> u8 {
-        return self.prom[addres];
+        self.prom[addres]
     }
 
     fn load_instr(&mut self) {
