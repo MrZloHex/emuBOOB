@@ -165,6 +165,7 @@ impl Cpu {
         else if *cycle == 2 {
             let addres: usize = (((self.r_h.clone() as u16) << 8) | (self.r_l.clone() as u16)) as usize;
             let byte_data: u8 = self.fetch_byte(mem, &addres);
+            *cycle -= 1;
             // LOAD REG <- MEM
             if      instr == "LAM" {self.r_b = byte_data;}
             else if instr == "LBM" {self.r_b = byte_data;}
