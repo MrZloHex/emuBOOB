@@ -9,19 +9,19 @@ pub trait Dump {
 impl Dump for Cpu {
     fn print_dump(&mut self) {
         println!("\nCPU DUMP");
-        println!("REG A\t{:X}", self.get_r_a());
-        println!("REG B\t{:X}", self.get_r_b());
-        println!("REG C\t{:X}", self.get_r_c());
-        println!("REG D\t{:X}", self.get_r_d());
-        println!("REG E\t{:X}", self.get_r_e());
-        println!("REG H\t{:X}", self.get_r_h());
-        println!("REG L\t{:X}\n", self.get_r_l());
+        println!("REG A\t{:>0width$X}", self.get_r_a(), width=2);
+        println!("REG B\t{:>0width$X}", self.get_r_b(), width=2);
+        println!("REG C\t{:>0width$X}", self.get_r_c(), width=2);
+        println!("REG D\t{:>0width$X}", self.get_r_d(), width=2);
+        println!("REG E\t{:>0width$X}", self.get_r_e(), width=2);
+        println!("REG H\t{:>0width$X}", self.get_r_h(), width=2);
+        println!("REG L\t{:>0width$X}\n", self.get_r_l(), width=2);
         println!("FLAG C\t{}", self.get_f_c());
         println!("FLAG Z\t{}", self.get_f_z());
         println!("FLAG S\t{}", self.get_f_s());
         println!("FLAG P\t{}\n", self.get_f_p());
-        println!("REG PC\t{:X}", self.get_r_pc());
-        println!("REG SP\t{:X}", self.get_r_sp());
+        println!("REG PC\t{:>0width$X}", self.get_r_pc(), width=2);
+        println!("REG SP\t{:>0width$X}", self.get_r_sp(), width=2);
     }
 }
 

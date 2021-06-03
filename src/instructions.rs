@@ -106,6 +106,21 @@ impl Instruction {
                         }
                     }
                 }
+                // LOAD REG MEM
+                {
+                    for reg in (199..249).step_by(8) {
+                        match reg {
+                            199 => instr_set.insert(reg, "LAM".to_string()),
+                            207 => instr_set.insert(reg, "LBM".to_string()),
+                            215 => instr_set.insert(reg, "LCM".to_string()),
+                            223 => instr_set.insert(reg, "LDM".to_string()),
+                            231 => instr_set.insert(reg, "LEM".to_string()),
+                            239 => instr_set.insert(reg, "LHM".to_string()),
+                            248 => instr_set.insert(reg, "LLM".to_string()),
+                            _ => continue
+                        };
+                    }
+                }
                 // INCREMENT / DECREMENT INSTRUCTION
                 {
                     for reg in (8..49).step_by(8) {
@@ -163,7 +178,10 @@ impl Instruction {
             "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
             "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
         ];
-        let two_cycle_instrs: Vec<String> = vec!["LMI".to_string()];
+        let two_cycle_instrs: Vec<String> = vec![
+            "LAM".to_string(),"LBM".to_string(),"LCM".to_string(),"LDM".to_string(),"LEM".to_string(),"LHM".to_string(),"LLM".to_string(),
+            "LMI".to_string()
+        ];
         let three_cycle_instrs: Vec<String> = vec!["CAL".to_string()];
         let instrs: [Vec<String>; 3] = [one_cycle_instrs, two_cycle_instrs, three_cycle_instrs];
         instrs
@@ -178,6 +196,7 @@ impl Instruction {
             "LEA".to_string(),"LEB".to_string(),"LEC".to_string(),"LED".to_string(),"LEH".to_string(),"LEL".to_string(),
             "LHA".to_string(),"LHB".to_string(),"LHC".to_string(),"LHD".to_string(),"LHE".to_string(),"LHL".to_string(),
             "LLA".to_string(),"LLB".to_string(),"LLC".to_string(),"LLD".to_string(),"LLE".to_string(),"LLH".to_string(),
+            "LAM".to_string(),"LBM".to_string(),"LCM".to_string(),"LDM".to_string(),"LEM".to_string(),"LHM".to_string(),"LLM".to_string(),
             "NOP".to_string(),"HLT".to_string(),
             "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
             "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
@@ -199,6 +218,7 @@ impl Instruction {
             "LLA".to_string(),"LLB".to_string(),"LLC".to_string(),"LLD".to_string(),"LLE".to_string(),"LLH".to_string(),
             "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
             "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
+            "LAM".to_string(),"LBM".to_string(),"LCM".to_string(),"LDM".to_string(),"LEM".to_string(),"LHM".to_string(),"LLM".to_string(),
         ];
         let machine_instr: Vec<String> = vec!["NOP".to_string(), "HLT".to_string()];
         let instrs: [Vec<String>; 2] = [index_register_instrs, machine_instr];
