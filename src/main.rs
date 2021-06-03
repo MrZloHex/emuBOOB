@@ -27,10 +27,15 @@ fn main() {
     //execute commands
     println!("Instructions:");
     println!("Mnem\tCycle\tBytes\tType");
-    for _i in 0..mem.get_length_prom() {
-        cpu.execute(&mut mem);
+    'main_loop: for i in 0..mem.get_length_prom() {
+        if let Ok(res) = cpu.execute(&mut mem) {  // halt - returns true
+            if res {
+                println!("\nExecuting finished!");
+                break 'main_loop
+            }
+            else {if i == mem.get_length_prom()-1 {println!("\nPROCESSOR WASN'T HALTED")}}
+        }
     }
-    println!("\nExecuting finished!\n");
     cpu.print_dump();
     println!();
 }

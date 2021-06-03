@@ -40,7 +40,7 @@ impl Cpu {
         mem.initialize();
     }
 
-    pub fn execute(&mut self, mem: &mut mem::Mem) {
+    pub fn execute(&mut self, mem: &mut mem::Mem) -> Result<bool, ()> {
         let instr: u8 = self.fetch_opcode(mem);
         let instr: String = self.decode(instr);
         let mut cycles: u8 = self.cycles(&instr);
@@ -49,18 +49,16 @@ impl Cpu {
 
         println!("{}\t{}\t{}\t{}", instr, cycles, length, kind);
 
-        let _load: String = "load".to_string();
-        let _machine: String = "machine".to_string();
-
-        #[allow(unreachable_patterns)]
         while cycles > 0 {
-            match &kind {
-                _load => self.load_command(&instr),
-                _machine => self.machine_command(&instr)
-            };
+            if &kind == "load" {self.load_command(&instr)}
+            else if &kind == "machine" {
+                self.machine_command(&instr);
+                if &instr == "HLT" {return Ok(true)}
+            }
             cycles -= 1;
         }
         self.r_pc += 1;
+        Ok(false)
     }
  
     fn fetch_opcode(&mut self, mem: &mut mem::Mem) -> u8 {
@@ -86,11 +84,9 @@ impl Cpu {
         else {3}
     }
     fn kind(&mut self, instr: &String) -> String{
-        if self.instruct.get_instr_type()[0].contains(&instr) {
-            "load".to_string()
-        } else {
-            "machine".to_string()
-        }
+        if self.instruct.get_instr_type()[0].contains(instr) {"load".to_string()}
+        else if self.instruct.get_instr_type()[1].contains(instr) {"machine".to_string()}
+        else {"machine".to_string()}
     }
 
     fn load_command(&mut self, instr: &String) {
@@ -146,9 +142,8 @@ impl Cpu {
     }
 
     fn machine_command(&mut self, instr: &String) {
-        if instr == "NOP" {
-            //nothing
-        }
+        if instr == "NOP" {/*nothing*/}
+        else if instr == "HLT" {} 
     }
 
     // methods for know all registers and flags value
