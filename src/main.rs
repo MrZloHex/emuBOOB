@@ -311,23 +311,6 @@ impl Cpu {
             //nothing
         }
     }
-
-    fn print_reg(&mut self) {
-        println!("\nCPU DUMP");
-        println!("REG A\t{:X}", self.r_a);
-        println!("REG B\t{:X}", self.r_b);
-        println!("REG C\t{:X}", self.r_c);
-        println!("REG D\t{:X}", self.r_d);
-        println!("REG E\t{:X}", self.r_e);
-        println!("REG H\t{:X}", self.r_h);
-        println!("REG L\t{}\n", self.r_l);
-        println!("FLAG C\t{}", self.f_c);
-        println!("FLAG Z\t{}", self.f_z);
-        println!("FLAG S\t{}", self.f_s);
-        println!("FLAG P\t{}\n", self.f_p);
-        println!("REG PC\t{:X}", self.r_pc);
-        println!("REG SP\t{:x}", self.r_sp);
-    }
 }
 
 
@@ -354,7 +337,32 @@ impl Mem {
         self.prom[0xA] = 0b11_000_110; // LAL
         self.prom[0xB] = 0b11_011_011; // LDD -> NOP
     }
+}
 
+trait Dump {
+    fn print_dump(&mut self);
+}
+
+impl Dump for Cpu {
+    fn print_dump(&mut self) {
+        println!("\nCPU DUMP");
+        println!("REG A\t{:X}", self.r_a);
+        println!("REG B\t{:X}", self.r_b);
+        println!("REG C\t{:X}", self.r_c);
+        println!("REG D\t{:X}", self.r_d);
+        println!("REG E\t{:X}", self.r_e);
+        println!("REG H\t{:X}", self.r_h);
+        println!("REG L\t{}\n", self.r_l);
+        println!("FLAG C\t{}", self.f_c);
+        println!("FLAG Z\t{}", self.f_z);
+        println!("FLAG S\t{}", self.f_s);
+        println!("FLAG P\t{}\n", self.f_p);
+        println!("REG PC\t{:X}", self.r_pc);
+        println!("REG SP\t{:x}", self.r_sp);
+    }
+}
+
+impl Dump for Mem {
     fn print_dump(&mut self) {
         println!("\nMEM DUMP");
         println!("PROM:");
@@ -389,7 +397,10 @@ impl Mem {
     }
 }
 
+/*
+fn print_dump<T: Default>() {
 
+}*/
 
 fn main() {
     let instructions: Instruction = Instruction::new();
@@ -403,6 +414,7 @@ fn main() {
     // for test ROM
     mem.load_instr();
     mem.print_dump();
+    cpu.print_dump();
     //cpu.print_reg();
     println!();
     //execute commands
@@ -411,6 +423,7 @@ fn main() {
     for _i in 0..MAX_PROM {
         cpu.execute(&mut mem, &instructions);
     }
-    cpu.print_reg();
+    println!("\nExecuting finished!\n");
+    cpu.print_dump();
     println!();
 }
