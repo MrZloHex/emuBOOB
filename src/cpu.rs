@@ -141,19 +141,25 @@ impl Cpu {
 
         // INCREMENT / DECREMENT
         // inc
-        else if instr == "INB" {self.r_b += 1;}
-        else if instr == "INC" {self.r_c += 1;}
-        else if instr == "IND" {self.r_d += 1;}
-        else if instr == "INE" {self.r_e += 1;}
-        else if instr == "INH" {self.r_h += 1;}
-        else if instr == "INL" {self.r_l += 1;}
+        else if instr == "INB" {self.in_dc_flags("b"); self.r_b += 1;}
+        else if instr == "INC" {self.in_dc_flags("c"); self.r_c += 1;}
+        else if instr == "IND" {self.in_dc_flags("d"); self.r_d += 1;}
+        else if instr == "INE" {self.in_dc_flags("e"); self.r_e += 1;}
+        else if instr == "INH" {self.in_dc_flags("h"); self.r_h += 1;}
+        else if instr == "INL" {self.in_dc_flags("l"); self.r_l += 1;}
         // dec
-        else if instr == "DCB" {self.r_b -= 1;}
-        else if instr == "DCC" {self.r_c -= 1;}
-        else if instr == "DCD" {self.r_d -= 1;}
-        else if instr == "DCE" {self.r_e -= 1;}
-        else if instr == "DCH" {self.r_h -= 1;}
-        else if instr == "DCL" {self.r_l -= 1;}
+        else if instr == "DCB" {self.in_dc_flags("b"); self.r_b -= 1;}
+        else if instr == "DCC" {self.in_dc_flags("c"); self.r_c -= 1;}
+        else if instr == "DCD" {self.in_dc_flags("d"); self.r_d -= 1;}
+        else if instr == "DCE" {self.in_dc_flags("e"); self.r_e -= 1;}
+        else if instr == "DCH" {self.in_dc_flags("h"); self.r_h -= 1;}
+        else if instr == "DCL" {self.in_dc_flags("l"); self.r_l -= 1;}
+    }
+
+    fn in_dc_flags(&mut self, _reg: &str) {/*
+        if reg == "b" {
+            if self.
+        }*/
     }
 
     // methods for know all registers and flags value
