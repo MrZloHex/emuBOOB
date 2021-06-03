@@ -1,3 +1,5 @@
+#![allow(clippy::unusual_byte_groupings)]
+
 use std::collections::HashMap;
 
 const MAX_PROM: usize = 16; // orig 16384 * 8 
@@ -18,7 +20,7 @@ impl Instruction {
             instr_length: Instruction::length_instr(),
             instr_type: Instruction::type_instr()
         };
-        return instrucitions;
+        instrucitions
     }
 
     fn opcodes() -> HashMap<u8, String> {
@@ -109,7 +111,7 @@ impl Instruction {
                 
             }
         }
-        return instr_set;
+        instr_set
     }
 
     fn time_instr() -> [Vec<String>; 3] {
@@ -126,7 +128,7 @@ impl Instruction {
         let two_cycle_instrs: Vec<String> = vec!["LMI".to_string()];
         let three_cycle_instrs: Vec<String> = vec!["CAL".to_string()];
         let instrs: [Vec<String>; 3] = [one_cycle_instrs, two_cycle_instrs, three_cycle_instrs];
-        return instrs;
+        instrs
     }
     
     fn length_instr() -> [Vec<String>; 3] {
@@ -143,7 +145,7 @@ impl Instruction {
         let two_byte_instrs: Vec<String> = vec!["LMI".to_string()];
         let three_byte_instrs: Vec<String> = vec!["JMP".to_string()];
         let instrs: [Vec<String>; 3] = [one_byte_instrs, two_byte_instrs, three_byte_instrs];
-        return instrs;
+        instrs
     }
     
     fn type_instr() -> [Vec<String>; 2] {
@@ -158,7 +160,7 @@ impl Instruction {
         ];
         let machine_instr: Vec<String> = vec!["NOP".to_string(), "HLT".to_string()];
         let instrs: [Vec<String>; 2] = [index_register_instrs, machine_instr];
-        return instrs;
+        instrs
     }
 }
 
@@ -188,14 +190,14 @@ struct Cpu {
 }
 
 impl Cpu {
-    fn reset(&mut self, mem: &mut Mem) -> () {
+    fn reset(&mut self, mem: &mut Mem) {
         self.r_pc = 0;
         self.r_sp = 0;
         self.r_b = 0x0A; // for tests
         mem.initialize();
     }
 
-    fn execute(&mut self, mem: &mut Mem, instructions: &Instruction) -> () {
+    fn execute(&mut self, mem: &mut Mem, instructions: &Instruction) {
         let instr: u8 = self.fetch_opcode(mem);
         let instr: String = self.decode(instr, instructions);
         let mut cycles: u8 = self.cycles(instructions, &instr);
@@ -220,20 +222,20 @@ impl Cpu {
  
     fn fetch_opcode(&mut self, mem: &mut Mem) -> u8 {
         let opcode: u8 = mem.get_byte(self.r_pc as usize);
-        return opcode;
+        opcode
     }
 
     fn decode(&mut self, opcode: u8, instructions: &Instruction) -> String {
         match instructions.instr_set.get(&opcode) {
-            Some(instr) => return instr.to_string(),
-            None => return "NOP".to_string()
+            Some(instr) => instr.to_string(),
+            None => "NOP".to_string()
         }
     }
 
     fn cycles(&mut self, instructions: &Instruction, instr: &String) -> u8 {
-        if instructions.instr_time[0].contains(instr) {return 1}
-        else if instructions.instr_time[1].contains(instr) {return 2}
-        else {return 3};
+        if instructions.instr_time[0].contains(instr) { 1 }
+        else if instructions.instr_time[1].contains(instr) { 2 }
+        else { 3 }
     }
     fn length(&mut self, instructions: &Instruction, instr: &String) -> u8 {
         if instructions.instr_length[0].contains(instr) {return 1}
@@ -248,7 +250,7 @@ impl Cpu {
         };
     }
 
-    fn load_command(&mut self, instr: &String) -> () {
+    fn load_command(&mut self, instr: &String) {
         // a register
         if instr == "LAB" {self.r_a = self.r_b.clone();}
         else if instr == "LAC" {self.r_a = self.r_c.clone();}
@@ -300,13 +302,13 @@ impl Cpu {
         else if instr == "LLH" {self.r_a = self.r_h.clone();}
     }
 
-    fn machine_command(&mut self, instr: &String) -> () {
+    fn machine_command(&mut self, instr: &String) {
         if instr == "NOP" {
             //nothing
         }
     }
 
-    fn print_reg(&mut self) -> () {
+    fn print_reg(&mut self) {
         println!("\nCPU DUMP");
         println!("REG A\t{:X}", self.r_a);
         println!("REG B\t{:X}", self.r_b);
@@ -331,7 +333,7 @@ struct Mem {
 }
 
 impl Mem {
-    fn initialize(&mut self) -> () {
+    fn initialize(&mut self) {
         for byte in self.prom.iter_mut() {
             *byte = 0;
         }
@@ -341,7 +343,7 @@ impl Mem {
         return self.prom[addres];
     }
 
-    fn load_instr(&mut self) -> () {
+    fn load_instr(&mut self) {
         self.prom[0x0] = 0b11_001_001; // LBB -> NOP
         self.prom[0x1] = 0b11_000_001; // LAB
         self.prom[0x2] = 0b11_100_000; // LEA
@@ -349,7 +351,7 @@ impl Mem {
         self.prom[0xB] = 0b11_011_011; // LDD -> NOP
     }
 
-    fn print_dump(&mut self) -> () {
+    fn print_dump(&mut self) {
         println!("\nMEM DUMP");
         println!("PROM:");
         let offset: usize = self.prom.len()/2;
