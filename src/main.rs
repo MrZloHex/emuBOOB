@@ -3,20 +3,20 @@ use std::collections::HashMap;
 const MAX_PROM: usize = 16; // orig 16384 * 8 
 const MAX_DATA: usize = 8;
 
-struct INSTRUCTION {
+struct Instruction {
     instr_set: HashMap<u8, String>,
     instr_time: [Vec<String>; 3],
     instr_length: [Vec<String>; 3],
     instr_type: [Vec<String>; 2]
 }
 
-impl INSTRUCTION {
-    fn new() -> INSTRUCTION {
-        let instrucitions: INSTRUCTION = INSTRUCTION{
-            instr_set: INSTRUCTION::opcodes(),
-            instr_time: INSTRUCTION::time_instr(),
-            instr_length: INSTRUCTION::length_instr(),
-            instr_type: INSTRUCTION::type_instr()
+impl Instruction {
+    fn new() -> Instruction {
+        let instrucitions: Instruction = Instruction{
+            instr_set: Instruction::opcodes(),
+            instr_time: Instruction::time_instr(),
+            instr_length: Instruction::length_instr(),
+            instr_type: Instruction::type_instr()
         };
         return instrucitions;
     }
@@ -195,7 +195,7 @@ impl CPU {
         mem.initialize();
     }
 
-    fn execute(&mut self, mem: &mut MEM, instructions: &INSTRUCTION) -> () {
+    fn execute(&mut self, mem: &mut MEM, instructions: &Instruction) -> () {
         let instr: u8 = self.fetch_opcode(mem);
         let instr: String = self.decode(instr, instructions);
         let mut cycles: u8 = self.cycles(instructions, &instr);
@@ -223,24 +223,24 @@ impl CPU {
         return opcode;
     }
 
-    fn decode(&mut self, opcode: u8, instructions: &INSTRUCTION) -> String {
+    fn decode(&mut self, opcode: u8, instructions: &Instruction) -> String {
         match instructions.instr_set.get(&opcode) {
             Some(instr) => return instr.to_string(),
             None => return "NOP".to_string()
         }
     }
 
-    fn cycles(&mut self, instructions: &INSTRUCTION, instr: &String) -> u8 {
+    fn cycles(&mut self, instructions: &Instruction, instr: &String) -> u8 {
         if instructions.instr_time[0].contains(instr) {return 1}
         else if instructions.instr_time[1].contains(instr) {return 2}
         else {return 3};
     }
-    fn length(&mut self, instructions: &INSTRUCTION, instr: &String) -> u8 {
+    fn length(&mut self, instructions: &Instruction, instr: &String) -> u8 {
         if instructions.instr_length[0].contains(instr) {return 1}
         else if instructions.instr_length[1].contains(instr) {return 2}
         else {return 3};
     }
-    fn kind(&mut self, instructions: &INSTRUCTION, instr: &String) -> String{
+    fn kind(&mut self, instructions: &Instruction, instr: &String) -> String{
         if instructions.instr_type[0].contains(&instr) {
             return "load".to_string()
         } else {
@@ -386,7 +386,7 @@ impl MEM {
 
 
 fn main() {
-    let instructions: INSTRUCTION = INSTRUCTION::new();
+    let instructions: Instruction = Instruction::new();
 
     let mut cpu: CPU = CPU {r_pc: 0, r_sp: 0, r_a: 0, r_b: 0, r_c: 0, r_d: 0, r_e: 0, r_h: 0, r_l: 0, 
                             f_c: false, f_z: false, f_s: false, f_p: false};
