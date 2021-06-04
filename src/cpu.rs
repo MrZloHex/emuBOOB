@@ -23,6 +23,9 @@ pub struct Cpu {
     f_s: bool,
     f_p: bool,
 
+    // stack  14-bit
+    stack: [u16; 7],
+
     instruct: instructions::Instruction
 }
 
@@ -30,6 +33,7 @@ impl Cpu {
     pub fn new() -> Cpu {
         Cpu {r_pc: 0, r_sp: 0, r_a: 0, r_b: 0, r_c: 0, r_d: 0, r_e: 0, r_h: 0, r_l: 0, 
             f_c: false, f_z: false, f_s: false, f_p: false,
+            stack: [0; 7],
             instruct: instructions::Instruction::new()}
     }
 
