@@ -203,6 +203,17 @@ impl Instruction {
                 }
                 
             };
+            // CALL INSTRUCTIONS
+            {
+                // CAL
+                for x in (70..127).step_by(8) {
+                    instr_set.insert(x, "CAL".to_string());
+                }
+            };
+            // RETURN INSTRUCTIONS
+            {
+                
+            };
         };
         // MACHINE INSTRUCTION
         {
@@ -234,7 +245,7 @@ impl Instruction {
         let three_cycle_instrs: Vec<String> = vec![
             "LMI".to_string(),
             "JMP".to_string(),
-            "CAL".to_string()
+            "CAL".to_string(),
         ];
         let instrs: [Vec<String>; 3] = [one_cycle_instrs, two_cycle_instrs, three_cycle_instrs];
         instrs
@@ -260,7 +271,8 @@ impl Instruction {
             "LMI".to_string(),
         ];
         let three_byte_instrs: Vec<String> = vec![
-            "JMP".to_string()
+            "JMP".to_string(),
+            "CAL".to_string(),
         ];
         let instrs: [Vec<String>; 3] = [one_byte_instrs, two_byte_instrs, three_byte_instrs];
         instrs
@@ -284,6 +296,7 @@ impl Instruction {
         ];
         let pc_stack_instr: Vec<String> = vec![
             "JMP".to_string(),
+            "CAL".to_string(),
         ];
         let machine_instr: Vec<String> = vec!["NOP".to_string(), "HLT".to_string()];
         let instrs: [Vec<String>; 3] = [index_register_instrs, pc_stack_instr, machine_instr];

@@ -230,7 +230,13 @@ impl Cpu {
             let address: u16 = ((high_byte as u16) << 8) | (low_byte as u16);
             
             // JMP
-            if instr == "JMP" {self.r_pc = address;}
+            if      instr == "JMP" {self.r_pc = address;}
+            // CAL
+            else if instr == "CAL" {
+                self.stack[self.r_sp as usize] = self.r_pc - 2;
+                self.r_sp += 1;
+                self.r_pc = address;
+            }
         }
     }
 
@@ -254,4 +260,5 @@ impl Cpu {
     pub fn get_f_z(&mut self) -> bool {self.f_z}
     pub fn get_f_s(&mut self) -> bool {self.f_s}
     pub fn get_f_p(&mut self) -> bool {self.f_p}
+    pub fn get_byte_stack(&mut self, address: usize) -> u16 {self.stack[address]}
 }

@@ -34,7 +34,7 @@ fn main() {
                 println!("\nExecuting finished!");
                 break 'main_loop
             }
-            else {if cpu.get_r_pc() as usize == mem.get_length_prom()-1 {println!("\nPROCESSOR WASN'T HALTED")}}
+            else {if cpu.get_r_pc() as usize == mem.get_length_prom() {println!("\nPROCESSOR WASN'T HALTED")}}
         }
         i += 1;
         if i == 40 {break 'main_loop}

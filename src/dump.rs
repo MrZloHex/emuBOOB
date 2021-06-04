@@ -22,6 +22,10 @@ impl Dump for Cpu {
         println!("FLAG P\t{}\n", self.get_f_p());
         println!("REG PC\t{:>0width$X}", self.get_r_pc(), width=2);
         println!("REG SP\t{:>0width$X}", self.get_r_sp(), width=2);
+        println!("Stack:");
+        for i in 0..7 {
+            println!("\t{ad_1:X}\t{data_stack:>0wi$b}", ad_1=i, data_stack=self.get_byte_stack(i as usize), wi=8);
+        }
     }
 }
 
