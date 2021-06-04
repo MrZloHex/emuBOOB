@@ -224,7 +224,6 @@ impl Cpu {
             let high_byte: u8 = self.fetch_opcode(mem);
             *cycle -= 1;
             let address: u16 = ((high_byte as u16) << 8) | (low_byte as u16);
-            println!("{}", address);
             
             // JMP
             if instr == "JMP" {self.r_pc = address;}
