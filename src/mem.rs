@@ -61,6 +61,7 @@ impl Mem {
         self.data[0x0] = 0x05;
         */
 
+        /*
         // PROM
         self.prom[0x0] = 0b00_001_110; // LBI
         self.prom[0x1] = 0b11_111_111; // DATA FF
@@ -70,5 +71,14 @@ impl Mem {
         self.prom[0x5] = 0b00_111_110; // LMI
         self.prom[0x6] = 0b00_101_010; // DATA 2A
         self.prom[0x7] = 0b11_111_111; // HLT
+        */
+
+        // PROM 
+        self.prom[0x0] = 0b00_000_110; // LAI
+        self.prom[0x1] = 0b11_111_111; // DATA FF
+        self.prom[0x2] = 0b01_111_100; // JMP
+        self.prom[0x3] = 0b00_000_000; // 
+        self.prom[0x4] = 0b00_000_000; // 
+        self.prom[0x5] = 0b11_111_111; // HLT
     }
 }

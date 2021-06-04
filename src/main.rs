@@ -27,14 +27,17 @@ fn main() {
     //execute commands
     println!("Instructions:");
     println!("Mnem\tCycle\tBytes\tType\t  PC");
-    'main_loop: for i in 0..mem.get_length_prom() {
+    let mut i: u8 = 0;
+    'main_loop: loop {
         if let Ok(res) = cpu.execute(&mut mem) {  // halt - returns true
             if res {
                 println!("\nExecuting finished!");
                 break 'main_loop
             }
-            else {if i == mem.get_length_prom()-1 {println!("\nPROCESSOR WASN'T HALTED")}}
+            else {if cpu.get_r_pc() as usize == mem.get_length_prom()-1 {println!("\nPROCESSOR WASN'T HALTED")}}
         }
+        i += 1;
+        if i == 40 {break 'main_loop}
     }
     cpu.print_dump();
     mem.print_dump();

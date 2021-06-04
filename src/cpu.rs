@@ -50,10 +50,11 @@ impl Cpu {
 
         while cycles > 0 {
             if &kind == "index" {self.index_command(&instr, &mut cycles, &length, mem)}
+            else if &kind == "stack" {self.stack_command(&instr, &mut cycles, &length, mem)}
             else if &kind == "machine" && &instr == "HLT"{return Ok(true)}
             cycles -= 1;
         }
-        self.r_pc += 1;
+        
         Ok(false)
     }
 
@@ -86,9 +87,8 @@ impl Cpu {
     }
     fn kind(&mut self, instr: &String) -> String{
         if self.instruct.get_instr_type()[0].contains(instr) {"index".to_string()}
+        else if self.instruct.get_instr_type()[1].contains(instr) {"stack".to_string()}
         else {"machine".to_string()}
-        //else if self.instruct.get_instr_type()[1].contains(instr) {"machine".to_string()}
-        
     }
 
     fn index_command(&mut self, instr: &String, cycle: &mut u8, length: &u8, mem: &mut mem::Mem) {
@@ -212,7 +212,24 @@ impl Cpu {
             // LOAD MEM <- DATA IMMEDIATE
             if instr == "LMI" {mem.put_byte_data(address, load_byte);}
         }
-    }   
+        self.r_pc += 1;
+    }
+
+    fn stack_command(&mut self, instr: &String, cycle: &mut u8, _length: &u8, mem: &mut mem::Mem) {
+        if *cycle == 3 {
+            self.r_pc += 1;
+            let low_byte: u8 = self.fetch_opcode(mem);
+            *cycle -= 1;
+            self.r_pc += 1;
+            let high_byte: u8 = self.fetch_opcode(mem);
+            *cycle -= 1;
+            let address: u16 = ((high_byte as u16) << 8) | (low_byte as u16);
+            println!("{}", address);
+            
+            // JMP
+            if instr == "JMP" {self.r_pc = address;}
+        }
+    }
 
     fn in_dc_flags(&mut self, _reg: &str) {/*
         if reg == "b" {
