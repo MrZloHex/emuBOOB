@@ -197,6 +197,8 @@ impl Instruction {
         {
             // ALU IMMEDIATE INSTRUCTIONS
             {
+                // ADD
+                instr_set.insert(0b00_000_100, "ADI".to_string());
                 // COMPARE
                 instr_set.insert(0b00_111_100, "CPI".to_string());
             };
@@ -263,6 +265,7 @@ impl Instruction {
             "LAM".to_string(),"LBM".to_string(),"LCM".to_string(),"LDM".to_string(),"LEM".to_string(),"LHM".to_string(),"LLM".to_string(),
             "LMA".to_string(),"LMB".to_string(),"LMC".to_string(),"LMD".to_string(),"LME".to_string(),"LMH".to_string(),"LML".to_string(),
             "LAI".to_string(),"LBI".to_string(),"LCI".to_string(),"LDI".to_string(),"LEI".to_string(),"LHI".to_string(),"LLI".to_string(),
+            "ADI".to_string(),
             "CPI".to_string(),
         ];
         let three_cycle_instrs: Vec<String> = vec![
@@ -294,6 +297,7 @@ impl Instruction {
         let two_byte_instrs: Vec<String> = vec![
             "LAI".to_string(),"LBI".to_string(),"LCI".to_string(),"LDI".to_string(),"LEI".to_string(),"LHI".to_string(),"LLI".to_string(),
             "LMI".to_string(),
+            "ADI".to_string(),
             "CPI".to_string(),
         ];
         let three_byte_instrs: Vec<String> = vec![
@@ -322,6 +326,7 @@ impl Instruction {
             "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
         ];
         let accumulator_instr: Vec<String> = vec![
+            "ADI".to_string(),
             "CPI".to_string(),
         ];
         let pc_stack_instr: Vec<String> = vec![

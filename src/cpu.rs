@@ -230,22 +230,16 @@ impl Cpu {
             let byte_data: u8 = self.fetch_opcode(mem);
             *cycle -= 1;
 
+            // ADI
+            if instr == "ADI" {
+                let result: i16 = (self.r_a as i16) + (byte_data as i16);
+                self.set_flags(&result);
+                self.r_a = result as u8;
+            }
             // CPI
-            if instr == "CPI" {
+            else if instr == "CPI" {
                 let result: i16 = (self.r_a as i16) - (byte_data as i16);
-                // PARITY
-                if (result % 2) == 0 {self.f_p = true}
-                else {self.f_p = false}
-                // ZERO
-                if result == 0 {self.f_z = true}
-                else {self.f_z = false;}
-                // CARRY
-                if (result > 255) || (result < 0) {self.f_c = true}
-                else {self.f_c = false}
-                // SIGN
-                let msb: u8 = (result as u8) >> 7;
-                if msb == 1 {self.f_s = true}
-                else {self.f_s = false}
+                self.set_flags(&result);
             }
         }
         self.r_pc += 1;
@@ -296,6 +290,22 @@ impl Cpu {
         if reg == "b" {
             if self.
         }*/
+    }
+
+    fn set_flags(&mut self, result: &i16) {
+        // PARITY
+        if (*result % 2) == 0 {self.f_p = true}
+        else {self.f_p = false}
+        // ZERO
+        if *result == 0 {self.f_z = true}
+        else {self.f_z = false;}
+        // CARRY
+        if (*result > 255) || (*result < 0) {self.f_c = true}
+        else {self.f_c = false}
+        // SIGN
+        let msb: u8 = (*result as u8) >> 7;
+        if msb == 1 {self.f_s = true}
+        else {self.f_s = false}
     }
 
     // methods for know all registers and flags value

@@ -94,7 +94,9 @@ impl Mem {
         self.prom[0x5] = 0b01_010_000; // JFS
         self.prom[0x6] = 0b00_001_100; // 0C
         self.prom[0x7] = 0b00_000_000; // 0
-        self.prom[0x8] = 0b11_111_111; // HLT
+        self.prom[0x8] = 0b00_000_100; // ADI
+        self.prom[0x9] = 0b00_001_111; // 0F
+        self.prom[0xA] = 0b11_111_111; // HLT
         self.prom[0xC] = 0b11_111_111; // HLT
 
         self.prom[0xD] = 0b00_000_110; // LAI
