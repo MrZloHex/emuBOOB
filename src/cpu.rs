@@ -164,14 +164,15 @@ impl Cpu {
         else if *cycle == 2 {
             let load_byte: u8 = if *length == 2 {
                 self.r_pc += 1;
+                *cycle -=1;
                 let byte: u8 = self.fetch_opcode(mem);
                 byte
             } else {0};
             // INSTRUCTIONS WHICH USES MEMORY
-            {
-                let addres: usize = (((self.r_h.clone() as u16) << 8) | (self.r_l.clone() as u16)) as usize;
-                let byte_data: u8 = self.fetch_byte(mem, &addres);
-                *cycle -= 1;
+            {   
+                let address: usize = (((self.r_h.clone() as u16) << 8) | (self.r_l.clone() as u16)) as usize;
+                let byte_data: u8 = self.fetch_byte(mem, &address);
+                if *cycle == 2 {*cycle -= 1;};
                 // LOAD REG <- MEM
                 if      instr == "LAM" {self.r_a = byte_data;}
                 else if instr == "LBM" {self.r_b = byte_data;}
@@ -181,13 +182,14 @@ impl Cpu {
                 else if instr == "LHM" {self.r_h = byte_data;}
                 else if instr == "LLM" {self.r_l = byte_data;}
                 // LOAD MEM <- REG
-                else if instr == "LMA" {mem.put_byte_data(addres, self.r_a.clone());}
-                else if instr == "LMB" {mem.put_byte_data(addres, self.r_b.clone());}
-                else if instr == "LMC" {mem.put_byte_data(addres, self.r_c.clone());}
-                else if instr == "LMD" {mem.put_byte_data(addres, self.r_d.clone());}
-                else if instr == "LME" {mem.put_byte_data(addres, self.r_e.clone());}
-                else if instr == "LMH" {mem.put_byte_data(addres, self.r_h.clone());}
-                else if instr == "LML" {mem.put_byte_data(addres, self.r_l.clone());}
+                else if instr == "LMA" {mem.put_byte_data(address, self.r_a.clone());}
+                else if instr == "LMB" {mem.put_byte_data(address, self.r_b.clone());}
+                else if instr == "LMC" {mem.put_byte_data(address, self.r_c.clone());}
+                else if instr == "LMD" {mem.put_byte_data(address, self.r_d.clone());}
+                else if instr == "LME" {mem.put_byte_data(address, self.r_e.clone());}
+                else if instr == "LMH" {mem.put_byte_data(address, self.r_h.clone());}
+                else if instr == "LML" {mem.put_byte_data(address, self.r_l.clone());}
+                
             }
             // LOAD REG <- DATA  IMMEDIATE
             if      instr == "LAI" {self.r_a = load_byte;}
@@ -197,7 +199,19 @@ impl Cpu {
             else if instr == "LEI" {self.r_e = load_byte;}
             else if instr == "LHI" {self.r_h = load_byte;}
             else if instr == "LLI" {self.r_l = load_byte;}
-        }   
+        }
+        
+        else if *cycle == 3 {
+            self.r_pc += 1;
+            let load_byte: u8 = self.fetch_opcode(mem);
+            *cycle -= 1;
+
+            let address: usize = (((self.r_h.clone() as u16) << 8) | (self.r_l.clone() as u16)) as usize;
+            *cycle -= 1;
+
+            // LOAD MEM <- DATA IMMEDIATE
+            if instr == "LMI" {mem.put_byte_data(address, load_byte);}
+        }
     }   
 
     fn in_dc_flags(&mut self, _reg: &str) {/*

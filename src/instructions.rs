@@ -103,9 +103,9 @@ impl Instruction {
                                 5 => instr_set.insert(op, "LLH".to_string()),
                                 _ => continue
                             };
-                        }
-                    }
-                }
+                        };
+                    };
+                };
                 // LOAD REG <- MEM
                 {
                     for reg in (199..249).step_by(8) {
@@ -119,8 +119,8 @@ impl Instruction {
                             248 => instr_set.insert(reg, "LLM".to_string()),
                             _ => continue
                         };
-                    }
-                }
+                    };
+                };
                 // LOAD MEM <- REG
                 {
                     for reg in 248..255{
@@ -134,8 +134,8 @@ impl Instruction {
                             254 => instr_set.insert(reg, "LML".to_string()),
                             _ => continue
                         };
-                    }
-                }
+                    };
+                };
                 // LOAD REG <- DATA IMMEDIATE
                 {
                     for reg in (6..55).step_by(8) {
@@ -149,8 +149,12 @@ impl Instruction {
                             54 => instr_set.insert(reg, "LLI".to_string()),
                             _ => continue
                         };
-                    }
-                }
+                    };
+                };
+                // LOAD MEM <- DATA IMEDIATE
+                {
+                    instr_set.insert(0b00_111_110, "LMI".to_string());
+                };
                 // INCREMENT / DECREMENT INSTRUCTION
                 {
                     for reg in (8..49).step_by(8) {
@@ -180,16 +184,16 @@ impl Instruction {
                                 instr_set.insert(reg+1, "DCL".to_string());
                             },
                             _ => {}
-                        }
+                        };
                         
-                    }
-                }
+                    };
+                };
                 // HALT INSTRUCTION
                 {
                     instr_set.insert(0, "HLT".to_string());   // 0b00_000_000
                     instr_set.insert(1, "HLT".to_string());   // 0b00_000_001
                     instr_set.insert(255, "HLT".to_string()); // 0b11_111_111
-                }
+                };
             }
         }
         instr_set
@@ -212,9 +216,11 @@ impl Instruction {
             "LAM".to_string(),"LBM".to_string(),"LCM".to_string(),"LDM".to_string(),"LEM".to_string(),"LHM".to_string(),"LLM".to_string(),
             "LMA".to_string(),"LMB".to_string(),"LMC".to_string(),"LMD".to_string(),"LME".to_string(),"LMH".to_string(),"LML".to_string(),
             "LAI".to_string(),"LBI".to_string(),"LCI".to_string(),"LDI".to_string(),"LEI".to_string(),"LHI".to_string(),"LLI".to_string(),
-            "LMI".to_string()
         ];
-        let three_cycle_instrs: Vec<String> = vec!["CAL".to_string()];
+        let three_cycle_instrs: Vec<String> = vec![
+            "LMI".to_string(),
+            "CAL".to_string()
+        ];
         let instrs: [Vec<String>; 3] = [one_cycle_instrs, two_cycle_instrs, three_cycle_instrs];
         instrs
     }
@@ -230,13 +236,13 @@ impl Instruction {
             "LLA".to_string(),"LLB".to_string(),"LLC".to_string(),"LLD".to_string(),"LLE".to_string(),"LLH".to_string(),
             "LAM".to_string(),"LBM".to_string(),"LCM".to_string(),"LDM".to_string(),"LEM".to_string(),"LHM".to_string(),"LLM".to_string(),
             "LMA".to_string(),"LMB".to_string(),"LMC".to_string(),"LMD".to_string(),"LME".to_string(),"LMH".to_string(),"LML".to_string(),
-            "NOP".to_string(),"HLT".to_string(),
             "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
             "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
+            "NOP".to_string(),"HLT".to_string(),
         ];
         let two_byte_instrs: Vec<String> = vec![
             "LAI".to_string(),"LBI".to_string(),"LCI".to_string(),"LDI".to_string(),"LEI".to_string(),"LHI".to_string(),"LLI".to_string(),
-            "LMI".to_string()
+            "LMI".to_string(),
         ];
         let three_byte_instrs: Vec<String> = vec!["JMP".to_string()];
         let instrs: [Vec<String>; 3] = [one_byte_instrs, two_byte_instrs, three_byte_instrs];
@@ -252,11 +258,12 @@ impl Instruction {
             "LEA".to_string(),"LEB".to_string(),"LEC".to_string(),"LED".to_string(),"LEH".to_string(),"LEL".to_string(),
             "LHA".to_string(),"LHB".to_string(),"LHC".to_string(),"LHD".to_string(),"LHE".to_string(),"LHL".to_string(),
             "LLA".to_string(),"LLB".to_string(),"LLC".to_string(),"LLD".to_string(),"LLE".to_string(),"LLH".to_string(),
-            "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
-            "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
             "LAM".to_string(),"LBM".to_string(),"LCM".to_string(),"LDM".to_string(),"LEM".to_string(),"LHM".to_string(),"LLM".to_string(),
             "LMA".to_string(),"LMB".to_string(),"LMC".to_string(),"LMD".to_string(),"LME".to_string(),"LMH".to_string(),"LML".to_string(),
             "LAI".to_string(),"LBI".to_string(),"LCI".to_string(),"LDI".to_string(),"LEI".to_string(),"LHI".to_string(),"LLI".to_string(),
+            "LMI".to_string(),
+            "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
+            "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
         ];
         let machine_instr: Vec<String> = vec!["NOP".to_string(), "HLT".to_string()];
         let instrs: [Vec<String>; 2] = [index_register_instrs, machine_instr];
