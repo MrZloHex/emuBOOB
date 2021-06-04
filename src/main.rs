@@ -27,7 +27,6 @@ fn main() {
     //execute commands
     println!("Instructions:");
     println!("Mnem\tCycle\tBytes\tType\t  PC");
-    let mut i: u8 = 0;
     'main_loop: loop {
         if let Ok(res) = cpu.execute(&mut mem) {  // halt - returns true
             if res {
@@ -36,8 +35,6 @@ fn main() {
             }
             else {if cpu.get_r_pc() as usize == mem.get_length_prom() {println!("\nPROCESSOR WASN'T HALTED")}}
         }
-        i += 1;
-        if i == 40 {break 'main_loop}
     }
     cpu.print_dump();
     mem.print_dump();
