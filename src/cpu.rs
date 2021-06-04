@@ -50,10 +50,11 @@ impl Cpu {
         let length: u8 = self.length(&instr);
         let kind: String = self.kind(&instr);
 
-        println!("{}\t{}\t{}\t{}\t  {}", instr, cycles, length, kind, self.r_pc);
+        println!("{}\t{}\t{}\t{}\t\t{}", instr, cycles, length, kind, self.r_pc);
 
         while cycles > 0 {
             if &kind == "index" {self.index_command(&instr, &mut cycles, &length, mem)}
+            else if &kind == "accum" {self.accumulator_command(&instr, &mut cycles, &length, mem)}
             else if &kind == "stack" {self.stack_command(&instr, &mut cycles, &length, mem)}
             else if &kind == "machine" && &instr == "HLT"{return Ok(true)}
             cycles -= 1;
@@ -91,11 +92,13 @@ impl Cpu {
     }
     fn kind(&mut self, instr: &String) -> String{
         if self.instruct.get_instr_type()[0].contains(instr) {"index".to_string()}
-        else if self.instruct.get_instr_type()[1].contains(instr) {"stack".to_string()}
+        else if self.instruct.get_instr_type()[1].contains(instr) {"accum".to_string()}
+        else if self.instruct.get_instr_type()[2].contains(instr) {"stack".to_string()}
         else {"machine".to_string()}
     }
 
     fn index_command(&mut self, instr: &String, cycle: &mut u8, length: &u8, mem: &mut mem::Mem) {
+        self.reset_flags();
         if *cycle == 1 {
             // LOAD REG REG
             // a register
@@ -219,6 +222,35 @@ impl Cpu {
         self.r_pc += 1;
     }
 
+    fn accumulator_command(&mut self, instr: &String, cycle: &mut u8, length: &u8, mem: &mut mem::Mem) {
+        // ALL THIC COMMAND AFFECT ON FLAGS
+        self.reset_flags();
+        if *length == 2 {
+            self.r_pc += 1;
+            let byte_data: u8 = self.fetch_opcode(mem);
+            *cycle -= 1;
+
+            // CPI
+            if instr == "CPI" {
+                let result: i16 = (self.r_a as i16) - (byte_data as i16);
+                // PARITY
+                if (result % 2) == 0 {self.f_p = true}
+                else {self.f_p = false}
+                // ZERO
+                if result == 0 {self.f_z = true}
+                else {self.f_z = false;}
+                // CARRY
+                if (result > 255) || (result < 0) {self.f_c = true}
+                else {self.f_c = false}
+                // SIGN
+                let msb: u8 = (result as u8) >> 7;
+                if msb == 1 {self.f_s = true}
+                else {self.f_s = false}
+            }
+        }
+        self.r_pc += 1;
+    }
+
     fn stack_command(&mut self, instr: &String, cycle: &mut u8, _length: &u8, mem: &mut mem::Mem) {
         if *cycle == 3 {
             self.r_pc += 1;
@@ -246,6 +278,13 @@ impl Cpu {
                 self.r_pc += 1;
             }
         }
+    }
+
+    fn reset_flags(&mut self) {
+        self.f_c = false;
+        self.f_z = false;
+        self.f_s = false;
+        self.f_p = false;
     }
 
     fn in_dc_flags(&mut self, _reg: &str) {/*

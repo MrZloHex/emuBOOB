@@ -28,7 +28,7 @@ fn main() {
     println!();
     //execute commands
     println!("Instructions:");
-    println!("Mnem\tCycle\tBytes\tType\t  PC");
+    println!("Mnem\tCycle\tBytes\tType\t\tPC");
     'main_loop: loop {
         if let Ok(res) = cpu.execute(&mut mem) {  // halt - returns true
             if res {
@@ -40,6 +40,6 @@ fn main() {
         sleep(Duration::from_millis(10));
     }
     cpu.print_dump();
-    mem.print_dump();
+    //mem.print_dump();
     println!();
 }

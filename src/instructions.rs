@@ -4,7 +4,7 @@ pub struct Instruction {
     instr_set: HashMap<u8, String>,
     instr_time: [Vec<String>; 3],
     instr_length: [Vec<String>; 3],
-    instr_type: [Vec<String>; 3]
+    instr_type: [Vec<String>; 4]
 }
 
 impl Instruction {
@@ -193,6 +193,14 @@ impl Instruction {
                 };
             };
         };
+        // ACCUMULATOR INSTRUCTIONS
+        {
+            // ALU IMMEDIATE INSTRUCTIONS
+            {
+                // COMPARE
+                instr_set.insert(0b00_111_100, "CPI".to_string());
+            };
+        };
         // PROGRAM COUNTER AND STACK CONTROL INSTRUCTIONS
         {
             // JUMP INSTRUCTIONS
@@ -245,6 +253,7 @@ impl Instruction {
             "LAM".to_string(),"LBM".to_string(),"LCM".to_string(),"LDM".to_string(),"LEM".to_string(),"LHM".to_string(),"LLM".to_string(),
             "LMA".to_string(),"LMB".to_string(),"LMC".to_string(),"LMD".to_string(),"LME".to_string(),"LMH".to_string(),"LML".to_string(),
             "LAI".to_string(),"LBI".to_string(),"LCI".to_string(),"LDI".to_string(),"LEI".to_string(),"LHI".to_string(),"LLI".to_string(),
+            "CPI".to_string(),
         ];
         let three_cycle_instrs: Vec<String> = vec![
             "LMI".to_string(),
@@ -274,6 +283,7 @@ impl Instruction {
         let two_byte_instrs: Vec<String> = vec![
             "LAI".to_string(),"LBI".to_string(),"LCI".to_string(),"LDI".to_string(),"LEI".to_string(),"LHI".to_string(),"LLI".to_string(),
             "LMI".to_string(),
+            "CPI".to_string(),
         ];
         let three_byte_instrs: Vec<String> = vec![
             "JMP".to_string(),
@@ -283,7 +293,7 @@ impl Instruction {
         instrs
     }
     
-    fn type_instr() -> [Vec<String>; 3] {
+    fn type_instr() -> [Vec<String>; 4] {
         let index_register_instrs: Vec<String> = vec![
             "LAB".to_string(),"LAC".to_string(),"LAD".to_string(),"LAE".to_string(),"LAH".to_string(),"LAL".to_string(),
             "LBA".to_string(),"LBC".to_string(),"LBD".to_string(),"LBE".to_string(),"LBH".to_string(),"LBL".to_string(),
@@ -299,13 +309,16 @@ impl Instruction {
             "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
             "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
         ];
+        let accumulator_instr: Vec<String> = vec![
+            "CPI".to_string(),
+        ];
         let pc_stack_instr: Vec<String> = vec![
             "JMP".to_string(),
             "CAL".to_string(),
             "RET".to_string(),
         ];
         let machine_instr: Vec<String> = vec!["NOP".to_string(), "HLT".to_string()];
-        let instrs: [Vec<String>; 3] = [index_register_instrs, pc_stack_instr, machine_instr];
+        let instrs: [Vec<String>; 4] = [index_register_instrs, accumulator_instr, pc_stack_instr, machine_instr];
         instrs
     }
 
@@ -313,5 +326,5 @@ impl Instruction {
     pub fn get_instr_set(&mut self) -> &HashMap<u8, String> {&self.instr_set}
     pub fn get_instr_time(&mut self) -> &[Vec<String>; 3] {&self.instr_time}
     pub fn get_instr_length(&mut self) -> &[Vec<String>; 3] {&self.instr_length}
-    pub fn get_instr_type(&mut self) -> &[Vec<String>; 3] {&self.instr_type}
+    pub fn get_instr_type(&mut self) -> &[Vec<String>; 4] {&self.instr_type}
 }
