@@ -212,7 +212,10 @@ impl Instruction {
             };
             // RETURN INSTRUCTIONS
             {
-                
+                // RET
+                for x in (7..64).step_by(8) {
+                    instr_set.insert(x, "RET".to_string());
+                }
             };
         };
         // MACHINE INSTRUCTION
@@ -236,6 +239,7 @@ impl Instruction {
             "NOP".to_string(),"HLT".to_string(),
             "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
             "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
+            "RET".to_string(),
         ];
         let two_cycle_instrs: Vec<String> = vec![
             "LAM".to_string(),"LBM".to_string(),"LCM".to_string(),"LDM".to_string(),"LEM".to_string(),"LHM".to_string(),"LLM".to_string(),
@@ -265,6 +269,7 @@ impl Instruction {
             "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
             "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
             "NOP".to_string(),"HLT".to_string(),
+            "RET".to_string(),
         ];
         let two_byte_instrs: Vec<String> = vec![
             "LAI".to_string(),"LBI".to_string(),"LCI".to_string(),"LDI".to_string(),"LEI".to_string(),"LHI".to_string(),"LLI".to_string(),
@@ -297,6 +302,7 @@ impl Instruction {
         let pc_stack_instr: Vec<String> = vec![
             "JMP".to_string(),
             "CAL".to_string(),
+            "RET".to_string(),
         ];
         let machine_instr: Vec<String> = vec!["NOP".to_string(), "HLT".to_string()];
         let instrs: [Vec<String>; 3] = [index_register_instrs, pc_stack_instr, machine_instr];

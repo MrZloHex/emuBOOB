@@ -73,6 +73,7 @@ impl Mem {
         self.prom[0x7] = 0b11_111_111; // HLT
         */
 
+        /*
         // PROM 
         self.prom[0x0] = 0b00_000_110; // LAI
         self.prom[0x1] = 0b11_111_111; // DATA FF
@@ -83,5 +84,19 @@ impl Mem {
         self.prom[0xA] = 0b00_001_111;
         self.prom[0xB] = 0b00_000_000;
         self.prom[0xF] = 0b11_111_111; // HLT
+        */
+
+        self.prom[0x0] = 0b01_111_110; // CAL
+        self.prom[0x1] = 0b00_001_001; // 09
+        self.prom[0x2] = 0b00_000_000;
+        self.prom[0x3] = 0b11_111_111; // HLT
+
+        self.prom[0x9] = 0b00_001_000; // INB
+        self.prom[0xA] = 0b00_010_000; // INC
+        self.prom[0xB] = 0b00_011_000; // IND
+        self.prom[0xC] = 0b00_100_000; // INE
+        self.prom[0xD] = 0b00_101_000; // INH
+        self.prom[0xE] = 0b00_110_000; // INL
+        self.prom[0xF] = 0b00_111_111; // RET
     }
 }

@@ -233,9 +233,17 @@ impl Cpu {
             if      instr == "JMP" {self.r_pc = address;}
             // CAL
             else if instr == "CAL" {
-                self.stack[self.r_sp as usize] = self.r_pc - 2;
+                self.stack[self.r_sp as usize] = self.r_pc;
                 self.r_sp += 1;
                 self.r_pc = address;
+            }
+        }
+        else {
+            // RET
+            if instr == "RET" {
+                self.r_sp -= 1;
+                self.r_pc = self.stack[self.r_sp as usize];
+                self.r_pc += 1;
             }
         }
     }
