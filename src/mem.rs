@@ -91,7 +91,11 @@ impl Mem {
         self.prom[0x2] = 0b00_000_000;
         self.prom[0x3] = 0b00_111_100; // CPI
         self.prom[0x4] = 0b00_000_000; // 1
-        self.prom[0x5] = 0b11_111_111; // HLT
+        self.prom[0x5] = 0b01_010_000; // JFS
+        self.prom[0x6] = 0b00_001_100; // 0C
+        self.prom[0x7] = 0b00_000_000; // 0
+        self.prom[0x8] = 0b11_111_111; // HLT
+        self.prom[0xC] = 0b11_111_111; // HLT
 
         self.prom[0xD] = 0b00_000_110; // LAI
         self.prom[0xE] = 0b11_000_000; // 1
