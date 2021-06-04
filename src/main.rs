@@ -21,12 +21,12 @@ fn main() {
     
     cpu.reset(&mut mem);
     // for test ROM
-    //mem.print_dump();
-    //cpu.print_dump();
+    mem.print_dump();
+    cpu.print_dump();
     println!();
     //execute commands
     println!("Instructions:");
-    println!("Mnem\tCycle\tBytes\tType");
+    println!("Mnem\tCycle\tBytes\tType\t  PC");
     'main_loop: for i in 0..mem.get_length_prom() {
         if let Ok(res) = cpu.execute(&mut mem) {  // halt - returns true
             if res {

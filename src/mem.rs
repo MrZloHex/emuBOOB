@@ -41,6 +41,7 @@ impl Mem {
     }
 
     fn load_instr(&mut self) {
+        /*
         // PROM
         self.prom[0x0] = 0b11_001_001; // LBB -> NOP
         self.prom[0x1] = 0b11_000_001; // LAB
@@ -58,5 +59,12 @@ impl Mem {
 
         // DATA
         self.data[0x0] = 0x05;
+        */
+
+        // PROM
+        self.prom[0x0] = 0b00_001_110; // LBI
+        self.prom[0x1] = 0b11_111_111; // DATA
+        self.prom[0x2] = 0b11_111_001; // LMB
+        self.prom[0x3] = 0b11_111_111; // HLT
     }
 }

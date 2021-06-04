@@ -36,7 +36,6 @@ impl Cpu {
     pub fn reset(&mut self, mem: &mut mem::Mem) {
         self.r_pc = 0;
         self.r_sp = 0;
-        self.r_b = 0x0A; // for tests
         mem.initialize();
     }
 
@@ -47,7 +46,7 @@ impl Cpu {
         let length: u8 = self.length(&instr);
         let kind: String = self.kind(&instr);
 
-        println!("{}\t{}\t{}\t{}", instr, cycles, length, kind);
+        println!("{}\t{}\t{}\t{}\t  {}", instr, cycles, length, kind, self.r_pc);
 
         while cycles > 0 {
             if &kind == "index" {self.index_command(&instr, &mut cycles, &length, mem)}
@@ -92,7 +91,7 @@ impl Cpu {
         
     }
 
-    fn index_command(&mut self, instr: &String, cycle: &mut u8, _length: &u8, mem: &mut mem::Mem) {
+    fn index_command(&mut self, instr: &String, cycle: &mut u8, length: &u8, mem: &mut mem::Mem) {
         if *cycle == 1 {
             // LOAD REG REG
             // a register
@@ -163,26 +162,42 @@ impl Cpu {
         }
 
         else if *cycle == 2 {
-            let addres: usize = (((self.r_h.clone() as u16) << 8) | (self.r_l.clone() as u16)) as usize;
-            let byte_data: u8 = self.fetch_byte(mem, &addres);
-            *cycle -= 1;
-            // LOAD REG <- MEM
-            if      instr == "LAM" {self.r_a = byte_data;}
-            else if instr == "LBM" {self.r_b = byte_data;}
-            else if instr == "LCM" {self.r_c = byte_data;}
-            else if instr == "LDM" {self.r_d = byte_data;}
-            else if instr == "LEM" {self.r_e = byte_data;}
-            else if instr == "LHM" {self.r_h = byte_data;}
-            else if instr == "LLM" {self.r_l = byte_data;}
-            // LOAD MEM <- REG
-            else if instr == "LMA" {mem.put_byte_data(addres, self.r_a.clone());}
-            else if instr == "LMB" {mem.put_byte_data(addres, self.r_b.clone());}
-            else if instr == "LMC" {mem.put_byte_data(addres, self.r_c.clone());}
-            else if instr == "LMD" {mem.put_byte_data(addres, self.r_d.clone());}
-            else if instr == "LME" {mem.put_byte_data(addres, self.r_e.clone());}
-            else if instr == "LMH" {mem.put_byte_data(addres, self.r_h.clone());}
-            else if instr == "LML" {mem.put_byte_data(addres, self.r_l.clone());}
-        }
+            let load_byte: u8 = if *length == 2 {
+                self.r_pc += 1;
+                let byte: u8 = self.fetch_opcode(mem);
+                byte
+            } else {0};
+            // INSTRUCTIONS WHICH USES MEMORY
+            {
+                let addres: usize = (((self.r_h.clone() as u16) << 8) | (self.r_l.clone() as u16)) as usize;
+                let byte_data: u8 = self.fetch_byte(mem, &addres);
+                *cycle -= 1;
+                // LOAD REG <- MEM
+                if      instr == "LAM" {self.r_a = byte_data;}
+                else if instr == "LBM" {self.r_b = byte_data;}
+                else if instr == "LCM" {self.r_c = byte_data;}
+                else if instr == "LDM" {self.r_d = byte_data;}
+                else if instr == "LEM" {self.r_e = byte_data;}
+                else if instr == "LHM" {self.r_h = byte_data;}
+                else if instr == "LLM" {self.r_l = byte_data;}
+                // LOAD MEM <- REG
+                else if instr == "LMA" {mem.put_byte_data(addres, self.r_a.clone());}
+                else if instr == "LMB" {mem.put_byte_data(addres, self.r_b.clone());}
+                else if instr == "LMC" {mem.put_byte_data(addres, self.r_c.clone());}
+                else if instr == "LMD" {mem.put_byte_data(addres, self.r_d.clone());}
+                else if instr == "LME" {mem.put_byte_data(addres, self.r_e.clone());}
+                else if instr == "LMH" {mem.put_byte_data(addres, self.r_h.clone());}
+                else if instr == "LML" {mem.put_byte_data(addres, self.r_l.clone());}
+            }
+            // LOAD REG <- DATA  IMMEDIATE
+            if      instr == "LAI" {self.r_a = load_byte;}
+            else if instr == "LBI" {self.r_b = load_byte;}
+            else if instr == "LCI" {self.r_c = load_byte;}
+            else if instr == "LDI" {self.r_d = load_byte;}
+            else if instr == "LEI" {self.r_e = load_byte;}
+            else if instr == "LHI" {self.r_h = load_byte;}
+            else if instr == "LLI" {self.r_l = load_byte;}
+        }   
     }   
 
     fn in_dc_flags(&mut self, _reg: &str) {/*
