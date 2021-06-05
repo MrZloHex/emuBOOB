@@ -226,7 +226,45 @@ impl Cpu {
 
     fn accumulator_command(&mut self, instr: &String, cycle: &mut u8, length: &u8, mem: &mut mem::Mem) {
         // ALL THIC COMMAND AFFECT ON FLAGS
-        if *length == 2 {
+        if *length == 1{
+            if *cycle == 1 {
+                // ADr
+                if      instr == "ADB" {
+                    let result: i16 = (self.r_a as i16) + (self.r_b as i16);
+                    self.set_flags(&result);
+                    self.r_a = result as u8;
+                }
+                else if instr == "ADC" {
+                    let result: i16 = (self.r_a as i16) + (self.r_c as i16);
+                    self.set_flags(&result);
+                    self.r_a = result as u8;
+                }
+                else if instr == "ADD" {
+                    let result: i16 = (self.r_a as i16) + (self.r_d as i16);
+                    self.set_flags(&result);
+                    self.r_a = result as u8;
+                }
+                else if instr == "ADE" {
+                    let result: i16 = (self.r_a as i16) + (self.r_e as i16);
+                    self.set_flags(&result);
+                    self.r_a = result as u8;
+                }
+                else if instr == "ADH" {
+                    let result: i16 = (self.r_a as i16) + (self.r_h as i16);
+                    self.set_flags(&result);
+                    self.r_a = result as u8;
+                }
+                else if instr == "ADL" {
+                    let result: i16 = (self.r_a as i16) + (self.r_l as i16);
+                    self.set_flags(&result);
+                    self.r_a = result as u8;
+                }
+            }
+            else if *cycle == 2 {
+                unimplemented!();
+            }
+        }
+        else if *length == 2 {
             self.r_pc += 1;
             let byte_data: u8 = self.fetch_opcode(mem);
             *cycle -= 1;
