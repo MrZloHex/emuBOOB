@@ -18,6 +18,6 @@ And it has 3-bit length stack pointer, that's why there are such name.
 
 ## References
 
-[Wiki with general info about](https://en.wikipedia.org/wiki/Intel_8008)
-[Wiki with internal system of i8008](https://en.wikichip.org/wiki/intel/mcs-8/isa)
-[INTeL's original reference for i8008]()
+ - [Wiki with general info about](https://en.wikipedia.org/wiki/Intel_8008)
+ - [Wiki with internal system of i8008](https://en.wikichip.org/wiki/intel/mcs-8/isa)
+ - [INTeL's original reference for i8008](https://github.com/MrZloHex/3-bit_SP/blob/master/manuls/8008-Intel.pdf)
