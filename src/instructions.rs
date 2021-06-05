@@ -207,6 +207,8 @@ impl Instruction {
                 instr_set.insert(0b00_100_100, "NDI".to_string());
                 // LOGICAL XOR
                 instr_set.insert(0b00_101_100, "XRI".to_string());
+                // LOGICAL ORI
+                instr_set.insert(0b00_110_100, "ORI".to_string());
                 // COMPARE
                 instr_set.insert(0b00_111_100, "CPI".to_string());
             };
@@ -278,6 +280,7 @@ impl Instruction {
             "SUI".to_string(),
             "NDI".to_string(),
             "XRI".to_string(),
+            "ORI".to_string(),
             "CPI".to_string(),
         ];
         let three_cycle_instrs: Vec<String> = vec![
@@ -314,6 +317,7 @@ impl Instruction {
             "SUI".to_string(),
             "NDI".to_string(),
             "XRI".to_string(),
+            "ORI".to_string(),
             "CPI".to_string(),
         ];
         let three_byte_instrs: Vec<String> = vec![
@@ -347,6 +351,7 @@ impl Instruction {
             "SUI".to_string(),
             "NDI".to_string(),
             "XRI".to_string(),
+            "ORI".to_string(),
             "CPI".to_string(),
         ];
         let pc_stack_instr: Vec<String> = vec![
