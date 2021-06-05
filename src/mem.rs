@@ -86,6 +86,7 @@ impl Mem {
         self.prom[0xF] = 0b11_111_111; // HLT
         */
 
+        /* EXAMPLE WITH NICE BRANCHING
         self.prom[0x0] = 0b01_111_110; // CAL
         self.prom[0x1] = 0b00_001_101; // 09
         self.prom[0x2] = 0b00_000_000;
@@ -102,5 +103,13 @@ impl Mem {
         self.prom[0xD] = 0b00_000_110; // LAI
         self.prom[0xE] = 0b11_000_000; // 1
         self.prom[0xF] = 0b00_111_111; // RET
+        */
+
+        // PROM
+        self.prom[0x0] = 0b00_111_100; // CPI
+        self.prom[0x1] = 0; // 09
+        self.prom[0x2] = 0b00_001_100; // ACI
+        self.prom[0x3] = 0b11_111_111; 
+        self.prom[0x4] = 0b11_111_111; // HLT
     }
 }

@@ -224,7 +224,6 @@ impl Cpu {
 
     fn accumulator_command(&mut self, instr: &String, cycle: &mut u8, length: &u8, mem: &mut mem::Mem) {
         // ALL THIC COMMAND AFFECT ON FLAGS
-        self.reset_flags();
         if *length == 2 {
             self.r_pc += 1;
             let byte_data: u8 = self.fetch_opcode(mem);
@@ -235,6 +234,17 @@ impl Cpu {
                 let result: i16 = (self.r_a as i16) + (byte_data as i16);
                 self.set_flags(&result);
                 self.r_a = result as u8;
+            }
+            // ACI
+            else if instr == "ACI" {
+                let result: i16 = if self.f_c {
+                    (self.r_a as i16) + (byte_data as i16) + 1
+                } else {
+                    (self.r_a as i16) + (byte_data as i16)
+                };
+                self.set_flags(&result);
+                self.r_a = result as u8;
+
             }
             // CPI
             else if instr == "CPI" {
@@ -293,6 +303,7 @@ impl Cpu {
     }
 
     fn set_flags(&mut self, result: &i16) {
+        self.reset_flags();
         // PARITY
         if (*result % 2) == 0 {self.f_p = true}
         else {self.f_p = false}
