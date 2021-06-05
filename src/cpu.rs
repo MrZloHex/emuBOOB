@@ -244,7 +244,12 @@ impl Cpu {
                 };
                 self.set_flags(&result);
                 self.r_a = result as u8;
-
+            }
+            // SUI
+            else if instr == "SUI" {
+                let result: i16 = (self.r_a as i16) - (byte_data as i16);
+                self.set_flags(&result);
+                self.r_a = result as u8;
             }
             // CPI
             else if instr == "CPI" {
