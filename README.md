@@ -15,3 +15,9 @@ And it has 3-bit length stack pointer, that's why there are such name.
  - [ ] Editor for writing assembly code
  - [ ] Translator for assembly code
  - [ ] TUI / GUI
+
+## References
+
+[Wiki with general info about](https://en.wikipedia.org/wiki/Intel_8008)
+[Wiki with internal system of i8008](https://en.wikichip.org/wiki/intel/mcs-8/isa)
+[INTeL's original reference for i8008]()
