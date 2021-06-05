@@ -203,6 +203,8 @@ impl Instruction {
                 instr_set.insert(0b00_001_100, "ACI".to_string());
                 // SUBSTRACT
                 instr_set.insert(0b00_010_100, "SUI".to_string());
+                // SUBSTRACT WITH BORROW
+                instr_set.insert(0b00_011_100, "SBI".to_string());
                 // LOGICAL AND
                 instr_set.insert(0b00_100_100, "NDI".to_string());
                 // LOGICAL XOR
@@ -278,6 +280,7 @@ impl Instruction {
             "ADI".to_string(),
             "ACI".to_string(),
             "SUI".to_string(),
+            "SBI".to_string(),
             "NDI".to_string(),
             "XRI".to_string(),
             "ORI".to_string(),
@@ -315,6 +318,7 @@ impl Instruction {
             "ADI".to_string(),
             "ACI".to_string(),
             "SUI".to_string(),
+            "SBI".to_string(),
             "NDI".to_string(),
             "XRI".to_string(),
             "ORI".to_string(),
@@ -349,6 +353,7 @@ impl Instruction {
             "ADI".to_string(),
             "ACI".to_string(),
             "SUI".to_string(),
+            "SBI".to_string(),
             "NDI".to_string(),
             "XRI".to_string(),
             "ORI".to_string(),

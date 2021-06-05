@@ -253,6 +253,16 @@ impl Cpu {
                 self.set_flags(&result);
                 self.r_a = result as u8;
             }
+            // SBI
+            else if instr == "SBI" {
+                let result: i16 = if self.f_c {
+                    (self.r_a as i16) - (byte_data as i16) - 1
+                } else {
+                    (self.r_a as i16) - (byte_data as i16)
+                };
+                self.set_flags(&result);
+                self.r_a = result as u8;
+            }
             // NDI
             else if instr == "NDI" {
                 let result: u8 = self.r_a & byte_data;
