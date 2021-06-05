@@ -253,6 +253,12 @@ impl Cpu {
                 self.set_flags(&result);
                 self.r_a = result as u8;
             }
+            // NDI
+            else if instr == "NDI" {
+                let result: u8 = self.r_a & byte_data;
+                self.set_flags(&(result as i16));
+                self.r_a = result;
+            }
             // CPI
             else if instr == "CPI" {
                 let result: i16 = (self.r_a as i16) - (byte_data as i16);

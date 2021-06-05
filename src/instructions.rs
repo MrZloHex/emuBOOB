@@ -203,6 +203,8 @@ impl Instruction {
                 instr_set.insert(0b00_001_100, "ACI".to_string());
                 // SUBSTRACT
                 instr_set.insert(0b00_010_100, "SUI".to_string());
+                // LOGICAL AND
+                instr_set.insert(0b_00_100_100, "NDI".to_string());
                 // COMPARE
                 instr_set.insert(0b00_111_100, "CPI".to_string());
             };
@@ -272,6 +274,7 @@ impl Instruction {
             "ADI".to_string(),
             "ACI".to_string(),
             "SUI".to_string(),
+            "NDI".to_string(),
             "CPI".to_string(),
         ];
         let three_cycle_instrs: Vec<String> = vec![
@@ -306,6 +309,7 @@ impl Instruction {
             "ADI".to_string(),
             "ACI".to_string(),
             "SUI".to_string(),
+            "NDI".to_string(),
             "CPI".to_string(),
         ];
         let three_byte_instrs: Vec<String> = vec![
@@ -337,6 +341,7 @@ impl Instruction {
             "ADI".to_string(),
             "ACI".to_string(),
             "SUI".to_string(),
+            "NDI".to_string(),
             "CPI".to_string(),
         ];
         let pc_stack_instr: Vec<String> = vec![
