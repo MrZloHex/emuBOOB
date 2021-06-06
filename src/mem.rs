@@ -1,4 +1,4 @@
-const MAX_PROM: usize = 16; // orig 16384 * 8 
+const MAX_PROM: usize = 25; // orig 16384 * 8 
 const MAX_DATA: usize = 8;
 
 pub struct Mem {
@@ -114,7 +114,6 @@ impl Mem {
         //self.prom[0x4] = 0b00_011_100; // SBI
         //self.prom[0x5] = 0b00_000_001; //
         self.prom[0x6] = 0b11_111_111; // HLT
-        */
 
         self.prom[0x0] = 0b00_111_100; // CPI
         self.prom[0x1] = 0b00_000_000;
@@ -123,5 +122,31 @@ impl Mem {
         self.prom[0x4] = 0b00_000_000; 
 
         self.prom[0x7] = 0b00_100_011; // RFC
+        */
+
+        self.prom[0x0]  = 0b00_011_110; // LDI
+        self.prom[0x1]  = 0b00_000_110; // 6
+        self.prom[0x2]  = 0b00_100_110; // LEI
+        self.prom[0x3]  = 0b00_000_100; // 4
+        self.prom[0x4]  = 0b01_000_110; // CAL
+        self.prom[0x5]  = 0b00_001_000; // 8
+        self.prom[0x6]  = 0b00_000_000;
+        self.prom[0x7]  = 0b11_111_111; // HLT
+        self.prom[0x8]  = 0b00_010_110; // LCI
+        self.prom[0x9]  = 0b00_000_000; // 1
+        self.prom[0xA]  = 0b01_000_110; // CAL
+        self.prom[0xB]  = 0b00_010_100; // 14
+        self.prom[0xC]  = 0b00_000_000; 
+        self.prom[0xD]  = 0b00_010_000; // INC
+        self.prom[0xE]  = 0b11_000_010; // LAC
+        self.prom[0xF]  = 0b10_111_100; // CPE
+        self.prom[0x10] = 0b01_001_000; // JFZ
+        self.prom[0x11] = 0b00_001_010; // A
+        self.prom[0x12] = 0b00_000_000;
+        self.prom[0x13] = 0b00_000_111; // RET
+        self.prom[0x14] = 0b11_000_001; // LAB
+        self.prom[0x15] = 0b10_000_011; // ADD
+        self.prom[0x16] = 0b11_001_000; // LBA
+        self.prom[0x17] = 0b00_000_111; // RET
     }
 }
