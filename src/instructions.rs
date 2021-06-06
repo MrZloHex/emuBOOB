@@ -144,7 +144,7 @@ impl Instruction {
             {
                 for reg in (6..55).step_by(8) {
                     match reg {
-                        06 => instr_set.insert(reg, "LAI".to_string()),
+                        6 => instr_set.insert(reg, "LAI".to_string()),
                         14 => instr_set.insert(reg, "LBI".to_string()),
                         22 => instr_set.insert(reg, "LCI".to_string()),
                         30 => instr_set.insert(reg, "LDI".to_string()),
