@@ -245,7 +245,7 @@ impl Instruction {
                         _ => continue,
                     };
                 }
-                // AND REG A <- REG A ^ reg
+                // AND REG A <- REG A & reg
                 for reg in 160..168 {
                     match reg {
                         160 | 166 => instr_set.insert(reg, "NDL".to_string()),
@@ -254,6 +254,30 @@ impl Instruction {
                         163 => instr_set.insert(reg, "NDD".to_string()),
                         164 => instr_set.insert(reg, "NDE".to_string()),
                         165 => instr_set.insert(reg, "NDH".to_string()),
+                        _ => continue,
+                    };
+                }
+                // XOR REG A <- REG A ^ reg
+                for reg in 168..176 {
+                    match reg {
+                        168 | 174 => instr_set.insert(reg, "XRL".to_string()),
+                        169 => instr_set.insert(reg, "XRB".to_string()),
+                        170 => instr_set.insert(reg, "XRC".to_string()),
+                        171 => instr_set.insert(reg, "XRD".to_string()),
+                        172 => instr_set.insert(reg, "XRE".to_string()),
+                        173 => instr_set.insert(reg, "XRH".to_string()),
+                        _ => continue,
+                    };
+                }
+                // OR REG A <- REG A | reg
+                for reg in 176..182 {
+                    match reg {
+                        168 | 174 => instr_set.insert(reg, "XRL".to_string()),
+                        169 => instr_set.insert(reg, "XRB".to_string()),
+                        170 => instr_set.insert(reg, "XRC".to_string()),
+                        171 => instr_set.insert(reg, "XRD".to_string()),
+                        172 => instr_set.insert(reg, "XRE".to_string()),
+                        173 => instr_set.insert(reg, "XRH".to_string()),
                         _ => continue,
                     };
                 }
@@ -339,6 +363,7 @@ impl Instruction {
             "SUB".to_string(),"SUC".to_string(),"SUD".to_string(),"SUE".to_string(),"SUH".to_string(),"SUL".to_string(),
             "SBB".to_string(),"SBC".to_string(),"SBD".to_string(),"SBE".to_string(),"SBH".to_string(),"SBL".to_string(),
             "NDB".to_string(),"NDC".to_string(),"NDD".to_string(),"NDE".to_string(),"NDH".to_string(),"NDL".to_string(),
+            "XRB".to_string(),"XRC".to_string(),"XRD".to_string(),"XRE".to_string(),"XRH".to_string(),"XRL".to_string(),
             "RET".to_string(),
         ];
         let two_cycle_instrs: Vec<String> = vec![
@@ -382,6 +407,7 @@ impl Instruction {
             "SUB".to_string(),"SUC".to_string(),"SUD".to_string(),"SUE".to_string(),"SUH".to_string(),"SUL".to_string(),
             "SBB".to_string(),"SBC".to_string(),"SBD".to_string(),"SBE".to_string(),"SBH".to_string(),"SBL".to_string(),
             "NDB".to_string(),"NDC".to_string(),"NDD".to_string(),"NDE".to_string(),"NDH".to_string(),"NDL".to_string(),
+            "XRB".to_string(),"XRC".to_string(),"XRD".to_string(),"XRE".to_string(),"XRH".to_string(),"XRL".to_string(),
             "NOP".to_string(),"HLT".to_string(),
             "RET".to_string(),
         ];
@@ -428,6 +454,7 @@ impl Instruction {
             "SUB".to_string(),"SUC".to_string(),"SUD".to_string(),"SUE".to_string(),"SUH".to_string(),"SUL".to_string(),
             "SBB".to_string(),"SBC".to_string(),"SBD".to_string(),"SBE".to_string(),"SBH".to_string(),"SBL".to_string(),
             "NDB".to_string(),"NDC".to_string(),"NDD".to_string(),"NDE".to_string(),"NDH".to_string(),"NDL".to_string(),
+            "XRB".to_string(),"XRC".to_string(),"XRD".to_string(),"XRE".to_string(),"XRH".to_string(),"XRL".to_string(),
             "ADI".to_string(),
             "ACI".to_string(),
             "SUI".to_string(),

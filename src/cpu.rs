@@ -263,6 +263,13 @@ impl Cpu {
                 else if instr == "NDE" {self.r_a = self.and(&(self.r_e as i16));}
                 else if instr == "NDH" {self.r_a = self.and(&(self.r_h as i16));}
                 else if instr == "NDL" {self.r_a = self.and(&(self.r_l as i16));}
+                // XRr
+                else if instr == "XRB" {self.r_a = self.xor(&(self.r_b as i16));}
+                else if instr == "XRC" {self.r_a = self.xor(&(self.r_c as i16));}
+                else if instr == "XRD" {self.r_a = self.xor(&(self.r_d as i16));}
+                else if instr == "XRE" {self.r_a = self.xor(&(self.r_e as i16));}
+                else if instr == "XRH" {self.r_a = self.xor(&(self.r_h as i16));}
+                else if instr == "XRL" {self.r_a = self.xor(&(self.r_l as i16));}
             }
             else if *cycle == 2 {
                 unimplemented!();
@@ -360,6 +367,11 @@ impl Cpu {
     }
     fn and(&mut self, b: &i16) -> u8 {
         let result: u8 = (self.r_a) & (*b as u8);
+        self.set_flags(&(result as i16));
+        result
+    }
+    fn xor(&mut self, b: &i16) -> u8 {
+        let result: u8 = (self.r_a) ^ (*b as u8);
         self.set_flags(&(result as i16));
         result
     }
