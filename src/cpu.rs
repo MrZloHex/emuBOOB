@@ -294,60 +294,21 @@ impl Cpu {
             *cycle -= 1;
 
             // ADI
-            if instr == "ADI" {
-                let result: i16 = (self.r_a as i16) + (byte_data as i16);
-                self.set_flags(&result);
-                self.r_a = result as u8;
-            }
+            if instr == "ADI" {self.r_a = self.add(&(byte_data as i16))}
             // ACI
-            else if instr == "ACI" {
-                let result: i16 = if self.f_c {
-                    (self.r_a as i16) + (byte_data as i16) + 1
-                } else {
-                    (self.r_a as i16) + (byte_data as i16)
-                };
-                self.set_flags(&result);
-                self.r_a = result as u8;
-            }
+            else if instr == "ACI" {self.r_a = self.add_carry(&(byte_data as i16))}
             // SUI
-            else if instr == "SUI" {
-                let result: i16 = (self.r_a as i16) - (byte_data as i16);
-                self.set_flags(&result);
-                self.r_a = result as u8;
-            }
+            else if instr == "SUI" {self.r_a = self.sub(&(byte_data as i16))}
             // SBI
-            else if instr == "SBI" {
-                let result: i16 = if self.f_c {
-                    (self.r_a as i16) - (byte_data as i16) - 1
-                } else {
-                    (self.r_a as i16) - (byte_data as i16)
-                };
-                self.set_flags(&result);
-                self.r_a = result as u8;
-            }
+            else if instr == "SBI" {self.r_a = self.sub_borrow(&(byte_data as i16))}
             // NDI
-            else if instr == "NDI" {
-                let result: u8 = self.r_a & byte_data;
-                self.set_flags(&(result as i16));
-                self.r_a = result;
-            }
+            else if instr == "NDI" {self.r_a = self.and(&(byte_data as i16))}
             // XRI
-            else if instr == "XRI" {
-                let result: u8 = self.r_a ^ byte_data;
-                self.set_flags(&(result as i16));
-                self.r_a = result;
-            }
+            else if instr == "XRI" {self.r_a = self.xor(&(byte_data as i16))}
             // ORI
-            else if instr == "ORI" {
-                let result: u8 = self.r_a | byte_data;
-                self.set_flags(&(result as i16));
-                self.r_a = result;
-            }
+            else if instr == "ORI" {self.r_a = self.or(&(byte_data as i16))}
             // CPI 
-            else if instr == "CPI" {
-                let result: i16 = (self.r_a as i16) - (byte_data as i16);
-                self.set_flags(&result);
-            }
+            else if instr == "CPI" {self.compare(&(byte_data as i16))}
         } else {};
         self.r_pc += 1;
     }
