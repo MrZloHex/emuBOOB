@@ -232,7 +232,19 @@ impl Instruction {
                         149 => instr_set.insert(reg, "SU".to_string()),
                         _ => continue,
                     };
-                } 
+                }
+                // SUBSTRACT REG A <- REG A - reg - BORROW
+                for reg in 152..160 {
+                    match reg {
+                        152 | 158 => instr_set.insert(reg, "SBL".to_string()),
+                        153 => instr_set.insert(reg, "SBB".to_string()),
+                        154 => instr_set.insert(reg, "SBC".to_string()),
+                        155 => instr_set.insert(reg, "SBD".to_string()),
+                        156 => instr_set.insert(reg, "SBE".to_string()),
+                        157 => instr_set.insert(reg, "SBH".to_string()),
+                        _ => continue,
+                    };
+                }
             };
             // ALU IMMEDIATE INSTRUCTIONS
             {
@@ -313,6 +325,7 @@ impl Instruction {
             "ADB".to_string(),"ADC".to_string(),"ADD".to_string(),"ADE".to_string(),"ADH".to_string(),"ADL".to_string(),
             "ACB".to_string(),"ACC".to_string(),"ACD".to_string(),"ACE".to_string(),"ACH".to_string(),"ACL".to_string(),
             "SUB".to_string(),"SUC".to_string(),"SUD".to_string(),"SUE".to_string(),"SUH".to_string(),"SUL".to_string(),
+            "SBB".to_string(),"SBC".to_string(),"SBD".to_string(),"SBE".to_string(),"SBH".to_string(),"SBL".to_string(),
             "RET".to_string(),
         ];
         let two_cycle_instrs: Vec<String> = vec![
@@ -354,6 +367,7 @@ impl Instruction {
             "ADB".to_string(),"ADC".to_string(),"ADD".to_string(),"ADE".to_string(),"ADH".to_string(),"ADL".to_string(),
             "ACB".to_string(),"ACC".to_string(),"ACD".to_string(),"ACE".to_string(),"ACH".to_string(),"ACL".to_string(),
             "SUB".to_string(),"SUC".to_string(),"SUD".to_string(),"SUE".to_string(),"SUH".to_string(),"SUL".to_string(),
+            "SBB".to_string(),"SBC".to_string(),"SBD".to_string(),"SBE".to_string(),"SBH".to_string(),"SBL".to_string(),
             "NOP".to_string(),"HLT".to_string(),
             "RET".to_string(),
         ];
@@ -398,6 +412,7 @@ impl Instruction {
             "ADB".to_string(),"ADC".to_string(),"ADD".to_string(),"ADE".to_string(),"ADH".to_string(),"ADL".to_string(),
             "ACB".to_string(),"ACC".to_string(),"ACD".to_string(),"ACE".to_string(),"ACH".to_string(),"ACL".to_string(),
             "SUB".to_string(),"SUC".to_string(),"SUD".to_string(),"SUE".to_string(),"SUH".to_string(),"SUL".to_string(),
+            "SBB".to_string(),"SBC".to_string(),"SBD".to_string(),"SBE".to_string(),"SBH".to_string(),"SBL".to_string(),
             "ADI".to_string(),
             "ACI".to_string(),
             "SUI".to_string(),
