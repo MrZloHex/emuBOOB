@@ -256,6 +256,13 @@ impl Cpu {
                 else if instr == "SBE" {self.r_a = self.sub_borrow(&(self.r_e as i16));}
                 else if instr == "SBH" {self.r_a = self.sub_borrow(&(self.r_h as i16));}
                 else if instr == "SBL" {self.r_a = self.sub_borrow(&(self.r_l as i16));}
+                // NDr
+                else if instr == "NDB" {self.r_a = self.and(&(self.r_b as i16));}
+                else if instr == "NDC" {self.r_a = self.and(&(self.r_c as i16));}
+                else if instr == "NDD" {self.r_a = self.and(&(self.r_d as i16));}
+                else if instr == "NDE" {self.r_a = self.and(&(self.r_e as i16));}
+                else if instr == "NDH" {self.r_a = self.and(&(self.r_h as i16));}
+                else if instr == "NDL" {self.r_a = self.and(&(self.r_l as i16));}
             }
             else if *cycle == 2 {
                 unimplemented!();
@@ -323,7 +330,6 @@ impl Cpu {
         } else {};
         self.r_pc += 1;
     }
-
     fn add(&mut self, b: &i16) -> u8 {
         let result: i16 = (self.r_a as i16) + (*b);
         self.set_flags(&result);
@@ -351,6 +357,11 @@ impl Cpu {
         };
         self.set_flags(&result);
         result as u8
+    }
+    fn and(&mut self, b: &i16) -> u8 {
+        let result: u8 = (self.r_a) & (*b as u8);
+        self.set_flags(&(result as i16));
+        result
     }
 
     fn stack_command(&mut self, instr: &String, cycle: &mut u8, _length: &u8, mem: &mut mem::Mem) {
@@ -400,7 +411,7 @@ impl Cpu {
         }*/
     }
 
-    fn set_flags(&mut self, result: &i16) {
+    pub fn set_flags(&mut self, result: &i16) {
         self.reset_flags();
         // PARITY
         if (*result % 2) == 0 {self.f_p = true}
