@@ -359,6 +359,16 @@ impl Instruction {
                         _ => continue
                     };
                 };
+                // CTc
+                for flag in (98..123).step_by(8) {
+                    match flag {
+                        98 => instr_set.insert(flag, "CTC".to_string()),
+                        106 => instr_set.insert(flag, "CTZ".to_string()),
+                        114 => instr_set.insert(flag, "CTS".to_string()),
+                        122 => instr_set.insert(flag, "CTP".to_string()),
+                        _ => continue
+                    };
+                };
             };
             // RETURN INSTRUCTIONS
             {
@@ -418,6 +428,7 @@ impl Instruction {
             "JFC".to_string(),"JFZ".to_string(),"JFS".to_string(),"JFP".to_string(),
             "JTC".to_string(),"JTZ".to_string(),"JTS".to_string(),"JTP".to_string(),
             "CFC".to_string(),"CFZ".to_string(),"CFS".to_string(),"CFP".to_string(),
+            "CTC".to_string(),"CTZ".to_string(),"CTS".to_string(),"CTP".to_string(),
             "CAL".to_string(),
         ];
         let instrs: [Vec<String>; 3] = [one_cycle_instrs, two_cycle_instrs, three_cycle_instrs];
@@ -465,6 +476,7 @@ impl Instruction {
             "JFC".to_string(),"JFZ".to_string(),"JFS".to_string(),"JFP".to_string(),
             "JTC".to_string(),"JTZ".to_string(),"JTS".to_string(),"JTP".to_string(),
             "CFC".to_string(),"CFZ".to_string(),"CFS".to_string(),"CFP".to_string(),
+            "CTC".to_string(),"CTZ".to_string(),"CTS".to_string(),"CTP".to_string(),
             "CAL".to_string(),
         ];
         let instrs: [Vec<String>; 3] = [one_byte_instrs, two_byte_instrs, three_byte_instrs];
@@ -510,6 +522,7 @@ impl Instruction {
             "JFC".to_string(),"JFZ".to_string(),"JFS".to_string(),"JFP".to_string(),
             "JTC".to_string(),"JTZ".to_string(),"JTS".to_string(),"JTP".to_string(),
             "CFC".to_string(),"CFZ".to_string(),"CFS".to_string(),"CFP".to_string(),
+            "CTC".to_string(),"CTZ".to_string(),"CTS".to_string(),"CTP".to_string(),
             "CAL".to_string(),
             "RET".to_string(),
         ];

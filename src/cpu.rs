@@ -423,6 +423,31 @@ impl Cpu {
                     self.r_pc = address;
                 } else {self.r_pc += 1}
             }
+            // CALL TRUE -> FLAG
+            else if instr == "CTC" {
+                if self.f_c {
+                    self.stack[self.r_sp as usize] = self.r_pc;
+                    self.r_pc = address;
+                } else {self.r_pc += 1}
+            }
+            else if instr == "CTZ" {
+                if self.f_z {
+                    self.stack[self.r_sp as usize] = self.r_pc;
+                    self.r_pc = address;
+                } else {self.r_pc += 1}
+            }
+            else if instr == "CTS" {
+                if self.f_s {
+                    self.stack[self.r_sp as usize] = self.r_pc;
+                    self.r_pc = address;
+                } else {self.r_pc += 1}
+            }
+            else if instr == "CTP" {
+                if self.f_p {
+                    self.stack[self.r_sp as usize] = self.r_pc;
+                    self.r_pc = address;
+                } else {self.r_pc += 1}
+            }
         }
         else {
             // RET
