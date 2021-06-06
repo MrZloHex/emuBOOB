@@ -349,6 +349,16 @@ impl Instruction {
                 for x in (70..127).step_by(8) {
                     instr_set.insert(x, "CAL".to_string());
                 }
+                // CFc
+                for flag in (66..91).step_by(8) {
+                    match flag {
+                        66 => instr_set.insert(flag, "CFC".to_string()),
+                        74 => instr_set.insert(flag, "CFZ".to_string()),
+                        82 => instr_set.insert(flag, "CFS".to_string()),
+                        90 => instr_set.insert(flag, "CFP".to_string()),
+                        _ => continue
+                    };
+                };
             };
             // RETURN INSTRUCTIONS
             {
@@ -407,6 +417,7 @@ impl Instruction {
             "JMP".to_string(),
             "JFC".to_string(),"JFZ".to_string(),"JFS".to_string(),"JFP".to_string(),
             "JTC".to_string(),"JTZ".to_string(),"JTS".to_string(),"JTP".to_string(),
+            "CFC".to_string(),"CFZ".to_string(),"CFS".to_string(),"CFP".to_string(),
             "CAL".to_string(),
         ];
         let instrs: [Vec<String>; 3] = [one_cycle_instrs, two_cycle_instrs, three_cycle_instrs];
@@ -453,6 +464,7 @@ impl Instruction {
             "JMP".to_string(),
             "JFC".to_string(),"JFZ".to_string(),"JFS".to_string(),"JFP".to_string(),
             "JTC".to_string(),"JTZ".to_string(),"JTS".to_string(),"JTP".to_string(),
+            "CFC".to_string(),"CFZ".to_string(),"CFS".to_string(),"CFP".to_string(),
             "CAL".to_string(),
         ];
         let instrs: [Vec<String>; 3] = [one_byte_instrs, two_byte_instrs, three_byte_instrs];
@@ -497,6 +509,7 @@ impl Instruction {
             "JMP".to_string(),
             "JFC".to_string(),"JFZ".to_string(),"JFS".to_string(),"JFP".to_string(),
             "JTC".to_string(),"JTZ".to_string(),"JTS".to_string(),"JTP".to_string(),
+            "CFC".to_string(),"CFZ".to_string(),"CFS".to_string(),"CFP".to_string(),
             "CAL".to_string(),
             "RET".to_string(),
         ];
