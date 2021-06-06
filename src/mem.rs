@@ -118,10 +118,10 @@ impl Mem {
 
         self.prom[0x0] = 0b00_111_100; // CPI
         self.prom[0x1] = 0b00_000_000;
-        self.prom[0x2] = 0b01_100_010; // JTZ
+        self.prom[0x2] = 0b01_100_110; // CAL
         self.prom[0x3] = 0b00_000_111;
-        self.prom[0x4] = 0b00_000_000; // CPI
+        self.prom[0x4] = 0b00_000_000; 
 
-        self.prom[0x7] = 0b11_111_111; // HLT
+        self.prom[0x7] = 0b00_001_011; // RFC
     }
 }

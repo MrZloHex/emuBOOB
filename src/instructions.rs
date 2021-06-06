@@ -376,6 +376,16 @@ impl Instruction {
                 for x in (7..64).step_by(8) {
                     instr_set.insert(x, "RET".to_string());
                 }
+                // RFc
+                for flag in (3..28).step_by(8) {
+                    match flag {
+                        3 => instr_set.insert(flag, "RFC".to_string()),
+                        11 => instr_set.insert(flag, "RFZ".to_string()),
+                        19 => instr_set.insert(flag, "RFS".to_string()),
+                        27 => instr_set.insert(flag, "RFP".to_string()),
+                        _ => continue
+                    };
+                };
             };
         };
         // MACHINE INSTRUCTION
@@ -408,6 +418,7 @@ impl Instruction {
             "ORB".to_string(),"ORC".to_string(),"ORD".to_string(),"ORE".to_string(),"ORH".to_string(),"ORL".to_string(),
             "CPB".to_string(),"CPC".to_string(),"CPD".to_string(),"CPE".to_string(),"CPH".to_string(),"CPL".to_string(),
             "RET".to_string(),
+            "RFC".to_string(),"RFZ".to_string(),"RFS".to_string(),"RFP".to_string(),
         ];
         let two_cycle_instrs: Vec<String> = vec![
             "LAM".to_string(),"LBM".to_string(),"LCM".to_string(),"LDM".to_string(),"LEM".to_string(),"LHM".to_string(),"LLM".to_string(),
@@ -458,6 +469,7 @@ impl Instruction {
             "CPB".to_string(),"CPC".to_string(),"CPD".to_string(),"CPE".to_string(),"CPH".to_string(),"CPL".to_string(),
             "NOP".to_string(),"HLT".to_string(),
             "RET".to_string(),
+            "RFC".to_string(),"RFZ".to_string(),"RFS".to_string(),"RFP".to_string(),
         ];
         let two_byte_instrs: Vec<String> = vec![
             "LAI".to_string(),"LBI".to_string(),"LCI".to_string(),"LDI".to_string(),"LEI".to_string(),"LHI".to_string(),"LLI".to_string(),
@@ -525,6 +537,7 @@ impl Instruction {
             "CTC".to_string(),"CTZ".to_string(),"CTS".to_string(),"CTP".to_string(),
             "CAL".to_string(),
             "RET".to_string(),
+            "RFC".to_string(),"RFZ".to_string(),"RFS".to_string(),"RFP".to_string(),
         ];
         let machine_instr: Vec<String> = vec!["NOP".to_string(), "HLT".to_string()];
         let instrs: [Vec<String>; 4] = [index_register_instrs, accumulator_instr, pc_stack_instr, machine_instr];

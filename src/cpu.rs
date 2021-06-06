@@ -396,30 +396,35 @@ impl Cpu {
             // CALL
             else if instr == "CAL" {
                 self.stack[self.r_sp as usize] = self.r_pc;
+                self.r_sp += 1;
                 self.r_pc = address;
             }
             // CALL FALSE -> FLAG
             else if instr == "CFC" {
                 if !self.f_c {
                     self.stack[self.r_sp as usize] = self.r_pc;
+                    self.r_sp += 1;
                     self.r_pc = address;
                 } else {self.r_pc += 1}
             }
             else if instr == "CFZ" {
                 if !self.f_z {
                     self.stack[self.r_sp as usize] = self.r_pc;
+                    self.r_sp += 1;
                     self.r_pc = address;
                 } else {self.r_pc += 1}
             }
             else if instr == "CFS" {
                 if !self.f_s {
                     self.stack[self.r_sp as usize] = self.r_pc;
+                    self.r_sp += 1;
                     self.r_pc = address;
                 } else {self.r_pc += 1}
             }
             else if instr == "CFP" {
                 if !self.f_p {
                     self.stack[self.r_sp as usize] = self.r_pc;
+                    self.r_sp += 1;
                     self.r_pc = address;
                 } else {self.r_pc += 1}
             }
@@ -427,35 +432,69 @@ impl Cpu {
             else if instr == "CTC" {
                 if self.f_c {
                     self.stack[self.r_sp as usize] = self.r_pc;
+                    self.r_sp += 1;
                     self.r_pc = address;
                 } else {self.r_pc += 1}
             }
             else if instr == "CTZ" {
                 if self.f_z {
                     self.stack[self.r_sp as usize] = self.r_pc;
+                    self.r_sp += 1;
                     self.r_pc = address;
                 } else {self.r_pc += 1}
             }
             else if instr == "CTS" {
                 if self.f_s {
                     self.stack[self.r_sp as usize] = self.r_pc;
+                    self.r_sp += 1;
                     self.r_pc = address;
                 } else {self.r_pc += 1}
             }
             else if instr == "CTP" {
                 if self.f_p {
                     self.stack[self.r_sp as usize] = self.r_pc;
+                    self.r_sp += 1;
                     self.r_pc = address;
                 } else {self.r_pc += 1}
             }
         }
         else {
-            // RET
+            // RETURN
             if instr == "RET" {
                 self.r_sp -= 1;
                 self.r_pc = self.stack[self.r_sp as usize];
                 self.r_pc += 1;
             }
+            // RETURN FALSE -> FLAG
+            if instr == "RFC" {
+                if !self.f_c {
+                    self.r_sp -= 1;
+                    self.r_pc = self.stack[self.r_sp as usize];
+                    self.r_pc += 1;
+                } else {self.r_pc += 1}
+            }
+            if instr == "RFZ" {
+                if !self.f_z {
+                    self.r_sp -= 1;
+                    self.r_pc = self.stack[self.r_sp as usize];
+                    self.r_pc += 1;
+                } else {self.r_pc += 1}
+            }
+            if instr == "RFS" {
+                if !self.f_s {
+                    self.r_sp -= 1;
+                    self.r_pc = self.stack[self.r_sp as usize];
+                    self.r_pc += 1;
+                } else {self.r_pc += 1}
+            }
+            if instr == "RFP" {
+                if !self.f_p {
+                    self.r_sp -= 1;
+                    self.r_pc = self.stack[self.r_sp as usize];
+                    self.r_pc += 1;
+                } else {self.r_pc += 1}
+            }
+            
         }
     }
 
