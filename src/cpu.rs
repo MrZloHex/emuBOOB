@@ -242,6 +242,13 @@ impl Cpu {
                 else if instr == "ACE" {self.r_a = self.add_carry(&(self.r_e as i16));}
                 else if instr == "ACH" {self.r_a = self.add_carry(&(self.r_h as i16));}
                 else if instr == "ACL" {self.r_a = self.add_carry(&(self.r_l as i16));}
+                // SUr
+                else if instr == "SUB" {self.r_a = self.sub(&(self.r_b as i16));}
+                else if instr == "SUC" {self.r_a = self.sub(&(self.r_c as i16));}
+                else if instr == "SUD" {self.r_a = self.sub(&(self.r_d as i16));}
+                else if instr == "SUE" {self.r_a = self.sub(&(self.r_e as i16));}
+                else if instr == "SUH" {self.r_a = self.sub(&(self.r_h as i16));}
+                else if instr == "SUL" {self.r_a = self.sub(&(self.r_l as i16));}
             }
             else if *cycle == 2 {
                 unimplemented!();
@@ -318,6 +325,11 @@ impl Cpu {
     }
     fn add_carry(&mut self, b: &i16) -> u8 {
         let result: i16 = (self.r_a as i16) + (*b) + 1;
+        self.set_flags(&result);
+        result as u8
+    }
+    fn sub(&mut self, b: &i16) -> u8 {
+        let result: i16 = (self.r_a as i16) - (*b);
         self.set_flags(&result);
         result as u8
     }
