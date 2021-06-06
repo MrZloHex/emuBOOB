@@ -332,7 +332,16 @@ impl Instruction {
                         _ => continue
                     };
                 };
-                
+                // JTc
+                for flag in (96..121).step_by(8) {
+                    match flag {
+                        96 => instr_set.insert(flag, "JTC".to_string()),
+                        104 => instr_set.insert(flag, "JTZ".to_string()),
+                        112 => instr_set.insert(flag, "JTS".to_string()),
+                        120 => instr_set.insert(flag, "JTP".to_string()),
+                        _ => continue
+                    };
+                };
             };
             // CALL INSTRUCTIONS
             {
@@ -397,6 +406,7 @@ impl Instruction {
             "LMI".to_string(),
             "JMP".to_string(),
             "JFC".to_string(),"JFZ".to_string(),"JFS".to_string(),"JFP".to_string(),
+            "JTC".to_string(),"JTZ".to_string(),"JTS".to_string(),"JTP".to_string(),
             "CAL".to_string(),
         ];
         let instrs: [Vec<String>; 3] = [one_cycle_instrs, two_cycle_instrs, three_cycle_instrs];
@@ -442,6 +452,7 @@ impl Instruction {
         let three_byte_instrs: Vec<String> = vec![
             "JMP".to_string(),
             "JFC".to_string(),"JFZ".to_string(),"JFS".to_string(),"JFP".to_string(),
+            "JTC".to_string(),"JTZ".to_string(),"JTS".to_string(),"JTP".to_string(),
             "CAL".to_string(),
         ];
         let instrs: [Vec<String>; 3] = [one_byte_instrs, two_byte_instrs, three_byte_instrs];
@@ -485,6 +496,7 @@ impl Instruction {
         let pc_stack_instr: Vec<String> = vec![
             "JMP".to_string(),
             "JFC".to_string(),"JFZ".to_string(),"JFS".to_string(),"JFP".to_string(),
+            "JTC".to_string(),"JTZ".to_string(),"JTS".to_string(),"JTP".to_string(),
             "CAL".to_string(),
             "RET".to_string(),
         ];

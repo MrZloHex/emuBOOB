@@ -388,6 +388,11 @@ impl Cpu {
             else if instr == "JFZ" {if !self.f_z {self.r_pc = address;} else {self.r_pc += 1;}}
             else if instr == "JFS" {if !self.f_s {self.r_pc = address;} else {self.r_pc += 1;}}
             else if instr == "JFP" {if !self.f_p {self.r_pc = address;} else {self.r_pc += 1;}}
+            // JUMP TRUE -> FLAG
+            else if instr == "JTC" {if self.f_c {self.r_pc = address;} else {self.r_pc += 1;}}
+            else if instr == "JTZ" {if self.f_z {self.r_pc = address;} else {self.r_pc += 1;}}
+            else if instr == "JTS" {if self.f_s {self.r_pc = address;} else {self.r_pc += 1;}}
+            else if instr == "JTP" {if self.f_p {self.r_pc = address;} else {self.r_pc += 1;}}
             // CAL
             else if instr == "CAL" {
                 self.stack[self.r_sp as usize] = self.r_pc;
