@@ -122,6 +122,6 @@ impl Mem {
         self.prom[0x3] = 0b00_000_111;
         self.prom[0x4] = 0b00_000_000; 
 
-        self.prom[0x7] = 0b00_001_011; // RFC
+        self.prom[0x7] = 0b00_100_011; // RFC
     }
 }

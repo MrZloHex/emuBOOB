@@ -494,7 +494,35 @@ impl Cpu {
                     self.r_pc += 1;
                 } else {self.r_pc += 1}
             }
-            
+            // RETURN TRUE -> FLAG
+            if instr == "RTC" {
+                if self.f_c {
+                    self.r_sp -= 1;
+                    self.r_pc = self.stack[self.r_sp as usize];
+                    self.r_pc += 1;
+                } else {self.r_pc += 1}
+            }
+            if instr == "RTZ" {
+                if self.f_z {
+                    self.r_sp -= 1;
+                    self.r_pc = self.stack[self.r_sp as usize];
+                    self.r_pc += 1;
+                } else {self.r_pc += 1}
+            }
+            if instr == "RTS" {
+                if self.f_s {
+                    self.r_sp -= 1;
+                    self.r_pc = self.stack[self.r_sp as usize];
+                    self.r_pc += 1;
+                } else {self.r_pc += 1}
+            }
+            if instr == "RTP" {
+                if self.f_p {
+                    self.r_sp -= 1;
+                    self.r_pc = self.stack[self.r_sp as usize];
+                    self.r_pc += 1;
+                } else {self.r_pc += 1}
+            }
         }
     }
 
