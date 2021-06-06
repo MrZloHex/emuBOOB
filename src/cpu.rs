@@ -155,19 +155,19 @@ impl Cpu {
 
             // INCREMENT / DECREMENT
             // inc
-            else if instr == "INB" {self.in_dc_flags("b"); self.r_b += 1;}
-            else if instr == "INC" {self.in_dc_flags("c"); self.r_c += 1;}
-            else if instr == "IND" {self.in_dc_flags("d"); self.r_d += 1;}
-            else if instr == "INE" {self.in_dc_flags("e"); self.r_e += 1;}
-            else if instr == "INH" {self.in_dc_flags("h"); self.r_h += 1;}
-            else if instr == "INL" {self.in_dc_flags("l"); self.r_l += 1;}
+            else if instr == "INB" {self.r_b = self.inc(&(self.r_b as i16));}
+            else if instr == "INC" {self.r_c = self.inc(&(self.r_c as i16));}
+            else if instr == "IND" {self.r_d = self.inc(&(self.r_d as i16));}
+            else if instr == "INE" {self.r_e = self.inc(&(self.r_e as i16));}
+            else if instr == "INH" {self.r_h = self.inc(&(self.r_h as i16));}
+            else if instr == "INL" {self.r_l = self.inc(&(self.r_l as i16));}
             // dec
-            else if instr == "DCB" {self.in_dc_flags("b"); self.r_b -= 1;}
-            else if instr == "DCC" {self.in_dc_flags("c"); self.r_c -= 1;}
-            else if instr == "DCD" {self.in_dc_flags("d"); self.r_d -= 1;}
-            else if instr == "DCE" {self.in_dc_flags("e"); self.r_e -= 1;}
-            else if instr == "DCH" {self.in_dc_flags("h"); self.r_h -= 1;}
-            else if instr == "DCL" {self.in_dc_flags("l"); self.r_l -= 1;}
+            else if instr == "DCB" {self.r_b = self.dec(&(self.r_b as i16));}
+            else if instr == "DCC" {self.r_c = self.dec(&(self.r_c as i16));}
+            else if instr == "DCD" {self.r_d = self.dec(&(self.r_d as i16));}
+            else if instr == "DCE" {self.r_e = self.dec(&(self.r_e as i16));}
+            else if instr == "DCH" {self.r_h = self.dec(&(self.r_h as i16));}
+            else if instr == "DCL" {self.r_l = self.dec(&(self.r_l as i16));}
         }
 
         else if *cycle == 2 {
@@ -312,6 +312,7 @@ impl Cpu {
         } else {};
         self.r_pc += 1;
     }
+
     fn add(&mut self, b: &i16) -> u8 {
         let result: i16 = (self.r_a as i16) + (*b);
         self.set_flags(&result);
@@ -359,6 +360,16 @@ impl Cpu {
         let result: i16 = (self.r_a as i16) - *b;
         self.set_flags(&result);
     }
+    fn inc(&mut self, b: &i16) -> u8 {
+        let result: u8 = (*b as u8) + 1;
+        self.set_flags(&(result as i16));
+        result
+    }
+    fn dec(&mut self, b: &i16) -> u8 {
+        let result: u8 = (*b as u8) - 1;
+        self.set_flags(&(result as i16));
+        result
+    }
 
     fn stack_command(&mut self, instr: &String, cycle: &mut u8, _length: &u8, mem: &mut mem::Mem) {
         if *cycle == 3 {
@@ -400,13 +411,6 @@ impl Cpu {
         self.f_s = false;
         self.f_p = false;
     }
-
-    fn in_dc_flags(&mut self, _reg: &str) {/*
-        if reg == "b" {
-            if self.
-        }*/
-    }
-
     pub fn set_flags(&mut self, result: &i16) {
         self.reset_flags();
         // PARITY
