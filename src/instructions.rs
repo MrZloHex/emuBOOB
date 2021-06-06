@@ -270,14 +270,14 @@ impl Instruction {
                     };
                 }
                 // OR REG A <- REG A | reg
-                for reg in 176..182 {
+                for reg in 176..184 {
                     match reg {
-                        168 | 174 => instr_set.insert(reg, "XRL".to_string()),
-                        169 => instr_set.insert(reg, "XRB".to_string()),
-                        170 => instr_set.insert(reg, "XRC".to_string()),
-                        171 => instr_set.insert(reg, "XRD".to_string()),
-                        172 => instr_set.insert(reg, "XRE".to_string()),
-                        173 => instr_set.insert(reg, "XRH".to_string()),
+                        176 | 182 => instr_set.insert(reg, "ORL".to_string()),
+                        177 => instr_set.insert(reg, "ORB".to_string()),
+                        178 => instr_set.insert(reg, "ORC".to_string()),
+                        179 => instr_set.insert(reg, "ORD".to_string()),
+                        180 => instr_set.insert(reg, "ORE".to_string()),
+                        181 => instr_set.insert(reg, "ORH".to_string()),
                         _ => continue,
                     };
                 }
@@ -364,6 +364,7 @@ impl Instruction {
             "SBB".to_string(),"SBC".to_string(),"SBD".to_string(),"SBE".to_string(),"SBH".to_string(),"SBL".to_string(),
             "NDB".to_string(),"NDC".to_string(),"NDD".to_string(),"NDE".to_string(),"NDH".to_string(),"NDL".to_string(),
             "XRB".to_string(),"XRC".to_string(),"XRD".to_string(),"XRE".to_string(),"XRH".to_string(),"XRL".to_string(),
+            "ORB".to_string(),"ORC".to_string(),"ORD".to_string(),"ORE".to_string(),"ORH".to_string(),"ORL".to_string(),
             "RET".to_string(),
         ];
         let two_cycle_instrs: Vec<String> = vec![
@@ -408,6 +409,7 @@ impl Instruction {
             "SBB".to_string(),"SBC".to_string(),"SBD".to_string(),"SBE".to_string(),"SBH".to_string(),"SBL".to_string(),
             "NDB".to_string(),"NDC".to_string(),"NDD".to_string(),"NDE".to_string(),"NDH".to_string(),"NDL".to_string(),
             "XRB".to_string(),"XRC".to_string(),"XRD".to_string(),"XRE".to_string(),"XRH".to_string(),"XRL".to_string(),
+            "ORB".to_string(),"ORC".to_string(),"ORD".to_string(),"ORE".to_string(),"ORH".to_string(),"ORL".to_string(),
             "NOP".to_string(),"HLT".to_string(),
             "RET".to_string(),
         ];
@@ -455,6 +457,7 @@ impl Instruction {
             "SBB".to_string(),"SBC".to_string(),"SBD".to_string(),"SBE".to_string(),"SBH".to_string(),"SBL".to_string(),
             "NDB".to_string(),"NDC".to_string(),"NDD".to_string(),"NDE".to_string(),"NDH".to_string(),"NDL".to_string(),
             "XRB".to_string(),"XRC".to_string(),"XRD".to_string(),"XRE".to_string(),"XRH".to_string(),"XRL".to_string(),
+            "ORB".to_string(),"ORC".to_string(),"ORD".to_string(),"ORE".to_string(),"ORH".to_string(),"ORL".to_string(),
             "ADI".to_string(),
             "ACI".to_string(),
             "SUI".to_string(),

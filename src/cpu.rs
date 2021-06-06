@@ -270,6 +270,13 @@ impl Cpu {
                 else if instr == "XRE" {self.r_a = self.xor(&(self.r_e as i16));}
                 else if instr == "XRH" {self.r_a = self.xor(&(self.r_h as i16));}
                 else if instr == "XRL" {self.r_a = self.xor(&(self.r_l as i16));}
+                // ORr
+                else if instr == "ORB" {self.r_a = self.or(&(self.r_b as i16));}
+                else if instr == "ORC" {self.r_a = self.or(&(self.r_c as i16));}
+                else if instr == "ORD" {self.r_a = self.or(&(self.r_d as i16));}
+                else if instr == "ORE" {self.r_a = self.or(&(self.r_e as i16));}
+                else if instr == "ORH" {self.r_a = self.or(&(self.r_h as i16));}
+                else if instr == "ORL" {self.r_a = self.or(&(self.r_l as i16));}
             }
             else if *cycle == 2 {
                 unimplemented!();
@@ -372,6 +379,11 @@ impl Cpu {
     }
     fn xor(&mut self, b: &i16) -> u8 {
         let result: u8 = (self.r_a) ^ (*b as u8);
+        self.set_flags(&(result as i16));
+        result
+    }
+    fn or(&mut self, b: &i16) -> u8 {
+        let result: u8 = (self.r_a) | (*b as u8);
         self.set_flags(&(result as i16));
         result
     }
