@@ -55,7 +55,7 @@ impl Cpu {
         println!("{}\t{}\t{}\t{}\t\t{}", instr, cycles, length, kind, self.r_pc);
 
         while cycles > 0 {
-            if &kind == "index" {self.index_command(&instr, &mut cycles, &length, mem)}
+            if      &kind == "index" {self.index_command(&instr, &mut cycles, &length, mem)}
             else if &kind == "accum" {self.accumulator_command(&instr, &mut cycles, &length, mem)}
             else if &kind == "stack" {self.stack_command(&instr, &mut cycles, &length, mem)}
             else if &kind == "machine" && &instr == "HLT"{return Ok(true)}
@@ -177,8 +177,16 @@ impl Cpu {
                 let byte: u8 = self.fetch_opcode(mem);
                 byte
             } else {0};
+            // LOAD REG <- DATA  IMMEDIATE
+            if      instr == "LAI" {self.r_a = load_byte;}
+            else if instr == "LBI" {self.r_b = load_byte;}
+            else if instr == "LCI" {self.r_c = load_byte;}
+            else if instr == "LDI" {self.r_d = load_byte;}
+            else if instr == "LEI" {self.r_e = load_byte;}
+            else if instr == "LHI" {self.r_h = load_byte;}
+            else if instr == "LLI" {self.r_l = load_byte;}
             // INSTRUCTIONS WHICH USES MEMORY
-            {   
+            else {   
                 let address: usize = (((self.r_h.clone() as u16) << 8) | (self.r_l.clone() as u16)) as usize;
                 let byte_data: u8 = self.fetch_byte(mem, &address);
                 if *cycle == 2 {*cycle -= 1;};
@@ -199,15 +207,7 @@ impl Cpu {
                 else if instr == "LMH" {mem.put_byte_data(address, self.r_h.clone());}
                 else if instr == "LML" {mem.put_byte_data(address, self.r_l.clone());}
                 
-            }
-            // LOAD REG <- DATA  IMMEDIATE
-            if      instr == "LAI" {self.r_a = load_byte;}
-            else if instr == "LBI" {self.r_b = load_byte;}
-            else if instr == "LCI" {self.r_c = load_byte;}
-            else if instr == "LDI" {self.r_d = load_byte;}
-            else if instr == "LEI" {self.r_e = load_byte;}
-            else if instr == "LHI" {self.r_h = load_byte;}
-            else if instr == "LLI" {self.r_l = load_byte;}
+            };
         }
         
         else if *cycle == 3 {
