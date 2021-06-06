@@ -122,7 +122,7 @@ impl Mem {
         self.prom[0x3] = 0b00_000_111;
         self.prom[0x4] = 0b00_111_100; // CPI
         self.prom[0x5] = 0b00_011_111;
-        self.prom[0x6] = 0b10_110_110; // ADL
+        self.prom[0x6] = 0b10_111_110; // ADL
         self.prom[0x7] = 0b11_111_111; // HLT
     }
 }

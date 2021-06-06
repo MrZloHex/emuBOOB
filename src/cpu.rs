@@ -277,6 +277,13 @@ impl Cpu {
                 else if instr == "ORE" {self.r_a = self.or(&(self.r_e as i16));}
                 else if instr == "ORH" {self.r_a = self.or(&(self.r_h as i16));}
                 else if instr == "ORL" {self.r_a = self.or(&(self.r_l as i16));}
+                // CPr
+                else if instr == "CPB" {self.compare(&(self.r_b as i16));}
+                else if instr == "CPC" {self.compare(&(self.r_c as i16));}
+                else if instr == "CPD" {self.compare(&(self.r_d as i16));}
+                else if instr == "CPE" {self.compare(&(self.r_e as i16));}
+                else if instr == "CPH" {self.compare(&(self.r_h as i16));}
+                else if instr == "CPL" {self.compare(&(self.r_l as i16));}
             }
             else if *cycle == 2 {
                 unimplemented!();
@@ -386,6 +393,10 @@ impl Cpu {
         let result: u8 = (self.r_a) | (*b as u8);
         self.set_flags(&(result as i16));
         result
+    }
+    fn compare(&mut self, b: &i16) {
+        let result: i16 = (self.r_a as i16) - *b;
+        self.set_flags(&result);
     }
 
     fn stack_command(&mut self, instr: &String, cycle: &mut u8, _length: &u8, mem: &mut mem::Mem) {

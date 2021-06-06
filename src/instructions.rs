@@ -281,6 +281,18 @@ impl Instruction {
                         _ => continue,
                     };
                 }
+                // COMPARE REG A - reg
+                for reg in 184..192 {
+                    match reg {
+                        184 | 190 => instr_set.insert(reg, "CPL".to_string()),
+                        185 => instr_set.insert(reg, "CPB".to_string()),
+                        186 => instr_set.insert(reg, "CPC".to_string()),
+                        187 => instr_set.insert(reg, "CPD".to_string()),
+                        188 => instr_set.insert(reg, "CPE".to_string()),
+                        189 => instr_set.insert(reg, "CPH".to_string()),
+                        _ => continue,
+                    };
+                }
             };
             // ALU IMMEDIATE INSTRUCTIONS
             {
@@ -365,6 +377,7 @@ impl Instruction {
             "NDB".to_string(),"NDC".to_string(),"NDD".to_string(),"NDE".to_string(),"NDH".to_string(),"NDL".to_string(),
             "XRB".to_string(),"XRC".to_string(),"XRD".to_string(),"XRE".to_string(),"XRH".to_string(),"XRL".to_string(),
             "ORB".to_string(),"ORC".to_string(),"ORD".to_string(),"ORE".to_string(),"ORH".to_string(),"ORL".to_string(),
+            "CPB".to_string(),"CPC".to_string(),"CPD".to_string(),"CPE".to_string(),"CPH".to_string(),"CPL".to_string(),
             "RET".to_string(),
         ];
         let two_cycle_instrs: Vec<String> = vec![
@@ -410,6 +423,7 @@ impl Instruction {
             "NDB".to_string(),"NDC".to_string(),"NDD".to_string(),"NDE".to_string(),"NDH".to_string(),"NDL".to_string(),
             "XRB".to_string(),"XRC".to_string(),"XRD".to_string(),"XRE".to_string(),"XRH".to_string(),"XRL".to_string(),
             "ORB".to_string(),"ORC".to_string(),"ORD".to_string(),"ORE".to_string(),"ORH".to_string(),"ORL".to_string(),
+            "CPB".to_string(),"CPC".to_string(),"CPD".to_string(),"CPE".to_string(),"CPH".to_string(),"CPL".to_string(),
             "NOP".to_string(),"HLT".to_string(),
             "RET".to_string(),
         ];
@@ -458,6 +472,7 @@ impl Instruction {
             "NDB".to_string(),"NDC".to_string(),"NDD".to_string(),"NDE".to_string(),"NDH".to_string(),"NDL".to_string(),
             "XRB".to_string(),"XRC".to_string(),"XRD".to_string(),"XRE".to_string(),"XRH".to_string(),"XRL".to_string(),
             "ORB".to_string(),"ORC".to_string(),"ORD".to_string(),"ORE".to_string(),"ORH".to_string(),"ORL".to_string(),
+            "CPB".to_string(),"CPC".to_string(),"CPD".to_string(),"CPE".to_string(),"CPH".to_string(),"CPL".to_string(),
             "ADI".to_string(),
             "ACI".to_string(),
             "SUI".to_string(),

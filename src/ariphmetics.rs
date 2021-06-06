@@ -1,3 +1,6 @@
+/*
+    DEAD CODE
+*/
 use super::Cpu;
 
 impl Cpu {
