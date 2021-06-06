@@ -209,6 +209,18 @@ impl Instruction {
                         _ => continue
                     };
                 }
+                // ADD REG A <- REG A + reg + CARRY
+                for reg in 136..144 {
+                    match reg {
+                        136 | 142 => instr_set.insert(reg, "ACL".to_string()),
+                        137 => instr_set.insert(reg, "ACB".to_string()),
+                        138 => instr_set.insert(reg, "ACC".to_string()),
+                        139 => instr_set.insert(reg, "ACD".to_string()),
+                        140 => instr_set.insert(reg, "ACE".to_string()),
+                        141 => instr_set.insert(reg, "ACH".to_string()),
+                        _ => continue, 
+                    };
+                }
             };
             // ALU IMMEDIATE INSTRUCTIONS
             {
@@ -287,6 +299,7 @@ impl Instruction {
             "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
             "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
             "ADB".to_string(),"ADC".to_string(),"ADD".to_string(),"ADE".to_string(),"ADH".to_string(),"ADL".to_string(),
+            "ACB".to_string(),"ACC".to_string(),"ACD".to_string(),"ACE".to_string(),"ACH".to_string(),"ACL".to_string(),
             "RET".to_string(),
         ];
         let two_cycle_instrs: Vec<String> = vec![
@@ -326,6 +339,7 @@ impl Instruction {
             "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
             "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
             "ADB".to_string(),"ADC".to_string(),"ADD".to_string(),"ADE".to_string(),"ADH".to_string(),"ADL".to_string(),
+            "ACB".to_string(),"ACC".to_string(),"ACD".to_string(),"ACE".to_string(),"ACH".to_string(),"ACL".to_string(),
             "NOP".to_string(),"HLT".to_string(),
             "RET".to_string(),
         ];
@@ -368,6 +382,7 @@ impl Instruction {
         ];
         let accumulator_instr: Vec<String> = vec![
             "ADB".to_string(),"ADC".to_string(),"ADD".to_string(),"ADE".to_string(),"ADH".to_string(),"ADL".to_string(),
+            "ACB".to_string(),"ACC".to_string(),"ACD".to_string(),"ACE".to_string(),"ACH".to_string(),"ACL".to_string(),
             "ADI".to_string(),
             "ACI".to_string(),
             "SUI".to_string(),

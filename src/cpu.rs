@@ -229,36 +229,19 @@ impl Cpu {
         if *length == 1{
             if *cycle == 1 {
                 // ADr
-                if      instr == "ADB" {
-                    let result: i16 = (self.r_a as i16) + (self.r_b as i16);
-                    self.set_flags(&result);
-                    self.r_a = result as u8;
-                }
-                else if instr == "ADC" {
-                    let result: i16 = (self.r_a as i16) + (self.r_c as i16);
-                    self.set_flags(&result);
-                    self.r_a = result as u8;
-                }
-                else if instr == "ADD" {
-                    let result: i16 = (self.r_a as i16) + (self.r_d as i16);
-                    self.set_flags(&result);
-                    self.r_a = result as u8;
-                }
-                else if instr == "ADE" {
-                    let result: i16 = (self.r_a as i16) + (self.r_e as i16);
-                    self.set_flags(&result);
-                    self.r_a = result as u8;
-                }
-                else if instr == "ADH" {
-                    let result: i16 = (self.r_a as i16) + (self.r_h as i16);
-                    self.set_flags(&result);
-                    self.r_a = result as u8;
-                }
-                else if instr == "ADL" {
-                    let result: i16 = (self.r_a as i16) + (self.r_l as i16);
-                    self.set_flags(&result);
-                    self.r_a = result as u8;
-                }
+                if      instr == "ADB" {self.r_a = self.add(&(self.r_b as i16));}
+                else if instr == "ADC" {self.r_a = self.add(&(self.r_c as i16));}
+                else if instr == "ADD" {self.r_a = self.add(&(self.r_d as i16));}
+                else if instr == "ADE" {self.r_a = self.add(&(self.r_e as i16));}
+                else if instr == "ADH" {self.r_a = self.add(&(self.r_h as i16));}
+                else if instr == "ADL" {self.r_a = self.add(&(self.r_l as i16));}
+                // ACr
+                else if instr == "ACB" {self.r_a = self.add_carry(&(self.r_b as i16));}
+                else if instr == "ACC" {self.r_a = self.add_carry(&(self.r_c as i16));}
+                else if instr == "ACD" {self.r_a = self.add_carry(&(self.r_d as i16));}
+                else if instr == "ACE" {self.r_a = self.add_carry(&(self.r_e as i16));}
+                else if instr == "ACH" {self.r_a = self.add_carry(&(self.r_h as i16));}
+                else if instr == "ACL" {self.r_a = self.add_carry(&(self.r_l as i16));}
             }
             else if *cycle == 2 {
                 unimplemented!();
@@ -326,6 +309,17 @@ impl Cpu {
             }
         }
         self.r_pc += 1;
+    }
+
+    fn add(&mut self, b: &i16) -> u8 {
+        let result: i16 = (self.r_a as i16) + (*b);
+        self.set_flags(&result);
+        result as u8
+    }
+    fn add_carry(&mut self, b: &i16) -> u8 {
+        let result: i16 = (self.r_a as i16) + (*b) + 1;
+        self.set_flags(&result);
+        result as u8
     }
 
     fn stack_command(&mut self, instr: &String, cycle: &mut u8, _length: &u8, mem: &mut mem::Mem) {
