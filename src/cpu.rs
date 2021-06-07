@@ -286,7 +286,26 @@ impl Cpu {
                 else if instr == "CPL" {self.compare(&(self.r_l as i16));}
             }
             else if *cycle == 2 {
-                unimplemented!();
+                let address: usize = (((self.r_h.clone() as u16) << 8) | (self.r_l.clone() as u16)) as usize;
+                let byte_data: u8 = self.fetch_byte(mem, &address);
+                *cycle -= 1;
+
+                // ADM
+                if instr == "ADM" {self.r_a = self.add(&(byte_data as i16))}
+                // ACM
+                else if instr == "ACM" {self.r_a = self.add_carry(&(byte_data as i16))}
+                // SUM
+                else if instr == "SUM" {self.r_a = self.sub(&(byte_data as i16))}
+                // SBM
+                else if instr == "SBM" {self.r_a = self.sub_borrow(&(byte_data as i16))}
+                // NDM
+                else if instr == "NDM" {self.r_a = self.and(&(byte_data as i16))}
+                // XRM
+                else if instr == "XRM" {self.r_a = self.xor(&(byte_data as i16))}
+                // ORM
+                else if instr == "ORM" {self.r_a = self.or(&(byte_data as i16))}
+                // CPM 
+                else if instr == "CPM" {self.compare(&(byte_data as i16))}
             };
         } else if *length == 2 {
             self.r_pc += 1;

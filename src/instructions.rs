@@ -294,6 +294,25 @@ impl Instruction {
                     };
                 }
             };
+            // ALU OPERATIONS WITH MEMORY
+            {
+                // ADD
+                instr_set.insert(0b10_000_111, "ADM".to_string());
+                // ADD + CARRY
+                instr_set.insert(0b10_001_111, "ACM".to_string());
+                // SUBSTRACT
+                instr_set.insert(0b10_010_111, "SUM".to_string());
+                // SUBSTRACT WITH BORROW
+                instr_set.insert(0b10_011_111, "SBM".to_string());
+                // LOGICAL AND
+                instr_set.insert(0b10_100_111, "NDM".to_string());
+                // LOGICAL XOR
+                instr_set.insert(0b10_101_111, "XRM".to_string());
+                // LOGICAL ORI
+                instr_set.insert(0b10_110_111, "ORM".to_string());
+                // COMPARE
+                instr_set.insert(0b10_111_111, "CPM".to_string());
+            };
             // ALU IMMEDIATE INSTRUCTIONS
             {
                 // ADD
@@ -435,6 +454,14 @@ impl Instruction {
             "LAM".to_string(),"LBM".to_string(),"LCM".to_string(),"LDM".to_string(),"LEM".to_string(),"LHM".to_string(),"LLM".to_string(),
             "LMA".to_string(),"LMB".to_string(),"LMC".to_string(),"LMD".to_string(),"LME".to_string(),"LMH".to_string(),"LML".to_string(),
             "LAI".to_string(),"LBI".to_string(),"LCI".to_string(),"LDI".to_string(),"LEI".to_string(),"LHI".to_string(),"LLI".to_string(),
+            "ADM".to_string(),
+            "ACM".to_string(),
+            "SUM".to_string(),
+            "SBM".to_string(),
+            "NDM".to_string(),
+            "XRM".to_string(),
+            "ORM".to_string(),
+            "CPM".to_string(),
             "ADI".to_string(),
             "ACI".to_string(),
             "SUI".to_string(),
@@ -478,6 +505,14 @@ impl Instruction {
             "XRB".to_string(),"XRC".to_string(),"XRD".to_string(),"XRE".to_string(),"XRH".to_string(),"XRL".to_string(),
             "ORB".to_string(),"ORC".to_string(),"ORD".to_string(),"ORE".to_string(),"ORH".to_string(),"ORL".to_string(),
             "CPB".to_string(),"CPC".to_string(),"CPD".to_string(),"CPE".to_string(),"CPH".to_string(),"CPL".to_string(),
+            "ADM".to_string(),
+            "ACM".to_string(),
+            "SUM".to_string(),
+            "SBM".to_string(),
+            "NDM".to_string(),
+            "XRM".to_string(),
+            "ORM".to_string(),
+            "CPM".to_string(),
             "NOP".to_string(),"HLT".to_string(),
             "RET".to_string(),
             "RFC".to_string(),"RFZ".to_string(),"RFS".to_string(),"RFP".to_string(),
@@ -532,6 +567,14 @@ impl Instruction {
             "XRB".to_string(),"XRC".to_string(),"XRD".to_string(),"XRE".to_string(),"XRH".to_string(),"XRL".to_string(),
             "ORB".to_string(),"ORC".to_string(),"ORD".to_string(),"ORE".to_string(),"ORH".to_string(),"ORL".to_string(),
             "CPB".to_string(),"CPC".to_string(),"CPD".to_string(),"CPE".to_string(),"CPH".to_string(),"CPL".to_string(),
+            "ADM".to_string(),
+            "ACM".to_string(),
+            "SUM".to_string(),
+            "SBM".to_string(),
+            "NDM".to_string(),
+            "XRM".to_string(),
+            "ORM".to_string(),
+            "CPM".to_string(),
             "ADI".to_string(),
             "ACI".to_string(),
             "SUI".to_string(),

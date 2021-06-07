@@ -41,51 +41,6 @@ impl Mem {
     }
 
     fn load_instr(&mut self) {
-        /*
-        // PROM
-        self.prom[0x0] = 0b11_001_001; // LBB -> NOP
-        self.prom[0x1] = 0b11_000_001; // LAB
-        self.prom[0x2] = 0b11_100_000; // LEA
-        self.prom[0x3] = 0b11_000_110; // LAL
-        self.prom[0x4] = 0b11_011_011; // LDD -> NOP
-        self.prom[0x5] = 0b00_100_000; // INE
-        self.prom[0x6] = 0b11_110_001; // LBL
-        self.prom[0x7] = 0b00_001_001; // DCB
-        self.prom[0x8] = 0b11_110_101; // LLH
-        self.prom[0x9] = 0b11_010_111; // LCM
-        self.prom[0xA] = 0b11_110_010; // LLC
-        self.prom[0xB] = 0b11_111_001; // LMB
-        self.prom[0xC] = 0b11_111_111; // HLT
-
-        // DATA
-        self.data[0x0] = 0x05;
-        */
-
-        /*
-        // PROM
-        self.prom[0x0] = 0b00_001_110; // LBI
-        self.prom[0x1] = 0b11_111_111; // DATA FF
-        self.prom[0x2] = 0b11_111_001; // LMB
-        self.prom[0x3] = 0b00_110_110; // LLI
-        self.prom[0x4] = 0b00_000_001; // DATA 01
-        self.prom[0x5] = 0b00_111_110; // LMI
-        self.prom[0x6] = 0b00_101_010; // DATA 2A
-        self.prom[0x7] = 0b11_111_111; // HLT
-        */
-
-        /*
-        // PROM 
-        self.prom[0x0] = 0b00_000_110; // LAI
-        self.prom[0x1] = 0b11_111_111; // DATA FF
-        self.prom[0x2] = 0b01_111_100; // JMP
-        self.prom[0x3] = 0b00_001_001; // 
-        self.prom[0x4] = 0b00_000_000; // 
-        self.prom[0x9] = 0b01_111_110; // CAL
-        self.prom[0xA] = 0b00_001_111;
-        self.prom[0xB] = 0b00_000_000;
-        self.prom[0xF] = 0b11_111_111; // HLT
-        */
-
         /* EXAMPLE WITH NICE BRANCHING
         self.prom[0x0] = 0b01_111_110; // CAL
         self.prom[0x1] = 0b00_001_101; // 09
@@ -105,25 +60,8 @@ impl Mem {
         self.prom[0xF] = 0b00_111_111; // RET
         */
 
-        /*
+        /* MULTIPLYING
         // PROM
-        self.prom[0x0] = 0b00_000_110; // LAI
-        self.prom[0x1] = 0b00_000_010; // 09
-        self.prom[0x2] = 0b11_011_000; // LDA
-        self.prom[0x3] = 0b10_000_011; // ADD
-        //self.prom[0x4] = 0b00_011_100; // SBI
-        //self.prom[0x5] = 0b00_000_001; //
-        self.prom[0x6] = 0b11_111_111; // HLT
-
-        self.prom[0x0] = 0b00_111_100; // CPI
-        self.prom[0x1] = 0b00_000_000;
-        self.prom[0x2] = 0b01_100_110; // CAL
-        self.prom[0x3] = 0b00_000_111;
-        self.prom[0x4] = 0b00_000_000; 
-
-        self.prom[0x7] = 0b00_100_011; // RFC
-        */
-
         self.prom[0x0]  = 0b00_011_110; // LDI
         self.prom[0x1]  = 0b00_001_000; // 8
         self.prom[0x2]  = 0b00_100_110; // LEI
@@ -148,5 +86,15 @@ impl Mem {
         self.prom[0x15] = 0b10_000_011; // ADD
         self.prom[0x16] = 0b11_001_000; // LBA
         self.prom[0x17] = 0b00_000_111; // RET
+        */
+
+        self.prom[0x0] = 0b00_111_110; // LMI
+        self.prom[0x1] = 0b00_000_001;
+        self.prom[0x2] = 0b00_000_110; // LAI
+        self.prom[0x3] = 0b00_001_001;
+        self.prom[0x4] = 0b00_111_100; // CPI
+        self.prom[0x5] = 0b00_101_011;
+        self.prom[0x6] = 0b10_111_111; // ADM
+        self.prom[0x7] = 0b11_111_111; // HLT
     }
 }
