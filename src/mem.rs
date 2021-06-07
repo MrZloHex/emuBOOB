@@ -125,9 +125,9 @@ impl Mem {
         */
 
         self.prom[0x0]  = 0b00_011_110; // LDI
-        self.prom[0x1]  = 0b00_000_110; // 6
+        self.prom[0x1]  = 0b00_001_000; // 8
         self.prom[0x2]  = 0b00_100_110; // LEI
-        self.prom[0x3]  = 0b00_000_100; // 4
+        self.prom[0x3]  = 0b00_000_110; // 6
         self.prom[0x4]  = 0b01_000_110; // CAL
         self.prom[0x5]  = 0b00_001_000; // 8
         self.prom[0x6]  = 0b00_000_000;
