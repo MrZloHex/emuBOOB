@@ -88,13 +88,7 @@ impl Mem {
         self.prom[0x17] = 0b00_000_111; // RET
         */
 
-        self.prom[0x0] = 0b00_111_110; // LMI
-        self.prom[0x1] = 0b00_000_001;
-        self.prom[0x2] = 0b00_000_110; // LAI
-        self.prom[0x3] = 0b00_001_001;
-        self.prom[0x4] = 0b00_111_100; // CPI
-        self.prom[0x5] = 0b00_101_011;
-        self.prom[0x6] = 0b10_111_111; // ADM
-        self.prom[0x7] = 0b11_111_111; // HLT
+        self.prom[0x0] = 0b00_010_101; // RST
+        self.prom[0x10] = 0b11_111_111; // HLT
     }
 }

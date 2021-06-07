@@ -416,6 +416,22 @@ impl Instruction {
                     };
                 };
             };
+            // RESART 
+            {
+                for address in (5..62).step_by(8) {
+                    match address {
+                        5 => instr_set.insert(address, "RST".to_string()),
+                        13 => instr_set.insert(address, "RST".to_string()),
+                        21 => instr_set.insert(address, "RST".to_string()),
+                        29 => instr_set.insert(address, "RST".to_string()),
+                        37 => instr_set.insert(address, "RST".to_string()),
+                        45 => instr_set.insert(address, "RST".to_string()),
+                        53 => instr_set.insert(address, "RST".to_string()),
+                        61 => instr_set.insert(address, "RST".to_string()),
+                        _ => continue,
+                    };
+                }
+            };
         };
         // MACHINE INSTRUCTION
         {
@@ -447,6 +463,7 @@ impl Instruction {
             "ORB".to_string(),"ORC".to_string(),"ORD".to_string(),"ORE".to_string(),"ORH".to_string(),"ORL".to_string(),
             "CPB".to_string(),"CPC".to_string(),"CPD".to_string(),"CPE".to_string(),"CPH".to_string(),"CPL".to_string(),
             "RET".to_string(),
+            "RST".to_string(),
             "RFC".to_string(),"RFZ".to_string(),"RFS".to_string(),"RFP".to_string(),
             "RTC".to_string(),"RTZ".to_string(),"RTS".to_string(),"RTP".to_string(),
         ];
@@ -517,6 +534,7 @@ impl Instruction {
             "RET".to_string(),
             "RFC".to_string(),"RFZ".to_string(),"RFS".to_string(),"RFP".to_string(),
             "RTC".to_string(),"RTZ".to_string(),"RTS".to_string(),"RTP".to_string(),
+            "RST".to_string(),
         ];
         let two_byte_instrs: Vec<String> = vec![
             "LAI".to_string(),"LBI".to_string(),"LCI".to_string(),"LDI".to_string(),"LEI".to_string(),"LHI".to_string(),"LLI".to_string(),
@@ -594,6 +612,7 @@ impl Instruction {
             "RET".to_string(),
             "RFC".to_string(),"RFZ".to_string(),"RFS".to_string(),"RFP".to_string(),
             "RTC".to_string(),"RTZ".to_string(),"RTS".to_string(),"RTP".to_string(),
+            "RST".to_string(),
         ];
         let machine_instr: Vec<String> = vec!["NOP".to_string(), "HLT".to_string()];
         let instrs: [Vec<String>; 4] = [index_register_instrs, accumulator_instr, pc_stack_instr, machine_instr];

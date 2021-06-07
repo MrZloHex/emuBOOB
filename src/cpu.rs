@@ -412,6 +412,7 @@ impl Cpu {
             else if instr == "JTZ" {if self.f_z {self.r_pc = address;} else {self.r_pc += 1;}}
             else if instr == "JTS" {if self.f_s {self.r_pc = address;} else {self.r_pc += 1;}}
             else if instr == "JTP" {if self.f_p {self.r_pc = address;} else {self.r_pc += 1;}}
+
             // CALL
             else if instr == "CAL" {
                 self.stack[self.r_sp as usize] = self.r_pc;
@@ -485,28 +486,28 @@ impl Cpu {
                 self.r_pc += 1;
             }
             // RETURN FALSE -> FLAG
-            if instr == "RFC" {
+            else if instr == "RFC" {
                 if !self.f_c {
                     self.r_sp -= 1;
                     self.r_pc = self.stack[self.r_sp as usize];
                     self.r_pc += 1;
                 } else {self.r_pc += 1}
             }
-            if instr == "RFZ" {
+            else if instr == "RFZ" {
                 if !self.f_z {
                     self.r_sp -= 1;
                     self.r_pc = self.stack[self.r_sp as usize];
                     self.r_pc += 1;
                 } else {self.r_pc += 1}
             }
-            if instr == "RFS" {
+            else if instr == "RFS" {
                 if !self.f_s {
                     self.r_sp -= 1;
                     self.r_pc = self.stack[self.r_sp as usize];
                     self.r_pc += 1;
                 } else {self.r_pc += 1}
             }
-            if instr == "RFP" {
+            else if instr == "RFP" {
                 if !self.f_p {
                     self.r_sp -= 1;
                     self.r_pc = self.stack[self.r_sp as usize];
@@ -521,26 +522,37 @@ impl Cpu {
                     self.r_pc += 1;
                 } else {self.r_pc += 1}
             }
-            if instr == "RTZ" {
+            else if instr == "RTZ" {
                 if self.f_z {
                     self.r_sp -= 1;
                     self.r_pc = self.stack[self.r_sp as usize];
                     self.r_pc += 1;
                 } else {self.r_pc += 1}
             }
-            if instr == "RTS" {
+            else if instr == "RTS" {
                 if self.f_s {
                     self.r_sp -= 1;
                     self.r_pc = self.stack[self.r_sp as usize];
                     self.r_pc += 1;
                 } else {self.r_pc += 1}
             }
-            if instr == "RTP" {
+            else if instr == "RTP" {
                 if self.f_p {
                     self.r_sp -= 1;
                     self.r_pc = self.stack[self.r_sp as usize];
                     self.r_pc += 1;
                 } else {self.r_pc += 1}
+            }
+
+
+            // RST
+            else if instr == "RST" {
+                let address: u8 = self.fetch_opcode(mem) >> 3;
+                self.r_pc += 1;
+
+                self.stack[self.r_sp as usize] = self.r_pc;
+                self.r_sp += 1;
+                self.r_pc = (address << 3) as u16;
             }
         }
     }
