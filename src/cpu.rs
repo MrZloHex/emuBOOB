@@ -327,7 +327,7 @@ impl Cpu {
                             buf += msb;
                         } else {
                             if msb == 1 {}
-                            else {buf -= msb;}
+                            else {buf -= 1;}
                         }
                         self.r_a = buf;
                     }
