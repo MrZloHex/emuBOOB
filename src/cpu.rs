@@ -302,8 +302,35 @@ impl Cpu {
                     let msb: u8 = self.r_a.clone() >> 7;
                     if msb == 1 {self.f_c = true}
                     else {self.f_c = false}
+                    
                     self.r_a = self.r_a.rotate_left(1);
-                    self.r_a = self.r_a | lsb;
+                    {
+                        let mut buf: u8 = self.r_a.clone();
+                        if (buf % 2) == 0 {
+                            buf += lsb;
+                        } else {
+                            if lsb == 1 {}
+                            else {buf -= 1;}
+                        }
+                        self.r_a = buf;
+                    } 
+                }
+                else if instr == "RAR" {
+                    let msb: u8 = if self.f_c {1} else {0};
+                    let lsb: u8 = (self.r_a.clone() << 7) >> 7 ;
+                    if lsb == 1 {self.f_c = true}
+                    else {self.f_c = false}
+                    self.r_a = self.r_a.rotate_right(1);
+                    {
+                        let mut buf: u8 = self.r_a.clone().rotate_left(1);
+                        if (buf % 2) == 0 {
+                            buf += msb;
+                        } else {
+                            if msb == 1 {}
+                            else {buf -= msb;}
+                        }
+                        self.r_a = buf;
+                    }
                 }
             }
             else if *cycle == 2 {

@@ -89,7 +89,7 @@ impl Mem {
         */
 
         self.prom[0x0] = 0b00_000_110; // RST
-        self.prom[0x1] = 0b01_010_101;
+        self.prom[0x1] = 0b00_101_010;
         self.prom[0x2] = 0b00_010_010; // HLT
     }
 }
