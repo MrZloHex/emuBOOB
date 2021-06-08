@@ -284,6 +284,14 @@ impl Cpu {
                 else if instr == "CPE" {self.compare(&(self.r_e as i16));}
                 else if instr == "CPH" {self.compare(&(self.r_h as i16));}
                 else if instr == "CPL" {self.compare(&(self.r_l as i16));}
+
+                // ROTATE
+                else if instr == "RLC" {
+                    let msb: u8 = self.r_a.clone() >> 7;
+                    if msb == 1 {self.f_c = true}
+                    else {self.f_c = false}
+                    self.r_a = self.r_a.rotate_left(1);
+                }
             }
             else if *cycle == 2 {
                 let address: usize = (((self.r_h.clone() as u16) << 8) | (self.r_l.clone() as u16)) as usize;
