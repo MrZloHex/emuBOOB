@@ -332,6 +332,18 @@ impl Instruction {
                 // COMPARE
                 instr_set.insert(0b00_111_100, "CPI".to_string());
             };
+            // ROTATE INSTRUCTIONS
+            {
+                // ROTATE LEFT CONTENT
+                instr_set.insert(0b00_000_010, "RLC".to_string());
+                // ROATATE RIGHT CONTENT 
+                instr_set.insert(0b00_001_010, "RRC".to_string());
+                // ROTATE LEFT ACCUMULATOR 
+                instr_set.insert(0b00_010_010, "RAL".to_string());
+                // ROTATE RIGHT ACCUMULATOR
+                instr_set.insert(0b00_011_010, "RAR".to_string());
+
+            };
         };
         // PROGRAM COUNTER AND STACK CONTROL INSTRUCTIONS
         {
@@ -462,6 +474,7 @@ impl Instruction {
             "XRB".to_string(),"XRC".to_string(),"XRD".to_string(),"XRE".to_string(),"XRH".to_string(),"XRL".to_string(),
             "ORB".to_string(),"ORC".to_string(),"ORD".to_string(),"ORE".to_string(),"ORH".to_string(),"ORL".to_string(),
             "CPB".to_string(),"CPC".to_string(),"CPD".to_string(),"CPE".to_string(),"CPH".to_string(),"CPL".to_string(),
+            "RLC".to_string(),"RRC".to_string(),"RAL".to_string(),"RAR".to_string(),
             "RET".to_string(),
             "RST".to_string(),
             "RFC".to_string(),"RFZ".to_string(),"RFS".to_string(),"RFP".to_string(),
@@ -530,6 +543,7 @@ impl Instruction {
             "XRM".to_string(),
             "ORM".to_string(),
             "CPM".to_string(),
+            "RLC".to_string(),"RRC".to_string(),"RAL".to_string(),"RAR".to_string(),
             "NOP".to_string(),"HLT".to_string(),
             "RET".to_string(),
             "RFC".to_string(),"RFZ".to_string(),"RFS".to_string(),"RFP".to_string(),
@@ -601,6 +615,7 @@ impl Instruction {
             "XRI".to_string(),
             "ORI".to_string(),
             "CPI".to_string(),
+            "RLC".to_string(),"RRC".to_string(),"RAL".to_string(),"RAR".to_string(),
         ];
         let pc_stack_instr: Vec<String> = vec![
             "JMP".to_string(),

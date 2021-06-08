@@ -10,7 +10,7 @@ And it has 3-bit length stack pointer, that's why there are such name.
  - [X] Main implementations of ALU and Instruction Decoder
  - [X] Simple memory RAM/PROM
  - [X] Dumps of memory and processor
- - [ ] Implementation of all Instructions (41/46)
+ - [ ] Implementation of all Instructions (42/46)
  - [ ] Real memory as in MCS-8
  - [ ] Editor for writing assembly code
     - [ ] Sample programme to copy some data to another location in mem
