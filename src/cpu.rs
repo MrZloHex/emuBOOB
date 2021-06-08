@@ -34,7 +34,7 @@ pub struct Cpu {
 impl Cpu {
     pub fn new() -> Cpu {
         Cpu {r_pc: 0, r_sp: 0, r_a: 0, r_b: 0, r_c: 0, r_d: 0, r_e: 0, r_h: 0, r_l: 0, 
-            f_c: false, f_z: false, f_s: false, f_p: false,
+            f_c: true, f_z: false, f_s: false, f_p: false,
             stack: [0; 7],
             instruct: instructions::Instruction::new()}
     }
@@ -100,7 +100,6 @@ impl Cpu {
     }
 
     fn index_command(&mut self, instr: &String, cycle: &mut u8, length: &u8, mem: &mut mem::Mem) {
-        self.reset_flags();
         if *cycle == 1 {
             // LOAD REG REG
             // a register
@@ -297,6 +296,14 @@ impl Cpu {
                     if lsb == 1 {self.f_c = true}
                     else {self.f_c = false}
                     self.r_a = self.r_a.rotate_right(1);
+                }
+                else if instr == "RAL" {
+                    let lsb: u8 = if self.f_c {1} else {0};
+                    let msb: u8 = self.r_a.clone() >> 7;
+                    if msb == 1 {self.f_c = true}
+                    else {self.f_c = false}
+                    self.r_a = self.r_a.rotate_left(1);
+                    self.r_a = self.r_a | lsb;
                 }
             }
             else if *cycle == 2 {

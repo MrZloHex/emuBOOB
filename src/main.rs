@@ -38,6 +38,7 @@ fn main() {
             else {if cpu.get_r_pc() as usize == mem.get_length_prom() {println!("\nPROCESSOR WASN'T HALTED")}}
         }
         sleep(Duration::from_millis(10));
+        //cpu.print_dump();
     }
     cpu.print_dump();
     //mem.print_dump();
