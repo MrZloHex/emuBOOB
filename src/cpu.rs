@@ -292,6 +292,12 @@ impl Cpu {
                     else {self.f_c = false}
                     self.r_a = self.r_a.rotate_left(1);
                 }
+                else if instr == "RRC" {
+                    let lsb: u8 = (self.r_a.clone() << 7) >> 7;
+                    if lsb == 1 {self.f_c = true}
+                    else {self.f_c = false}
+                    self.r_a = self.r_a.rotate_right(1);
+                }
             }
             else if *cycle == 2 {
                 let address: usize = (((self.r_h.clone() as u16) << 8) | (self.r_l.clone() as u16)) as usize;
