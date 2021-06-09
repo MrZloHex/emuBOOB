@@ -20,7 +20,7 @@ fn main() {
     cpu.reset(&mut mem);
     // for test ROM
     mem.print_dump();
-    /*cpu.print_dump();
+    cpu.print_dump();
     println!();
     //execute commands
     println!("Instructions:");
@@ -36,7 +36,7 @@ fn main() {
         sleep(Duration::from_millis(10));
         //cpu.print_dump();
     }
-    cpu.print_dump();*/
+    cpu.print_dump();
     //mem.print_dump();
     println!();
 }
