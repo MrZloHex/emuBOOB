@@ -60,7 +60,7 @@ impl Mem {
         self.prom[0xF] = 0b00_111_111; // RET
         */
 
-        /* MULTIPLYING
+        // MULTIPLYING
         // PROM
         self.prom[0x0]  = 0b00_011_110; // LDI
         self.prom[0x1]  = 0b00_001_000; // 8
@@ -86,10 +86,10 @@ impl Mem {
         self.prom[0x15] = 0b10_000_011; // ADD
         self.prom[0x16] = 0b11_001_000; // LBA
         self.prom[0x17] = 0b00_000_111; // RET
-        */
-
+        
+        /*
         self.prom[0x0] = 0b00_000_110; // RST
         self.prom[0x1] = 0b01010101;
-        self.prom[0x2] = 0b00_011_010; // HLT
+        self.prom[0x2] = 0b00_011_010; // HLT*/
     }
 }

@@ -5,16 +5,12 @@
 
 use std::{thread::sleep, time::Duration};
 
-mod instructions;
+pub mod mcs;
 
-mod mem;
-use mem::Mem;
-
-mod cpu;
-use cpu::Cpu;
-
-mod dump;
-use dump::Dump;
+use mcs::cpu::Cpu;
+use mcs::mem::Mem;
+use mcs::dump::Dump;
+//use mcs::instructions;
 
 
 fn main() {
