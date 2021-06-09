@@ -1,5 +1,5 @@
-const MAX_PROM: usize = 25; // orig 16384 * 8 
-const MAX_DATA: usize = 8;
+const MAX_PROM: usize = 2048; // orig 16384 * 8 
+const MAX_DATA: usize = 1024;
 
 pub struct Mem {
     prom: [u8; MAX_PROM],

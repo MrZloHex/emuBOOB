@@ -37,16 +37,31 @@ impl Dump for Mem {
     fn print_dump(&mut self) {
         println!("\nMEM DUMP");
         println!("PROM:");
-        let offset: usize = self.get_length_prom() / 2;
-        for i in 0..(self.get_length_prom() / 2) {
+        let offset: usize = self.get_length_prom() / 8;
+        for i in 0..(self.get_length_prom() / 8) {
             println!(
-                "\t{ad_1:>0width$x}\t{data_1:>0wi$b}\t\t{ad_2:>0width$x}\t{data_2:>0wi$b}",
+                "\t{ad_1:>0width$x}\t{data_1:>0wi$X}\t\t{ad_2:>0width$X}\t{data_2:>0wi$X}\
+                \t\t{ad_3:>0width$x}\t{data_3:>0wi$X}\t\t{ad_4:>0width$x}\t{data_4:>0wi$X}\
+                \t\t{ad_5:>0width$x}\t{data_5:>0wi$X}\t\t{ad_6:>0width$x}\t{data_6:>0wi$X}\
+                \t\t{ad_7:>0width$x}\t{data_7:>0wi$X}\t\t{ad_8:>0width$x}\t{data_8:>0wi$X}",
                 ad_1 = i,
-                width = 2,
+                width = 3,
                 data_1 = self.get_byte_prom(i),
                 ad_2 = i + offset,
                 data_2 = self.get_byte_prom(i + offset),
-                wi = 8
+                wi = 2,
+                ad_3 = i + 2*offset,
+                data_3 = self.get_byte_prom(i + 2*offset),
+                ad_4 = i + 3*offset,
+                data_4 = self.get_byte_prom(i + 3*offset),
+                ad_5 = i + 4*offset,
+                data_5 = self.get_byte_prom(i + 4*offset),
+                ad_6 = i + 5*offset,
+                data_6 = self.get_byte_prom(i + 5*offset),
+                ad_7 = i + 6*offset,
+                data_7 = self.get_byte_prom(i + 6*offset),
+                ad_8 = i + 7*offset,
+                data_8 = self.get_byte_prom(i + 7*offset),
             );
         }
         println!("DATA:");
