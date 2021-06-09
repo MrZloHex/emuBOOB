@@ -11,7 +11,7 @@ And it has 3-bit length stack pointer, that's why there are such name.
  - [X] Simple memory RAM/PROM
  - [X] Dumps of memory and processor
  - [X] Implementation of all Instructions (46/46)
- - [ ] Real memory as in MCS-8
+ - [X] Real memory as in MCS-8
  - [ ] Editor for writing assembly code
     - [ ] Sample programme to copy some data to another location in mem
  - [ ] Translator for assembly code
