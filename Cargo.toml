@@ -1,5 +1,5 @@
 [package]
-name = "twisted_pair"
+name = "sp_3-bit"
 version = "0.1.0"
 authors = ["MrZloHex <zlo.alex.it@gmail.com>"]
 edition = "2018"
