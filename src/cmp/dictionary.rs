@@ -1,17 +1,19 @@
 use std::collections::HashMap;
 
 pub struct Dictionary {
-    opcode_set: HashMap<String, u8>
+    opcode_set: HashMap<String, u8>,
+    opcode_length: [Vec<String>; 3]
 }
 
 impl Dictionary {
     pub fn new() -> Dictionary {
         Dictionary{
-            opcode_set: Dictionary::instructions()
+            opcode_set: Dictionary::opcodes(),
+            opcode_length: Dictionary::length_opcode()
         }
     }
 
-    fn instructions() -> HashMap<String, u8> {
+    fn opcodes() -> HashMap<String, u8> {
         let mut opcode_set: HashMap<String, u8> = HashMap::new();
 
         // INDEX REGISTER INSTRUCTIONS
@@ -446,6 +448,66 @@ impl Dictionary {
         };
         opcode_set
     }
+    fn length_opcode() -> [Vec<String>; 3] {
+        let one_byte_instrs: Vec<String> = vec![
+            "LAB".to_string(),"LAC".to_string(),"LAD".to_string(),"LAE".to_string(),"LAH".to_string(),"LAL".to_string(),
+            "LBA".to_string(),"LBC".to_string(),"LBD".to_string(),"LBE".to_string(),"LBH".to_string(),"LBL".to_string(),
+            "LCA".to_string(),"LCB".to_string(),"LCD".to_string(),"LCE".to_string(),"LCH".to_string(),"LCL".to_string(),
+            "LDA".to_string(),"LDB".to_string(),"LDC".to_string(),"LDE".to_string(),"LDH".to_string(),"LDL".to_string(),
+            "LEA".to_string(),"LEB".to_string(),"LEC".to_string(),"LED".to_string(),"LEH".to_string(),"LEL".to_string(),
+            "LHA".to_string(),"LHB".to_string(),"LHC".to_string(),"LHD".to_string(),"LHE".to_string(),"LHL".to_string(),
+            "LLA".to_string(),"LLB".to_string(),"LLC".to_string(),"LLD".to_string(),"LLE".to_string(),"LLH".to_string(),
+            "LAM".to_string(),"LBM".to_string(),"LCM".to_string(),"LDM".to_string(),"LEM".to_string(),"LHM".to_string(),"LLM".to_string(),
+            "LMA".to_string(),"LMB".to_string(),"LMC".to_string(),"LMD".to_string(),"LME".to_string(),"LMH".to_string(),"LML".to_string(),
+            "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
+            "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
+            "ADB".to_string(),"ADC".to_string(),"ADD".to_string(),"ADE".to_string(),"ADH".to_string(),"ADL".to_string(),
+            "ACB".to_string(),"ACC".to_string(),"ACD".to_string(),"ACE".to_string(),"ACH".to_string(),"ACL".to_string(),
+            "SUB".to_string(),"SUC".to_string(),"SUD".to_string(),"SUE".to_string(),"SUH".to_string(),"SUL".to_string(),
+            "SBB".to_string(),"SBC".to_string(),"SBD".to_string(),"SBE".to_string(),"SBH".to_string(),"SBL".to_string(),
+            "NDB".to_string(),"NDC".to_string(),"NDD".to_string(),"NDE".to_string(),"NDH".to_string(),"NDL".to_string(),
+            "XRB".to_string(),"XRC".to_string(),"XRD".to_string(),"XRE".to_string(),"XRH".to_string(),"XRL".to_string(),
+            "ORB".to_string(),"ORC".to_string(),"ORD".to_string(),"ORE".to_string(),"ORH".to_string(),"ORL".to_string(),
+            "CPB".to_string(),"CPC".to_string(),"CPD".to_string(),"CPE".to_string(),"CPH".to_string(),"CPL".to_string(),
+            "ADM".to_string(),
+            "ACM".to_string(),
+            "SUM".to_string(),
+            "SBM".to_string(),
+            "NDM".to_string(),
+            "XRM".to_string(),
+            "ORM".to_string(),
+            "CPM".to_string(),
+            "RLC".to_string(),"RRC".to_string(),"RAL".to_string(),"RAR".to_string(),
+            "NOP".to_string(),"HLT".to_string(),
+            "RET".to_string(),
+            "RFC".to_string(),"RFZ".to_string(),"RFS".to_string(),"RFP".to_string(),
+            "RTC".to_string(),"RTZ".to_string(),"RTS".to_string(),"RTP".to_string(),
+            "RST".to_string(),
+        ];
+        let two_byte_instrs: Vec<String> = vec![
+            "LAI".to_string(),"LBI".to_string(),"LCI".to_string(),"LDI".to_string(),"LEI".to_string(),"LHI".to_string(),"LLI".to_string(),
+            "LMI".to_string(),
+            "ADI".to_string(),
+            "ACI".to_string(),
+            "SUI".to_string(),
+            "SBI".to_string(),
+            "NDI".to_string(),
+            "XRI".to_string(),
+            "ORI".to_string(),
+            "CPI".to_string(),
+        ];
+        let three_byte_instrs: Vec<String> = vec![
+            "JMP".to_string(),
+            "JFC".to_string(),"JFZ".to_string(),"JFS".to_string(),"JFP".to_string(),
+            "JTC".to_string(),"JTZ".to_string(),"JTS".to_string(),"JTP".to_string(),
+            "CFC".to_string(),"CFZ".to_string(),"CFS".to_string(),"CFP".to_string(),
+            "CTC".to_string(),"CTZ".to_string(),"CTS".to_string(),"CTP".to_string(),
+            "CAL".to_string(),
+        ];
+        let instrs: [Vec<String>; 3] = [one_byte_instrs, two_byte_instrs, three_byte_instrs];
+        instrs
+    }
 
-    pub fn get_instr_set(&mut self) -> &HashMap<String, u8> {&self.opcode_set}
+    pub fn get_opcode_set(&mut self) -> &HashMap<String, u8> {&self.opcode_set}
+    pub fn get_opcode_length(&mut self) -> &[Vec<String>; 3] {&self.opcode_length}
 }
