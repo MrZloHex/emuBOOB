@@ -28,29 +28,31 @@ impl Compile {
     }
 
     pub fn compile(&self) -> Vec<u8> {
-        let asm_code = self.read_file();
+        let mut asm_code = self.read_file();
         let machine_code: Vec<u8> = Vec::new();
-        //let asm_str = String::new();
+        //
 
         // for string semantic analyz
-        for asm_str in asm_code.iter() {
-            self.delete_comments(&asm_str);
+        for i in 0..asm_code.len() {
+            self.delete_comments(&mut asm_code[i]);
         }
-
+        for asm_str in asm_code.iter() {
+            println!("{}", asm_str);
+        }
 
 
 
         machine_code
     }
 
-    fn delete_comments(&self, asm_str: &String) {
-        for (i, ch) in asm_str.chars().enumerate() {
-            let mut ch_amount: u16 = 0;
-            if !([' ', '\t'].contains(&ch)) {
-                print!("{}", ch);
-                ch_amount += 1;
+    fn delete_comments(&self, asm_str: &mut String) {
+        let mut i = 0;
+        let str_a: String = (*asm_str).clone().to_string();
+        for s in str_a.split(";") {
+            if i == 0 {
+                *asm_str = s.to_string();
             }
-            if ch == ';' {println!("{}", ch_amount)}
-        }
+            i += 1; 
+        };
     } 
 }

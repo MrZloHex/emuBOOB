@@ -23,8 +23,8 @@ fn main() {
     let translator: Compile = Compile::new(filename);
     
     // COMPILE PART
-    let machine_code: Vec<u8> = translator.compile();
-    println!("{:?}", machine_code);
+    let _machine_code: Vec<u8> = translator.compile();
+    //println!("{:?}", machine_code);
 
     // PROGRAMMING PART
 
