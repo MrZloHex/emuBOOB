@@ -34,14 +34,17 @@ impl Compile {
         //
 
         // for string semantic analyz
+        println!("Before:");
         for asm_str in self.asm_code.iter() {
             println!("{}", asm_str);
         }
         self.delete_comments();
+        println!("Comments:");
         for asm_str in self.asm_code.iter() {
             println!("{}", asm_str);
         }
         self.delete_empty_str();
+        println!("Strings:");
         for asm_str in self.asm_code.iter() {
             println!("{}", asm_str);
         }
@@ -79,8 +82,18 @@ impl Compile {
             }
         }
         // delete empty strings
-        for x in &empty_str {
-            self.asm_code.swap_remove(*x);
+        let mut new_code: Vec<String> = Vec::new();
+        let mut i = 0;
+        for index in 0..self.asm_code.len() {
+            if empty_str.contains(&index) {continue}
+            else {
+                new_code[i] = self.asm_code[index].clone();
+                i += 1;
+            }
+        }
+        // load new data
+        for index in 0..new_code.len() {
+            self.asm_code[index] = new_code[index].clone();
         }
     } 
 }
