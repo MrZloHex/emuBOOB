@@ -15,15 +15,25 @@ use cmp::translator::Compile;
 
 
 fn main() {
+    // INITIALIZING PART
     let filename: String = "/home/zs/Projects/3-bit_SP/test_prog/multiply.asm".to_string();
     
     let mut cpu: Cpu = Cpu::new();
     let mut mem: Mem = Mem::new();
-    let mut translator: Compile = Compile::new(filename);
+    let translator: Compile = Compile::new(filename);
     
+    // COMPILE PART
+    let machine_code: Vec<u8> = translator.compile();
+    println!("{:?}", machine_code);
+
+    // PROGRAMMING PART
+
+    
+    // EXECUTE PART
     cpu.reset(&mut mem);
     // for test ROM
-    mem.print_dump();
+    //mem.print_dump();
+    /*
     cpu.print_dump();
     println!();
     //execute commands
@@ -41,6 +51,6 @@ fn main() {
         //cpu.print_dump();
     }
     cpu.print_dump();
-    //mem.print_dump();
+    //mem.print_dump();*/
     println!();
 }
