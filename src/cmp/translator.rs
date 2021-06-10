@@ -45,6 +45,7 @@ impl Compile {
             Ok(_) => (),
             Err(v) => return Err(v)
         }
+        self.delete_cpu();
         println!("\nStrings:");
         for asm_str in self.asm_code.iter() {
             println!("{}", asm_str);
@@ -122,6 +123,16 @@ impl Compile {
             return Ok(())
         } else {
             return Err(1)
+        }
+    }
+    fn delete_cpu(&mut self) {
+        let mut new_code: Vec<String> = Vec::new();
+        for index in 1..self.asm_code.len() {
+            new_code.push(self.asm_code[index].clone());
+        }
+        // load new data
+        for index in 0..new_code.len() {
+            self.asm_code[index] = new_code[index].clone();
         }
     }
 }
