@@ -46,6 +46,7 @@ impl Compile {
             Err(v) => return Err(v)
         }
         self.delete_cpu();
+        self.carry_value();
         println!("\nAfter:");
         for asm_str in self.asm_code.iter() {
             println!("{}", asm_str);
@@ -136,5 +137,16 @@ impl Compile {
             self.asm_code[index] = new_code[index].clone();
         }
         self.asm_code.pop();
+    }
+
+    fn carry_value(&mut self) {
+        for index in 0..self.asm_code.len() {
+            if [' ', '\t'].contains(&(self.asm_code[index].chars().collect()[0])) {
+                continue
+            }
+            else {
+                println!("{}", self.asm_code[index]);
+            }
+        }
     }
 }
