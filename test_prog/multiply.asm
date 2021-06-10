@@ -1,12 +1,12 @@
     ;
-    ; multiplying programme
+	; multiplying programme
     ;
     ; INTeL I8008
     ;
 
-    CPU 8008
+	CPU 8008
 
-    LDI 8       ; first operand
+	LDI 8       ; first operand
     LEI 6       ; second operand
     CAL mul     ; calling multiply
     CAL exit    ;
