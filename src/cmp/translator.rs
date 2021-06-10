@@ -34,17 +34,17 @@ impl Compile {
         //
 
         // for string semantic analyz
-        println!("Before:");
+        println!("\nBefore:");
         for asm_str in self.asm_code.iter() {
             println!("{}", asm_str);
         }
         self.delete_comments();
-        println!("Comments:");
+        println!("\nComments:");
         for asm_str in self.asm_code.iter() {
             println!("{}", asm_str);
         }
         self.delete_empty_str();
-        println!("Strings:");
+        println!("\nStrings:");
         for asm_str in self.asm_code.iter() {
             println!("{}", asm_str);
         }
