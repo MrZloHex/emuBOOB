@@ -83,12 +83,10 @@ impl Compile {
         }
         // delete empty strings
         let mut new_code: Vec<String> = Vec::new();
-        let mut i = 0;
         for index in 0..self.asm_code.len() {
             if empty_str.contains(&index) {continue}
             else {
-                new_code[i] = self.asm_code[index].clone();
-                i += 1;
+                new_code.push(self.asm_code[index].clone());
             }
         }
         // load new data
