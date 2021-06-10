@@ -20,7 +20,7 @@ fn main() {
     
     let mut cpu: Cpu = Cpu::new();
     let mut mem: Mem = Mem::new();
-    let translator: Compile = Compile::new(filename);
+    let mut translator: Compile = Compile::new(filename);
     
     // COMPILE PART
     let _machine_code: Vec<u8> = translator.compile();

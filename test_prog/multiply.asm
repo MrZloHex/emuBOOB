@@ -15,6 +15,7 @@ mul:
     CAL adon    ; adding once
     INC
     LAC
+    
     CPE         ; compare 
     JFZ mul     ; loop 
     RET
