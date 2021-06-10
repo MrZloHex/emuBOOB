@@ -32,7 +32,10 @@ impl Compile {
         let asm_code = self.read_file();
         let machine_code: Vec<u8> = Vec::new();
 
-        
+        // for string semantic analyz
+        for asm_str in asm_code.iter() {
+            println!("{}", asm_str);
+        }
 
 
 
