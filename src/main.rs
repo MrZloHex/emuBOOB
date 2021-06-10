@@ -6,16 +6,20 @@
 use std::{thread::sleep, time::Duration};
 
 pub mod mcs;
+pub mod cmp;
 
 use mcs::cpu::Cpu;
 use mcs::mem::Mem;
 use mcs::dump::Dump;
-//use mcs::instructions;
+use cmp::translator::Compile;
 
 
 fn main() {
+    let filename: String = "/home/zs/Projects/3-bit_SP/test_prog/multiply.asm".to_string();
+    
     let mut cpu: Cpu = Cpu::new();
     let mut mem: Mem = Mem::new();
+    let mut translator: Compile = Compile::new(filename);
     
     cpu.reset(&mut mem);
     // for test ROM
