@@ -11,7 +11,7 @@
 
 	; page 0
 
-	cpu 	8008
+	CPU 8008
 
 init:
 	lbi	00001110B		; Preload reg b

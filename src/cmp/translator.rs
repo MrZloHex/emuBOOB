@@ -46,7 +46,7 @@ impl Compile {
             Err(v) => return Err(v)
         }
         self.delete_cpu();
-        println!("\nStrings:");
+        println!("\nAfter:");
         for asm_str in self.asm_code.iter() {
             println!("{}", asm_str);
         }
@@ -109,6 +109,7 @@ impl Compile {
         let mut cpu: bool = false;
         let mut proc: bool = false;
         for word in first_str.split(" ") {
+            //println!("{}", word);
             if i == 4 {
                 if word == "CPU".to_string() {cpu = true}
                 else {cpu = false}
@@ -134,5 +135,6 @@ impl Compile {
         for index in 0..new_code.len() {
             self.asm_code[index] = new_code[index].clone();
         }
+        self.asm_code.pop();
     }
 }
