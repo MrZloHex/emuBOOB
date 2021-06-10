@@ -34,10 +34,10 @@ impl Compile {
         //
 
         // for string semantic analyz
-        println!("\nBefore:");
+        /*println!("\nBefore:");
         for asm_str in self.asm_code.iter() {
             println!("{}", asm_str);
-        }
+        }*/
         self.delete_comments();
         self.delete_empty_str();
         self.tabs_into_spaces();
@@ -46,7 +46,7 @@ impl Compile {
             Err(v) => return Err(v)
         }
         self.delete_cpu();
-        self.carry_value();
+        //self.carry_value();
         println!("\nAfter:");
         for asm_str in self.asm_code.iter() {
             println!("{}", asm_str);
@@ -138,15 +138,35 @@ impl Compile {
         }
         self.asm_code.pop();
     }
-
+    /*
     fn carry_value(&mut self) {
+        let mut new_code: Vec<String> = Vec::new();
+        let mut i = 0;
         for index in 0..self.asm_code.len() {
-            if [' ', '\t'].contains(&(self.asm_code[index].chars().collect()[0])) {
-                continue
+            if self.asm_code[index].chars().nth(0).unwrap() == ' ' {
+                
+                let mut new_str = String::new();
+                let mut c = 0;
+                for word in self.asm_code[index].split(" ") {
+                    if c != 5 {
+                        new_code.push(self.asm_code[index].clone());
+                    }
+                    else if c == 5 {
+                        new_str = format!("    {}", word).to_string();
+                        i += 1;
+                        new_code.push(new_str);
+                    }
+                    c += 1;
+                }
             }
             else {
-                println!("{}", self.asm_code[index]);
+                continue
             }
+            i += 1;
+        }
+        for x in &new_code {
+            println!("{}", x)
         }
     }
+    */
 }
