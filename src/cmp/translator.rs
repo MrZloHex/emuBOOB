@@ -29,7 +29,7 @@ impl Compile {
         data
     }
 
-    pub fn compile(&mut self) -> Vec<u8> {
+    pub fn compile(&mut self) -> Result<Vec<u8>, u8> {
         let machine_code: Vec<u8> = Vec::new();
         //
 
@@ -39,11 +39,12 @@ impl Compile {
             println!("{}", asm_str);
         }
         self.delete_comments();
-        println!("\nComments:");
-        for asm_str in self.asm_code.iter() {
-            println!("{}", asm_str);
-        }
         self.delete_empty_str();
+        self.tabs_into_spaces();
+        match self.check_for_proc() {
+            Ok(_) => (),
+            Err(v) => return Err(v)
+        }
         println!("\nStrings:");
         for asm_str in self.asm_code.iter() {
             println!("{}", asm_str);
@@ -51,7 +52,7 @@ impl Compile {
 
 
 
-        machine_code
+        Ok(machine_code)
     }
 
     fn delete_comments(&mut self) {
@@ -94,4 +95,33 @@ impl Compile {
             self.asm_code[index] = new_code[index].clone();
         }
     } 
+
+    fn tabs_into_spaces(&mut self) {
+        for index in 0..self.asm_code.len() {
+            self.asm_code[index] = self.asm_code[index].replace("\t", "    ");
+        }
+    }
+
+    fn check_for_proc(&mut self) -> Result<(), u8> {
+        let first_str: String = self.asm_code[0].clone();
+        let mut i = 0;
+        let mut cpu: bool = false;
+        let mut proc: bool = false;
+        for word in first_str.split(" ") {
+            if i == 4 {
+                if word == "CPU".to_string() {cpu = true}
+                else {cpu = false}
+            }
+            else if i == 5 {
+                if word == "8008".to_string() {proc = true}
+                else {proc = false}
+            }
+            i += 1;
+        }
+        if cpu && proc {
+            return Ok(())
+        } else {
+            return Err(1)
+        }
+    }
 }

@@ -23,7 +23,10 @@ fn main() {
     let mut translator: Compile = Compile::new(filename);
     
     // COMPILE PART
-    let _machine_code: Vec<u8> = translator.compile();
+    let _machine_code: Vec<u8> = match translator.compile() {
+        Ok(ve) => ve,
+        Err(e) => panic!("{}", e)
+    };
     //println!("{:?}", machine_code);
 
     // PROGRAMMING PART
