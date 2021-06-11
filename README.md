@@ -24,3 +24,16 @@ And it has 3-bit length stack pointer, that's why there are such name.
  - [Wiki with internal system of i8008](https://en.wikichip.org/wiki/intel/mcs-8/isa)
  - [INTeL's original reference for i8008](https://github.com/MrZloHex/3-bit_SP/blob/master/manuls/8008-Intel.pdf)
  - [MCS-8 datasheet](https://github.com/MrZloHex/3-bit_SP/blob/master/manuls/MCS-8_User_Manual_(Rev_2)_(Nov_1972).pdf)
+
+## ASM Rules
+
+**THEY ARE CHANGING OFTEN**
+
+ - No comments
+ - No free lines
+ - First line is with `CPU` command and value `8008` (see examples)
+ - All instructions should be shifted on one tab of 4 spaces
+ - Labels should be whitout shift
+ - After label should be colon `:`
+ - Label should be before labaled block on another line
+ - All values/labels which is needful for the instruction should be on next line!

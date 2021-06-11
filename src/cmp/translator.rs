@@ -38,8 +38,6 @@ impl Compile {
         for asm_str in self.asm_code.iter() {
             println!("{}", asm_str);
         }*/
-        self.delete_comments();
-        self.delete_empty_str();
         self.tabs_into_spaces();
         match self.check_for_proc() {
             Ok(_) => (),
@@ -55,47 +53,6 @@ impl Compile {
 
 
         Ok(machine_code)
-    }
-
-    fn delete_comments(&mut self) {
-        for index in 0..self.asm_code.len() {
-            let mut i = 0;
-            let str_a: String = self.asm_code[index].clone().to_string();
-            for s in str_a.split(";") {
-                if i == 0 {
-                    self.asm_code[index] = s.to_string();
-                }   
-                i += 1; 
-            };
-        }
-    }
-
-    fn delete_empty_str(&mut self) {
-        let mut empty_str: Vec<usize> = Vec::new();
-        // detect empty strings
-        for index in 0..self.asm_code.len() {
-            let mut ch_am = 0;
-            for ch in self.asm_code[index].chars() {
-                if !([' ', '\t', '\n'].contains(&ch)) {
-                    ch_am += 1;
-                }
-            }
-            if ch_am == 0 {
-                empty_str.push(index.clone());
-            }
-        }
-        // delete empty strings
-        let mut new_code: Vec<String> = Vec::new();
-        for index in 0..self.asm_code.len() {
-            if empty_str.contains(&index) {continue}
-            else {
-                new_code.push(self.asm_code[index].clone());
-            }
-        }
-        // load new data
-        for index in 0..new_code.len() {
-            self.asm_code[index] = new_code[index].clone();
-        }
     } 
 
     fn tabs_into_spaces(&mut self) {

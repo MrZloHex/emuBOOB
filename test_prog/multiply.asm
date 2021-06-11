@@ -1,23 +1,22 @@
-    ;
-	; multiplying programme
-    ;
-    ; INTeL I8008
-    ;
-
 	CPU 8008
-
-	LDI 8       ; first operand
-    LEI 6       ; second operand
-    CAL mul     ; calling multiply
-    CAL exit    ;
+	LDI
+    8
+    LEI
+    6
+    CAL
+    mul
+    CAL
+    exit
 mul:
-    LCI 1
-    CAL adon    ; adding once
+    LCI
+    1
+    CAL 
+    adon
     INC
     LAC
-    
-    CPE         ; compare 
-    JFZ mul     ; loop 
+    CPE
+    JFZ
+    mul
     RET
 adon:
     LAB
