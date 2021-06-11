@@ -1,27 +1,27 @@
-	CPU 8008
-	LDI
-    8
-    LEI
-    6
-    CAL
-    mul
-    CAL
-    exit
-mul:
-    LCI
-    1
-    CAL 
-    adon
-    INC
-    LAC
-    CPE
-    JFZ
-    mul
-    RET
-adon:
-    LAB
-    ADD
-    LBA
-    RET
-exit:
-    HLT
+LDI
+8
+LEI
+6
+CAL
+11
+0
+CAL
+27
+0
+LCI
+1
+CAL
+23
+0
+INC
+LAC
+CPE
+JFZ
+11
+0
+RET
+LAB
+ADD
+LBA
+RET
+HLT

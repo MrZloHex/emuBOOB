@@ -30,7 +30,7 @@ impl Compile {
     }
 
     pub fn compile(&mut self) -> Result<Vec<u8>, u8> {
-        let machine_code: Vec<u8> = Vec::new();
+        let mut machine_code: Vec<u8> = Vec::new();
         //
 
         // for string semantic analyz
@@ -38,16 +38,18 @@ impl Compile {
         for asm_str in self.asm_code.iter() {
             println!("{}", asm_str);
         }*/
-        self.tabs_into_spaces();
-        match self.check_for_proc() {
+        //self.tabs_into_spaces();
+        /*match self.check_for_proc() {
             Ok(_) => (),
             Err(v) => return Err(v)
-        }
-        self.delete_cpu();
+        }*/
+        //self.delete_cpu();
         //self.carry_value();
+        //self.add_zero();
+        machine_code = self.turn_into_opcode();
         println!("\nAfter:");
-        for asm_str in self.asm_code.iter() {
-            println!("{}", asm_str);
+        for asm_str in machine_code.iter() {
+            println!("{:X}", asm_str);
         }
 
 
@@ -126,4 +128,54 @@ impl Compile {
         }
     }
     */
+
+    fn add_zero(&mut self) {
+        let mut new_line_amount: u8 = 0;
+        for index in 0..self.asm_code.len() {
+            // each string
+            if self.asm_code[index].chars().nth(0).unwrap() == ' ' {
+                //only instruction lines
+                let mut c = 0;
+                for word in self.asm_code[index].split(" ") {
+                    if c == 4 {
+                        new_line_amount = self.length(word.clone().to_string());
+
+                    }
+                    c += 1;
+                }
+            } else {
+                continue
+            }
+        }
+    }
+
+    fn length(&self, instr: String) -> u8 {
+        if self.dictionary.get_opcode_length()[0].contains(&instr) {0}
+        else if self.dictionary.get_opcode_length()[1].contains(&instr) {1}
+        else {2}
+    }
+
+    fn turn_into_opcode(&mut self) -> Vec<u8> {
+        let mut code: Vec<u8> = Vec::new();
+        for index in 0..self.asm_code.len() {
+            if ['0','1','2','3','4','5','6','7','8','9'].contains(&(self.asm_code[index].chars().nth(0).unwrap())) {
+                code.push(self.number_decode(self.asm_code[index].clone()));
+            } else {
+                code.push(self.instr_decode(self.asm_code[index].clone()));
+            }
+        };
+
+        code
+    }
+
+    fn instr_decode(&mut self, instr: String) -> u8 {
+        match self.dictionary.get_opcode_set().get(&instr) {
+            Some(opcode) => *opcode,
+            None => 0xC0
+        }
+    }
+
+    fn number_decode(&mut self, number: String) -> u8 {
+        number.parse::<u8>().unwrap()
+    }
 }

@@ -62,6 +62,7 @@ impl Mem {
 
         // MULTIPLYING
         // PROM
+        /*
         self.prom[0x0]  = 0b00_011_110; // LDI
         self.prom[0x1]  = 0b00_001_000; // 8
         self.prom[0x2]  = 0b00_100_110; // LEI
@@ -85,7 +86,7 @@ impl Mem {
         self.prom[0x14] = 0b11_000_001; // LAB
         self.prom[0x15] = 0b10_000_011; // ADD
         self.prom[0x16] = 0b11_001_000; // LBA
-        self.prom[0x17] = 0b00_000_111; // RET
+        self.prom[0x17] = 0b00_000_111; // RET*/
         
         /*
         self.prom[0x0] = 0b00_000_110; // RST

@@ -39,3 +39,5 @@ And it has 3-bit length stack pointer, that's why there are such name.
  - All values/labels which is needful for the instruction should be on next line!
  - All instructions should be capitalized
  - All labels should be lowercased
+ - Values should be in decimal form
+ 

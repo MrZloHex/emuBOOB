@@ -508,6 +508,6 @@ impl Dictionary {
         instrs
     }
 
-    pub fn get_opcode_set(&mut self) -> &HashMap<String, u8> {&self.opcode_set}
-    pub fn get_opcode_length(&mut self) -> &[Vec<String>; 3] {&self.opcode_length}
+    pub fn get_opcode_set(&self) -> &HashMap<String, u8> {&self.opcode_set}
+    pub fn get_opcode_length(&self) -> &[Vec<String>; 3] {&self.opcode_length}
 }
