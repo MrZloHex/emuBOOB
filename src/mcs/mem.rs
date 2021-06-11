@@ -11,12 +11,13 @@ impl Mem {
         Mem {prom: [0; MAX_PROM], data: [0; MAX_DATA]}
     }
 
-    pub fn initialize(&mut self) {
-        for byte in self.prom.iter_mut() {
-            *byte = 0;
+    pub fn programme_insert(&mut self, code: Vec<u8>) {
+        for i in 0..code.len() {
+            self.prom[i] = code[i];
         }
-        self.load_instr();
     }
+
+
 
     pub fn get_byte_prom(&mut self, addres: usize) -> u8 {
         self.prom[addres]

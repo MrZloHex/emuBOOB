@@ -23,20 +23,19 @@ fn main() {
     let mut translator: Compile = Compile::new(filename);
     
     // COMPILE PART
-    let _machine_code: Vec<u8> = match translator.compile() {
+    let machine_code: Vec<u8> = match translator.compile() {
         Ok(ve) => ve,
         Err(e) => panic!("{}", e)
     };
-    //println!("{:?}", machine_code);
 
     // PROGRAMMING PART
-
+    mem.programme_insert(machine_code);
     
     // EXECUTE PART
-    cpu.reset(&mut mem);
+    cpu.reset();
     // for test ROM
-    //mem.print_dump();
-    /*
+    mem.print_dump();
+    
     cpu.print_dump();
     println!();
     //execute commands
@@ -51,9 +50,11 @@ fn main() {
             else {if cpu.get_r_pc() as usize == mem.get_length_prom() {println!("\nPROCESSOR WASN'T HALTED")}}
         }
         sleep(Duration::from_millis(10));
-        //cpu.print_dump();
+        /*let mut line = String::new();   //      MANUAL CYCLE
+        let b1 = std::io::stdin().read_line(&mut line).unwrap();
+        cpu.print_dump();*/
     }
     cpu.print_dump();
-    //mem.print_dump();*/
+    //mem.print_dump();
     println!();
 }

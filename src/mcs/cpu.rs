@@ -39,10 +39,9 @@ impl Cpu {
             instruct: instructions::Instruction::new()}
     }
 
-    pub fn reset(&mut self, mem: &mut mem::Mem) {
+    pub fn reset(&mut self) {
         self.r_pc = 0;
         self.r_sp = 0;
-        mem.initialize();
     }
 
     pub fn execute(&mut self, mem: &mut mem::Mem) -> Result<bool, ()> {

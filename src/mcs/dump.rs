@@ -8,7 +8,7 @@ pub trait Dump {
 impl Dump for Cpu {
     fn print_dump(&mut self) {
         println!("\nCPU DUMP");
-        println!("REG A\t{:>0width$X}", self.get_r_a(), width = 8);
+        println!("REG A\t{:>0width$X}", self.get_r_a(), width = 2);
         println!("REG B\t{:>0width$X}", self.get_r_b(), width = 2);
         println!("REG C\t{:>0width$X}", self.get_r_c(), width = 2);
         println!("REG D\t{:>0width$X}", self.get_r_d(), width = 2);
