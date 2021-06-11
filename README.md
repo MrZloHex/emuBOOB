@@ -12,9 +12,9 @@ And it has 3-bit length stack pointer, that's why there are such name.
  - [X] Dumps of memory and processor
  - [X] Implementation of all Instructions (46/46)
  - [X] Real memory as in MCS-8
+ - [ ] Translator for assembly code
  - [ ] Editor for writing assembly code
     - [ ] Sample programme to copy some data to another location in mem
- - [ ] Translator for assembly code
  - [ ] TUI / GUI
  - [ ] INP / OUT
 
