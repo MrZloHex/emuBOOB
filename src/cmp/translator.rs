@@ -201,7 +201,6 @@ impl Compile {
                 }
             }
         }
-        println!("qwe")
     }
 
     fn decompose_labels(&mut self) {
