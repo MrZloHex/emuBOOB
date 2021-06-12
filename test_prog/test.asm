@@ -1,4 +1,5 @@
-	LDI
+	CPU 8008
+    LDI
     5
     LEI
 	8

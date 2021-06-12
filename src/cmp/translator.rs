@@ -36,12 +36,14 @@ impl Compile {
             println!("{}", asm_str);
         }*/
         self.tabs_into_spaces();
-        self.delete_spaces();
-        /*match self.check_for_proc() {
+        
+        match self.check_for_proc() {
             Ok(_) => (),
             Err(v) => return Err(v)
-        }*/
-        //self.delete_cpu();
+        }
+
+        self.delete_cpu();
+        self.delete_spaces();
         //self.carry_value();
         self.add_zero();
         self.transform_labels();
@@ -67,11 +69,11 @@ impl Compile {
 
     fn delete_spaces(&mut self) {
         for index in 0..self.asm_code.len() {
-            self.asm_code[index] = self.asm_code[index].replace("    ", "");
+            self.asm_code[index] = self.asm_code[index].replace(" ", "");
         }
     }
 
-    fn _check_for_proc(&mut self) -> Result<(), u8> {
+    fn check_for_proc(&mut self) -> Result<(), u8> {
         let first_str: String = self.asm_code[0].clone();
         let mut i = 0;
         let mut cpu: bool = false;
@@ -94,7 +96,7 @@ impl Compile {
             return Err(1)
         }
     }
-    fn _delete_cpu(&mut self) {
+    fn delete_cpu(&mut self) {
         let mut new_code: Vec<String> = Vec::new();
         for index in 1..self.asm_code.len() {
             new_code.push(self.asm_code[index].clone());

@@ -16,7 +16,7 @@ use cmp::translator::Compile;
 
 fn main() {
     // INITIALIZING PART
-    let filename: String = "/home/zs/Projects/3-bit_SP/test_prog/multiply.asm".to_string();
+    let filename: String = "/home/zs/Projects/3-bit_SP/test_prog/test.asm".to_string();
     
     let mut cpu: Cpu = Cpu::new();
     let mut mem: Mem = Mem::new();
@@ -34,9 +34,8 @@ fn main() {
     // EXECUTE PART
     cpu.reset();
     // for test ROM
-    mem.print_dump();
-    
-    cpu.print_dump();
+    //mem.print_dump(); 
+    //cpu.print_dump();
     println!();
     //execute commands
     println!("Instructions:");
