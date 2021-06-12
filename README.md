@@ -40,4 +40,5 @@ And it has 3-bit length stack pointer, that's why there are such name.
  - All instructions should be capitalized
  - All labels should be lowercased
  - Values should be in decimal form
+ - Calling or jumping to a label, the label name should starts from ampersand (`&`)
  
