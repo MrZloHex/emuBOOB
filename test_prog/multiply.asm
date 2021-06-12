@@ -1,7 +1,7 @@
 LDI
-8
+24
 LEI
-8
+4
 CAL
 &mul
 CAL
