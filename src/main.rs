@@ -16,7 +16,7 @@ use cmp::translator::Compile;
 
 fn main() {
     // INITIALIZING PART
-    let filename: String = "/home/zs/Projects/3-bit_SP/test_prog/multiply.asm".to_string();
+    let filename: String = "/home/zs/Projects/3-bit_SP/test_prog/degree.asm".to_string();
     
     let mut cpu: Cpu = Cpu::new();
     let mut mem: Mem = Mem::new();

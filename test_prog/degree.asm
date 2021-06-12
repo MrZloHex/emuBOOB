@@ -1,7 +1,7 @@
 LDI
 5
 LEI
-2
+5
 CAL
 &degree
 CAL
