@@ -35,12 +35,13 @@ impl Compile {
         for asm_str in self.asm_code.iter() {
             println!("{}", asm_str);
         }*/
-        //self.tabs_into_spaces();
+        self.tabs_into_spaces();
+        self.delete_spaces();
         /*match self.check_for_proc() {
             Ok(_) => (),
             Err(v) => return Err(v)
         }*/
-        //self.delete_cpu();n load_instr(&m
+        //self.delete_cpu();
         //self.carry_value();
         self.add_zero();
         self.transform_labels();
@@ -58,9 +59,15 @@ impl Compile {
         Ok(_machine_code)
     } 
 
-    fn _tabs_into_spaces(&mut self) {
+    fn tabs_into_spaces(&mut self) {
         for index in 0..self.asm_code.len() {
             self.asm_code[index] = self.asm_code[index].replace("\t", "    ");
+        }
+    }
+
+    fn delete_spaces(&mut self) {
+        for index in 0..self.asm_code.len() {
+            self.asm_code[index] = self.asm_code[index].replace("    ", "");
         }
     }
 

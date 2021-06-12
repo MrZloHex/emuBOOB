@@ -1,27 +1,27 @@
-LDI
-24
-LEI
-4
-CAL
-&mul
-CAL
-&exit
+	LDI
+    5
+    LEI
+	8
+    CAL
+	&mul
+    CAL
+    &exit
 mul:
-LCI
-0
+    LCI
+    0
 loop:
-CAL
-&adon
-INC
-LAC
-CPE
-JFZ
-&loop
-RET
+    CAL
+	&adon
+    INC
+    LAC
+    CPE
+    JFZ
+    &loop
+    RET
 adon:
-LAB
-ADD
-LBA
-RET
+    LAB
+    ADD
+    LBA
+    RET
 exit:
-HLT
+    HLT
