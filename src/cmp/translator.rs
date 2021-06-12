@@ -4,7 +4,6 @@ use std::io::{BufRead, BufReader};
 use super::dictionary;
 
 pub struct Compile {
-    filename: String,
     dictionary: dictionary::Dictionary,
     asm_code: Vec<String>
 }
@@ -12,7 +11,6 @@ pub struct Compile {
 impl Compile {
     pub fn new (filename: String) -> Compile {
         Compile{
-            filename: filename.clone(),
             dictionary: dictionary::Dictionary::new(),
             asm_code: Compile::read_file(filename)
         }
@@ -30,9 +28,8 @@ impl Compile {
     }
 
     pub fn compile(&mut self) -> Result<Vec<u8>, u8> {
-        let mut machine_code: Vec<u8> = Vec::new();
+        let mut _machine_code: Vec<u8> = Vec::new();
         //
-
         // for string semantic analyz
         /*println!("\nBefore:");
         for asm_str in self.asm_code.iter() {
@@ -43,18 +40,20 @@ impl Compile {
             Ok(_) => (),
             Err(v) => return Err(v)
         }*/
-        //self.delete_cpu();
+        //self.delete_cpu();n load_instr(&m
         //self.carry_value();
-        //self.add_zero();
-        machine_code = self.turn_into_opcode();
+        self.add_zero();
+        self.transform_labels();
+        //self.decompose_labels();
+        _machine_code = self.turn_into_opcode();
         println!("\nAfter:");
-        for asm_str in machine_code.iter() {
-            println!("{:X}", asm_str);
+        for asm_str in self.asm_code.iter() {
+            println!("{}", asm_str);
         }
 
 
 
-        Ok(machine_code)
+        Ok(_machine_code)
     } 
 
     fn tabs_into_spaces(&mut self) {
@@ -130,35 +129,121 @@ impl Compile {
     */
 
     fn add_zero(&mut self) {
-        let mut new_line_amount: u8 = 0;
-        for index in 0..self.asm_code.len() {
-            // each string
-            if self.asm_code[index].chars().nth(0).unwrap() == ' ' {
-                //only instruction lines
-                let mut c = 0;
-                for word in self.asm_code[index].split(" ") {
-                    if c == 4 {
-                        new_line_amount = self.length(word.clone().to_string());
-
-                    }
-                    c += 1;
+        let mut line_lab: isize = -1;
+        let mut ampresand: bool = true;
+        while ampresand {
+            for index in 0..self.asm_code.len() {
+                if self.asm_code[index].chars().nth(0) == Some('&') {
+                    line_lab = index.clone() as isize;
+                    self.asm_code[index] = self.asm_code[index].replace("&", "%");
+                    break
                 }
-            } else {
-                continue
+            }
+            let mut new_code: Vec<String> = Vec::new();
+            if line_lab != -1 {
+                for line in 0..self.asm_code.len() {
+                    if (line_lab + 1) as usize == line {
+                        new_code.push("0".to_string())
+                    }
+                    new_code.push(self.asm_code[line].clone())
+                }
+            }
+
+            self.asm_code = new_code;
+
+            // check for delete all ampersands
+            for i in 0..self.asm_code.len() {
+                if self.asm_code[i].chars().nth(0) == Some('&') {
+                    ampresand = true;
+                    break
+                } else {
+                    ampresand = false;
+                }
             }
         }
     }
 
-    fn length(&self, instr: String) -> u8 {
-        if self.dictionary.get_opcode_length()[0].contains(&instr) {0}
-        else if self.dictionary.get_opcode_length()[1].contains(&instr) {1}
-        else {2}
+    fn transform_labels(&mut self) {
+        let mut line_lab: isize = -1;
+        let mut label: String = String::new();
+        let mut colon: bool = true;
+        while colon {
+            for index in 0..self.asm_code.len() {
+                if self.asm_code[index].chars().last() == Some(':') {
+                    line_lab = index.clone() as isize;
+                    label = self.asm_code[index].clone();
+                    label.pop();
+                    self.asm_code.remove(index);
+                    break
+                }
+            }
+            let mut new_code: Vec<String> = Vec::new();
+            if line_lab != -1 {
+                for line in 0..self.asm_code.len() {
+                    let mut new_str: String = String::new();
+                    if line_lab as usize == line {
+                        new_str = format!("@{}@", label);
+                    }
+                    else {new_str = "".to_string()}
+                    new_code.push(format!("{}{}", new_str, self.asm_code[line].clone()))
+                }
+            }
+
+            self.asm_code = new_code;
+
+            // check for delete all ampersands
+            for i in 0..self.asm_code.len() {
+                if self.asm_code[i].chars().last() == Some(':') {
+                    colon = true;
+                    break
+                } else {
+                    colon = false;
+                }
+            }
+        }
+        println!("qwe")
+    }
+
+    fn decompose_labels(&mut self) {
+        let mut line_label: Vec<usize> = Vec::new();
+        let mut line_lab: isize = -1;
+        let mut persentage: bool = true;
+        while persentage {
+            for index in 0..self.asm_code.len() {
+                if self.asm_code[index].chars().nth(0) == Some('%') {
+                    line_lab = index.clone() as isize;
+                    self.asm_code[index] = self.asm_code[index].replace("&", "%");
+                    break
+                }
+            }
+            let mut new_code: Vec<String> = Vec::new();
+            if line_lab != -1 {
+                for line in 0..self.asm_code.len() {
+                    if (line_lab + 1) as usize == line {
+                        new_code.push("0".to_string())
+                    }
+                    new_code.push(self.asm_code[line].clone())
+                }
+            }
+
+            self.asm_code = new_code;
+
+            // check for delete all ampersands
+            for i in 0..self.asm_code.len() {
+                if self.asm_code[i].chars().nth(0) == Some('%') {
+                    persentage = true;
+                    break
+                } else {
+                    persentage = false;
+                }
+            }
+        }
     }
 
     fn turn_into_opcode(&mut self) -> Vec<u8> {
         let mut code: Vec<u8> = Vec::new();
         for index in 0..self.asm_code.len() {
-            if ['0','1','2','3','4','5','6','7','8','9'].contains(&(self.asm_code[index].chars().nth(0).unwrap())) {
+            if ('0'..='9').any(|num| Some(num) == self.asm_code[index].chars().nth(0)) {
                 code.push(self.number_decode(self.asm_code[index].clone()));
             } else {
                 code.push(self.instr_decode(self.asm_code[index].clone()));

@@ -3,25 +3,25 @@ LDI
 LEI
 8
 CAL
-10
+mul
 0
 CAL
-26
+exit
 0
-LCI
+LCI ; mul
 0
-CAL
-22
+CAL ; loop
+adon
 0
 INC
 LAC
 CPE
 JFZ
-12
+loop
 0
 RET
-LAB
+LAB ; ad
 ADD
 LBA
-RET
-HLT
+RET 
+HLT ; exit

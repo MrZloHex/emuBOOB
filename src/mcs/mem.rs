@@ -41,7 +41,7 @@ impl Mem {
         MAX_DATA
     }
 
-    fn load_instr(&mut self) {
+    fn _load_instr(&mut self) {
         /* EXAMPLE WITH NICE BRANCHING
         self.prom[0x0] = 0b01_111_110; // CAL
         self.prom[0x1] = 0b00_001_101; // 09
