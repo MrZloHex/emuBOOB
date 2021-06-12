@@ -16,7 +16,7 @@ use cmp::translator::Compile;
 
 fn main() {
     // INITIALIZING PART
-    let filename: String = "/home/zs/Projects/3-bit_SP/test_prog/test.asm".to_string();
+    let filename: String = "/home/zs/Projects/3-bit_SP/test_prog/multiply.asm".to_string();
     
     let mut cpu: Cpu = Cpu::new();
     let mut mem: Mem = Mem::new();
@@ -28,7 +28,7 @@ fn main() {
         Err(e) => panic!("{}", e)
     };
 
-    /*// PROGRAMMING PART
+    // PROGRAMMING PART
     mem.programme_insert(machine_code);
     
     // EXECUTE PART
@@ -55,6 +55,6 @@ fn main() {
         cpu.print_dump();*/
     }
     cpu.print_dump();
-    //mem.print_dump();*/
+    //mem.print_dump();
     println!();
 }
