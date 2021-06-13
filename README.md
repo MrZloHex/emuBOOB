@@ -39,4 +39,5 @@ And it has 3-bit length stack pointer, that's why there are such name.
  - All values/labels which is needful for the instruction should be on same line and separated with whitespace from instruction
  - Values should be in decimal form
  - Calling or jumping to a label, the label name should starts from ampersand (`&`)
+ - You can write values in different bases, for specify base you should write after value (`'d'`, `'h'`, `'o'`, `'b'`) for decimal, hexadecimal, octal and binary accordingly
  
