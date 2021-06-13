@@ -1,19 +1,23 @@
 use std::fs::File;
 use std::io::{BufRead, BufReader};
+use std::io::Write;
+use std::io::prelude::*;
 
 use super::dictionary;
 
 pub struct Compile {
     dictionary: dictionary::Dictionary,
-    asm_code: Vec<String>
+    asm_code: Vec<String>,
+    output: String
 }
 
 impl Compile {
-    pub fn new (filename: String) -> Compile {
+    pub fn new (input_filename: String, output_filename: String) -> Compile {
         Compile{
             dictionary: dictionary::Dictionary::new(),
-            asm_code: Compile::read_file(filename)
-        }
+            asm_code: Compile::read_file(input_filename),
+            output: output_filename
+        }   
     }
 
     fn read_file(filename: String) -> Vec<String> {
@@ -27,7 +31,7 @@ impl Compile {
         data
     }
 
-    pub fn compile(&mut self) -> Result<Vec<u8>, u8> {
+    pub fn compile(&mut self) -> Result<(), u8> {
         let mut _machine_code: Vec<u8> = Vec::new();
         //
         // for string semantic analyz
@@ -58,9 +62,12 @@ impl Compile {
         }*/
         //println!("{}", self.asm_code.iter().count());
 
+        match self.write_bin(&_machine_code) {
+            Ok(_) => (),
+            Err(_) => ()
+        }
 
-
-        Ok(_machine_code)
+        Ok(())
     } 
 
     fn tabs_into_spaces(&mut self) {
@@ -334,5 +341,12 @@ impl Compile {
                 }
             }
         }
+    }
+
+    fn write_bin(&mut self, data: &Vec<u8>) -> std::io::Result<()> {
+        let mut file = File::create(self.output.clone())?;
+        // Write a slice of bytes to the file
+        file.write_all(&data)?;
+        Ok(())
     }
 }

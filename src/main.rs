@@ -2,6 +2,7 @@
 #![allow(clippy::clone_on_copy)]
 #![allow(clippy::ptr_arg)]
 #![allow(clippy::collapsible_else_if)] // TRY TO FIX IT!!!
+#![allow(unused_imports)]
 
 use std::{thread::sleep, time::Duration};
 use clap::{load_yaml, App};
@@ -16,30 +17,47 @@ use cmp::translator::Compile;
 
 
 fn main() {
-    let mut filename: String = String::new();
+    let mut input_filename: String = String::new();
+    let mut output_filename: String = String::new();
+
+    let mut command = "help";
 
     let yaml = load_yaml!("cli.yaml");
     let matches = App::from(yaml).get_matches();
+
     if let Some(matches) = matches.subcommand_matches("build") {
         if matches.is_present("input") {
             if let Some(in_f) = matches.value_of("input") {
-                filename = in_f.to_string();
+                input_filename = in_f.to_string();
             }
         }
+        if matches.is_present("output") {
+            if let Some(out_f) = matches.value_of("output") {
+                output_filename = out_f.to_string();
+            };
+        } else {
+            output_filename = input_filename.clone().replace(".asm", "");
+        }
+        command = "build";
     }
     // INITIALIZING PART
     let mut cpu: Cpu = Cpu::new();
     let mut mem: Mem = Mem::new();
-    let mut translator: Compile = Compile::new(filename);
+    let mut translator: Compile = Compile::new(input_filename, output_filename);
+    
+    if "build".eq(command) {
+        build(&mut translator);
+    } else if "run".eq(command) {
+        run();
+    } else if "help".eq(command) {
+        help();
+    }
     
     // COMPILE PART
-    let machine_code: Vec<u8> = match translator.compile() {
-        Ok(ve) => ve,
-        Err(e) => panic!("{}", e)
-    };
+    
 
     // PROGRAMMING PART
-    mem.programme_insert(machine_code);
+    //mem.programme_insert(machine_code);
     
     // EXECUTE PART
     cpu.reset();
@@ -66,4 +84,19 @@ fn main() {
     //cpu.print_dump();
     //mem.print_dump();*/
     //println!();
+}
+
+fn build(translator: &mut Compile) {
+    match translator.compile() {
+        Ok(_) => (),
+        Err(e) => panic!("{}", e)
+    };
+}
+
+fn run() {
+
+}
+
+fn help() {
+
 }
