@@ -1,23 +1,16 @@
 	CPU 8008
-    LDI
-    5
-    LEI
-	8
-    CAL
-	&mul
-    CAL
-    &exit
+    LDI 12
+    LEI 8
+    CAL &mul
+    CAL &exit
 mul:
-    LCI
-    0
+    LCI 0
 loop:
-    CAL
-	&adon
+    CAL &adon
     INC
     LAC
     CPE
-    JFZ
-    &loop
+    JFZ &loop
     RET
 adon:
     LAB
