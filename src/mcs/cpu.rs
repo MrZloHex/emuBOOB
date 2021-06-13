@@ -63,7 +63,7 @@ impl Cpu {
         self.r_sp = 0;
     }
 
-    pub fn execute(&mut self, mem: &mut mem::Mem, verbose: bool) -> Result<bool, ()> {
+    pub fn execute(&mut self, mem: &mut mem::Mem, verbose: bool) -> bool {
         let instr: u8 = self.fetch_opcode(mem);
         let instr: String = self.decode(instr);
         let mut cycles: u8 = self.cycles(&instr);
@@ -92,12 +92,12 @@ impl Cpu {
             } else if &kind == "stack" {
                 self.stack_command(&instr, &mut cycles, &length, mem)
             } else if &kind == "machine" && &instr == "HLT" {
-                return Ok(true);
+                return true;
             }
             cycles -= 1;
         }
 
-        Ok(false)
+        false
     }
 
     fn fetch_byte(&mut self, mem: &mut mem::Mem, addres: &usize) -> u8 {

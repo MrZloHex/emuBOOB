@@ -133,15 +133,14 @@ fn run(
         println!("Mnem\tPC")
     }
     'main_loop: loop {
-        if let Ok(res) = cpu.execute(mem, verbosity.clone()) {
-            // halt - returns true
-            if res {
-                println!("\nExecuting finished!");
-                break 'main_loop;
-            } else {
-                if cpu.get_r_pc() as usize == mem.get_length_prom() {
-                    println!("\nPROCESSOR WASN'T HALTED")
-                }
+        let res = cpu.execute(mem, verbosity.clone());
+        // halt - returns true
+        if res {
+            println!("\nExecuting finished!");
+            break 'main_loop;
+        } else {
+            if cpu.get_r_pc() as usize == mem.get_length_prom() {
+                println!("\nPROCESSOR WASN'T HALTED")
             }
         }
         sleep(Duration::from_millis(10));
