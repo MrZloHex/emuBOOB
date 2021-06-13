@@ -50,12 +50,12 @@ impl Compile {
         self.transform_labels();
         self.decompose_labels();
         _machine_code = self.turn_into_opcode();
-        println!("\nAfter:");
-        let mut c = 0;
+        //println!("\nAfter:");
+        /*let mut c = 0;
         for asm_str in self.asm_code.iter() {
             println!("{}\t{}", c, asm_str);
             c += 1;
-        }
+        }*/
         //println!("{}", self.asm_code.iter().count());
 
 

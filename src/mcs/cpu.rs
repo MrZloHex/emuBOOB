@@ -51,7 +51,7 @@ impl Cpu {
         let length: u8 = self.length(&instr);
         let kind: String = self.kind(&instr);
 
-        println!("{}\t{}\t{}\t{}\t\t{:X}", instr, cycles, length, kind, self.r_pc);
+        //println!("{}\t{}\t{}\t{}\t\t{:X}", instr, cycles, length, kind, self.r_pc);
 
         while cycles > 0 {
             if      &kind == "index" {self.index_command(&instr, &mut cycles, &length, mem)}

@@ -22,10 +22,17 @@ subcommands:
             - input:
                 short: i
                 long: input
-                help: input file with assembly code
+                help: Input filename with assembly code
                 required: true
                 takes_value: true
                 value_name: INPUT_FILE
+            - output:
+                short: o
+                long: output
+                help: Output filename with binary
+                required: false
+                takes_value: true
+                value_name: OUTPUT_FILE
     - run:
         about: Execute binary file 
         version: "1.8.6"
