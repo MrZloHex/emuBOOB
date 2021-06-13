@@ -4,6 +4,7 @@
 #![allow(clippy::collapsible_else_if)] // TRY TO FIX IT!!!
 
 use std::{thread::sleep, time::Duration};
+use clap::{load_yaml, App};
 
 pub mod mcs;
 pub mod cmp;
@@ -15,9 +16,18 @@ use cmp::translator::Compile;
 
 
 fn main() {
+    let mut filename: String = String::new();
+
+    let yaml = load_yaml!("cli.yaml");
+    let matches = App::from(yaml).get_matches();
+    if let Some(matches) = matches.subcommand_matches("build") {
+        if matches.is_present("input") {
+            if let Some(in_f) = matches.value_of("input") {
+                filename = in_f.to_string();
+            }
+        }
+    }
     // INITIALIZING PART
-    let filename: String = "/home/zs/Projects/3-bit_SP/test_prog/test.asm".to_string();
-    
     let mut cpu: Cpu = Cpu::new();
     let mut mem: Mem = Mem::new();
     let mut translator: Compile = Compile::new(filename);
@@ -54,6 +64,6 @@ fn main() {
         cpu.print_dump();*/
     }
     cpu.print_dump();
-    //mem.print_dump();
+    //mem.print_dump();*/
     println!();
 }
