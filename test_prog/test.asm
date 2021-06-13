@@ -1,9 +1,9 @@
 	CPU 8008
-    LDI 101b
+    LDI 101b 
     LEI Ah
     CAL &mul
     CAL &exit
-mul:
+mul:    
     LCI 0
 lood:
     CAL &adon
