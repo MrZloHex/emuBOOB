@@ -45,19 +45,19 @@ fn main() {
     let mut mem: Mem = Mem::new();
     let mut translator: Compile = Compile::new(input_filename, output_filename);
     
-    if "build".eq(command) {
+    /*if "build".eq(command) {
         build(&mut translator);
     } else if "run".eq(command) {
         run();
     } else if "help".eq(command) {
         help();
-    }
+    }*/
     
     // COMPILE PART
-    
+    let machine_code = translator.compile().unwrap();
 
     // PROGRAMMING PART
-    //mem.programme_insert(machine_code);
+    mem.programme_insert(machine_code);
     
     // EXECUTE PART
     cpu.reset();

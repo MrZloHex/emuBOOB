@@ -5,12 +5,12 @@
     CAL &exit
 mul:    
     LCI 0
-lood:
+loop:
     CAL &adon
     INC
     LAC
     CPE
-    JFZ &lood
+    JFZ &loop
     RET
 adon:
     LAB

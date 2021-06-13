@@ -31,7 +31,7 @@ impl Compile {
         data
     }
 
-    pub fn compile(&mut self) -> Result<(), u8> {
+    pub fn compile(&mut self) -> Result<Vec<u8>, u8> {
         let mut _machine_code: Vec<u8> = Vec::new();
         //
         // for string semantic analyz
@@ -45,7 +45,7 @@ impl Compile {
             Ok(_) => (),
             Err(v) => return Err(v)
         }
-
+        
         self.delete_cpu();
         self.carry_value();
         self.delete_spaces();
@@ -54,20 +54,22 @@ impl Compile {
         self.transform_labels();
         self.decompose_labels();
         _machine_code = self.turn_into_opcode();
-        //println!("\nAfter:");
         /*let mut c = 0;
         for asm_str in self.asm_code.iter() {
             println!("{}\t{}", c, asm_str);
             c += 1;
-        }*/
+        }
         //println!("{}", self.asm_code.iter().count());
+        for asm_str in _machine_code.iter() {
+            println!("{:x}", asm_str);
+        }*/
 
         match self.write_bin(&_machine_code) {
             Ok(_) => (),
             Err(_) => ()
         }
 
-        Ok(())
+        Ok(_machine_code)
     } 
 
     fn tabs_into_spaces(&mut self) {
@@ -146,16 +148,16 @@ impl Compile {
             }
 
             let mut new_code: Vec<String> = Vec::new();
-            if carry_line != -1 {
+            if carry_line != -1 && carry_f {
+                //println!("{}\t{}\t{}", carry_f, carry_line, carry_value);
                 for line in 0..self.asm_code.len() {
                     new_code.push(self.asm_code[line].clone());
                     if line == carry_line as usize {
                         new_code.push(format!("    {}", carry_value));
                     }
                 }
+                self.asm_code = new_code;
             }
-
-            self.asm_code = new_code;
         }
     }
 
