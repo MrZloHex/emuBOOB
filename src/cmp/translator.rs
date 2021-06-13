@@ -43,8 +43,8 @@ impl Compile {
         }
 
         self.delete_cpu();
+        self.carry_value();
         self.delete_spaces();
-        //self.carry_value();
         self.add_zero();
         self.transform_labels();
         self.decompose_labels();
@@ -55,6 +55,7 @@ impl Compile {
             println!("{}\t{}", c, asm_str);
             c += 1;
         }
+        //println!("{}", self.asm_code.iter().count());
 
 
 
@@ -107,37 +108,48 @@ impl Compile {
         }
         self.asm_code.pop();
     }
-    /*
+
     fn carry_value(&mut self) {
-        let mut new_code: Vec<String> = Vec::new();
-        let mut i = 0;
-        for index in 0..self.asm_code.len() {
-            if self.asm_code[index].chars().nth(0).unwrap() == ' ' {
-                
-                let mut new_str = String::new();
-                let mut c = 0;
-                for word in self.asm_code[index].split(" ") {
-                    if c != 5 {
-                        new_code.push(self.asm_code[index].clone());
+        let mut carry_f: bool = true;
+        let mut carry_value: String = String::new();
+        let mut carry_line: isize = -1;
+        while carry_f {
+            'asm: for index in 0..self.asm_code.len() {
+                if self.asm_code[index].chars().nth(0).unwrap() == ' ' {
+                    if self.asm_code[index].split(" ").count() == 5 {
+                        carry_f = false;
+                        continue
+                    } else {
+                        carry_f = true;
+                        let mut c = 0;
+                        for word in self.asm_code[index].split(" ") {
+                            if c == 5 {
+                                carry_value = word.to_string();
+                                carry_line = index.clone() as isize;
+                                self.asm_code[index] = self.asm_code[index].replace(word, "");
+                                self.asm_code[index].pop();
+                                break 'asm;
+                            }
+                            c += 1;
+                        }
                     }
-                    else if c == 5 {
-                        new_str = format!("    {}", word).to_string();
-                        i += 1;
-                        new_code.push(new_str);
-                    }
-                    c += 1;
                 }
             }
-            else {
-                continue
+
+            let mut new_code: Vec<String> = Vec::new();
+            if carry_line != -1 {
+                for line in 0..self.asm_code.len() {
+                    new_code.push(self.asm_code[line].clone());
+                    if line == carry_line as usize {
+                        new_code.push(format!("    {}", carry_value));
+                    }
+                }
             }
-            i += 1;
-        }
-        for x in &new_code {
-            println!("{}", x)
+
+            self.asm_code = new_code;
         }
     }
-    */
+
 
     fn add_zero(&mut self) {
         let mut line_lab: isize = -1;
