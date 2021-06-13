@@ -40,3 +40,22 @@ subcommands:
                 required: false
                 takes_value: true
                 value_name: INPUT_FILE
+            - output:
+                short: o
+                long: output
+                help: Name of filename if is set flag build
+                required: false
+                takes_value: true
+                value_name: OUTPUT_FILE
+            - build:
+                short: b
+                long: build
+                help: Before run program build input file
+                required: false
+                takes_value: false
+            - verbose:
+                short: v
+                long: verbose
+                help: Displaying dumps and executing instructions
+                required: false
+                takes_value: false
