@@ -31,14 +31,19 @@ impl Compile {
         data
     }
 
-    pub fn compile(&mut self) -> Result<Vec<u8>, u8> {
+    pub fn compile(&mut self, verbose: bool) -> Result<Vec<u8>, u8> {
         let mut _machine_code: Vec<u8> = Vec::new();
         //
-        // for string semantic analyz
-        /*println!("\nBefore:");
-        for asm_str in self.asm_code.iter() {
-            println!("{}", asm_str);
-        }*/
+        // 
+        if verbose {
+            println!("Assembly code:");
+            let mut c = 0;
+            for asm_str in self.asm_code.iter() {
+                println!("{:>0wid$X}\t{}", c, asm_str, wid=2);
+                c += 1;
+            }
+        }
+        
         self.tabs_into_spaces();
         
         match self.check_for_proc() {
@@ -54,15 +59,15 @@ impl Compile {
         self.transform_labels();
         self.decompose_labels();
         _machine_code = self.turn_into_opcode();
-        /*let mut c = 0;
-        for asm_str in self.asm_code.iter() {
-            println!("{}\t{}", c, asm_str);
-            c += 1;
+
+        if verbose {
+            println!("\nAssembly code:");
+            let mut c = 0;
+            for mac_str in _machine_code.iter() {
+                println!("{:>0wid$X}\t{:>0wid$X}", c, mac_str, wid=2);
+                c += 1;
+            }
         }
-        //println!("{}", self.asm_code.iter().count());
-        for asm_str in _machine_code.iter() {
-            println!("{:x}", asm_str);
-        }*/
 
         match self.write_bin(&_machine_code) {
             Ok(_) => (),

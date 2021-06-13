@@ -2,17 +2,6 @@ name: sp_3-bit
 version: "0.25.3"
 author: MrZloHex <zlo.alex.it@gmail.com>
 about: Emulator of i8008
-args:
-    - config:
-        short: c
-        long: config
-        value_name: FILE
-        help: Sets a custom config file
-        takes_value: true
-    - verbose:
-        short: v
-        multiple: true
-        help: Sets the level of verbosity
 subcommands:
     - build:
         about: Build binary file
@@ -33,7 +22,21 @@ subcommands:
                 required: false
                 takes_value: true
                 value_name: OUTPUT_FILE
+            - verbose:
+                short: v
+                long: verbose
+                help: Displaying input assembly code and ouput binary code
+                required: false
+                takes_value: false
     - run:
         about: Execute binary file 
         version: "1.8.6"
         author: MrZloHex <zlo.alex.it@gmail.com>
+        args:
+            - input:
+                short: i
+                long: input
+                help: Input filename with binary code
+                required: false
+                takes_value: true
+                value_name: INPUT_FILE

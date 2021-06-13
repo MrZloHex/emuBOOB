@@ -21,6 +21,7 @@ fn main() {
     let mut output_filename: String = String::new();
 
     let mut command = "help";
+    let mut verbosity: bool = false;
 
     let yaml = load_yaml!("cli.yaml");
     let matches = App::from(yaml).get_matches();
@@ -38,6 +39,9 @@ fn main() {
         } else {
             output_filename = input_filename.clone().replace(".asm", "");
         }
+        if matches.is_present("verbose") {
+            verbosity = true;
+        }
         command = "build";
     }
     // INITIALIZING PART
@@ -45,14 +49,14 @@ fn main() {
     let mut mem: Mem = Mem::new();
     let mut translator: Compile = Compile::new(input_filename, output_filename);
     
-    /*if "build".eq(command) {
-        build(&mut translator);
+    if "build".eq(command) {
+        build(&mut translator, verbosity);
     } else if "run".eq(command) {
         run();
     } else if "help".eq(command) {
         help();
-    }*/
-    
+    }
+    /*
     // COMPILE PART
     let machine_code = translator.compile().unwrap();
 
@@ -86,8 +90,8 @@ fn main() {
     //println!();
 }
 
-fn build(translator: &mut Compile) {
-    match translator.compile() {
+fn build(translator: &mut Compile, verbosity: bool) {
+    match translator.compile(verbosity) {
         Ok(_) => (),
         Err(e) => panic!("{}", e)
     };

@@ -1,4 +1,4 @@
-	CPU 8008
+    CPU 8008
     LDI 101b
     LEI Ah
     CAL &mul
