@@ -45,6 +45,7 @@ impl Compile {
         self.delete_cpu();
         self.carry_value();
         self.delete_spaces();
+        self.base_switch();
         self.add_zero();
         self.transform_labels();
         self.decompose_labels();
@@ -97,6 +98,7 @@ impl Compile {
             return Err(1)
         }
     }
+
     fn delete_cpu(&mut self) {
         let mut new_code: Vec<String> = Vec::new();
         for index in 1..self.asm_code.len() {
@@ -127,7 +129,7 @@ impl Compile {
                                 carry_value = word.to_string();
                                 carry_line = index.clone() as isize;
                                 self.asm_code[index] = self.asm_code[index].replace(word, "");
-                                self.asm_code[index].pop();
+                                self.asm_code[index].pop(); 
                                 break 'asm;
                             }
                             c += 1;
@@ -295,5 +297,42 @@ impl Compile {
 
     fn number_decode(&mut self, number: String) -> u8 {
         number.parse::<u8>().unwrap()
+    }
+
+    fn base_switch(&mut self) {
+        let mut number_f: bool = true;
+        let mut number_line: isize = -1;
+        let mut number_base_ch: char = 'd';
+        let mut _number_base_num: u8 = 10;
+        let mut number_value: String = String::new();
+        while number_f {
+            for index in 0..self.asm_code.len() {
+                if ['d', 'h', 'o', 'b'].contains(&(self.asm_code[index].chars().last().unwrap())) && self.asm_code[index].chars().nth(0) != Some('&') {
+                    number_line = index.clone() as isize;
+                    number_base_ch = self.asm_code[index].pop().unwrap();
+                    number_value = self.asm_code[index].clone();
+                    number_f = true;
+                    break
+                } else {
+                    number_f = false;
+                }
+            }
+
+            match number_base_ch {
+                'd' => _number_base_num = 10,
+                'h' => _number_base_num = 16,
+                'o' => _number_base_num = 8,
+                'b' => _number_base_num = 2,
+                _ => _number_base_num = 10
+            };
+
+            if number_line != -1 {
+                for line in 0..self.asm_code.len() {
+                    if line == number_line as usize {
+                        self.asm_code[line] = (u8::from_str_radix(number_value.as_str(), _number_base_num as u32).unwrap()).to_string()
+                    }
+                }
+            }
+        }
     }
 }
