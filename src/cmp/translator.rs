@@ -75,8 +75,8 @@ impl Compile {
             }
         }
 
-        if let Ok(_) = self.write_bin(&_machine_code) {
-            ();
+        if let Err(e) = self.write_bin(&_machine_code) {
+            panic!("{}", e);
         }
 
         Ok(_machine_code)
@@ -98,16 +98,16 @@ impl Compile {
         let first_str: String = self.asm_code[0].clone();
         let mut cpu: bool = false;
         let mut proc: bool = false;
-        for (i, word) in first_str.split(" ").enumerate() {
+        for (i, word) in first_str.split(' ').enumerate() {
             //println!("{}", word);
             if i == 4 {
-                if word == "CPU".to_string() {
+                if word == "CPU" {
                     cpu = true
                 } else {
                     cpu = false
                 }
             } else if i == 5 {
-                if word == "8008".to_string() {
+                if word == "8008" {
                     proc = true
                 } else {
                     proc = false
@@ -127,9 +127,7 @@ impl Compile {
             new_code.push(self.asm_code[index].clone());
         }
         // load new data
-        for index in 0..new_code.len() {
-            self.asm_code[index] = new_code[index].clone();
-        }
+        self.asm_code[..new_code.len()].clone_from_slice(&new_code[..]);
         self.asm_code.pop();
     }
 
@@ -139,14 +137,13 @@ impl Compile {
         let mut carry_line: isize = -1;
         while carry_f {
             'asm: for index in 0..self.asm_code.len() {
-                if self.asm_code[index].chars().nth(0).unwrap() == ' ' {
-                    if self.asm_code[index].split(" ").count() == 5 {
+                if self.asm_code[index].starts_with(' ') {
+                    if self.asm_code[index].split(' ').count() == 5 {
                         carry_f = false;
                         continue;
                     } else {
                         carry_f = true;
-                        let mut c = 0;
-                        for word in self.asm_code[index].split(" ") {
+                        for (c, word) in self.asm_code[index].split(' ').enumerate() {
                             if c == 5 {
                                 carry_value = word.to_string();
                                 carry_line = index.clone() as isize;
@@ -154,7 +151,6 @@ impl Compile {
                                 self.asm_code[index].pop();
                                 break 'asm;
                             }
-                            c += 1;
                         }
                     }
                 }
@@ -179,7 +175,7 @@ impl Compile {
         let mut ampresand: bool = true;
         while ampresand {
             for index in 0..self.asm_code.len() {
-                if self.asm_code[index].chars().nth(0) == Some('&') {
+                if self.asm_code[index].starts_with('&') {
                     line_lab = index.clone() as isize;
                     self.asm_code[index] = self.asm_code[index].replace("&", "%");
                     break;
@@ -199,7 +195,7 @@ impl Compile {
 
             // check for delete all ampersands
             for i in 0..self.asm_code.len() {
-                if self.asm_code[i].chars().nth(0) == Some('&') {
+                if self.asm_code[i].starts_with('&') {
                     ampresand = true;
                     break;
                 } else {
@@ -215,7 +211,7 @@ impl Compile {
         let mut colon: bool = true;
         while colon {
             for index in 0..self.asm_code.len() {
-                if self.asm_code[index].chars().last() == Some(':') {
+                if self.asm_code[index].ends_with(':') {
                     line_lab = index.clone() as isize;
                     label = self.asm_code[index].clone();
                     label.pop();
@@ -240,7 +236,7 @@ impl Compile {
 
             // check for delete all ampersands
             for i in 0..self.asm_code.len() {
-                if self.asm_code[i].chars().last() == Some(':') {
+                if self.asm_code[i].ends_with(':') {
                     colon = true;
                     break;
                 } else {
@@ -256,14 +252,12 @@ impl Compile {
         let mut label_f: bool = true;
         while label_f {
             for index in 0..self.asm_code.len() {
-                if self.asm_code[index].chars().nth(0) == Some('@') {
-                    let split = self.asm_code[index].split("@");
-                    let mut c: u8 = 0;
-                    for s in split {
+                if self.asm_code[index].starts_with('@') {
+                    let split = self.asm_code[index].split('@');
+                    for (c, s) in split.enumerate() {
                         if c == 1 {
                             label = s.to_string()
                         }
-                        c += 1;
                     }
                     label_line = index.clone() as isize;
                     self.asm_code[index] =
@@ -274,15 +268,13 @@ impl Compile {
 
             if label_line != -1 {
                 for line in 0..self.asm_code.len() {
-                    if self.asm_code[line].chars().nth(0) == Some('%') {
-                        let split = self.asm_code[line].split("%");
-                        let mut c: u8 = 0;
+                    if self.asm_code[line].starts_with('%') {
+                        let split = self.asm_code[line].split('%');
                         let mut p_l: String = String::new();
-                        for s in split {
+                        for (c, s) in split.enumerate() {
                             if c == 1 {
                                 p_l = s.to_string()
                             }
-                            c += 1;
                         }
                         if p_l == label {
                             self.asm_code[line] = self.asm_code[line].replace(
@@ -295,7 +287,7 @@ impl Compile {
             }
             // check for delete all ampersands
             for i in 0..self.asm_code.len() {
-                if self.asm_code[i].chars().nth(0) == Some('@') {
+                if self.asm_code[i].starts_with('@') {
                     label_f = true;
                     break;
                 } else {
@@ -308,7 +300,7 @@ impl Compile {
     fn turn_into_opcode(&mut self) -> Vec<u8> {
         let mut code: Vec<u8> = Vec::new();
         for index in 0..self.asm_code.len() {
-            if ('0'..='9').any(|num| Some(num) == self.asm_code[index].chars().nth(0)) {
+            if ('0'..='9').any(|num| self.asm_code[index].starts_with(num)) {
                 code.push(self.number_decode(self.asm_code[index].clone()));
             } else {
                 code.push(self.instr_decode(self.asm_code[index].clone()));
@@ -339,8 +331,8 @@ impl Compile {
             for index in 0..self.asm_code.len() {
                 if ['d', 'h', 'o', 'b']
                     .iter()
-                    .any(|ch| Some(*ch) == self.asm_code[index].chars().last())
-                    && self.asm_code[index].chars().nth(0) != Some('&')
+                    .any(|ch| self.asm_code[index].ends_with(*ch))
+                    && !self.asm_code[index].starts_with('&')
                 {
                     number_line = index.clone() as isize;
                     number_base_ch = self.asm_code[index].pop().unwrap();

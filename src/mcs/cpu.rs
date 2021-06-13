@@ -31,6 +31,12 @@ pub struct Cpu {
     instruct: instructions::Instruction,
 }
 
+impl Default for Cpu {
+    fn default() -> Self {
+        Cpu::new()
+    }
+}
+
 impl Cpu {
     pub fn new() -> Cpu {
         Cpu {

@@ -67,7 +67,7 @@ fn main() {
     }
 
     // INITIALIZING PART
-    let mut cpu: Cpu = Cpu::new();
+    let mut cpu: Cpu = Cpu::default();
     let mut mem: Mem = Mem::new();
     let mut translator: Compile = Compile::default();
 
