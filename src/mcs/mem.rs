@@ -1,3 +1,7 @@
+use std::fs::File;
+use std::fs;
+use std::io::Read;
+
 const MAX_PROM: usize = 2048; // orig 16384 * 8 
 const MAX_DATA: usize = 1024;
 
@@ -11,9 +15,13 @@ impl Mem {
         Mem {prom: [0; MAX_PROM], data: [0; MAX_DATA]}
     }
 
-    pub fn programme_insert(&mut self, code: Vec<u8>) {
-        for i in 0..code.len() {
-            self.prom[i] = code[i];
+    pub fn programme_insert(&mut self, filename: String) {
+        let mut f = File::open(&filename).expect("no file found");
+        let metadata = fs::metadata(&filename).expect("unable to read metadata");
+        let mut buffer = vec![0; metadata.len() as usize];
+        f.read(&mut buffer).expect("buffer overflow");
+        for i in 0..buffer.len() {
+            self.prom[i] = buffer[i];
         }
     }
 

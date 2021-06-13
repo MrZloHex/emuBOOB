@@ -44,14 +44,15 @@ impl Cpu {
         self.r_sp = 0;
     }
 
-    pub fn execute(&mut self, mem: &mut mem::Mem) -> Result<bool, ()> {
+    pub fn execute(&mut self, mem: &mut mem::Mem, verbose: bool) -> Result<bool, ()> {
         let instr: u8 = self.fetch_opcode(mem);
         let instr: String = self.decode(instr);
         let mut cycles: u8 = self.cycles(&instr);
         let length: u8 = self.length(&instr);
         let kind: String = self.kind(&instr);
 
-        //println!("{}\t{}\t{}\t{}\t\t{:X}", instr, cycles, length, kind, self.r_pc);
+        if verbose {println!("{}\t{}\t{}\t{}\t\t{:>0wid$X}", instr, cycles, length, kind, self.r_pc, wid=3);}
+        else {println!("{}\t{:>0wid$X}", instr, self.r_pc, wid=3);}
 
         while cycles > 0 {
             if      &kind == "index" {self.index_command(&instr, &mut cycles, &length, mem)}

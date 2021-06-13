@@ -36,8 +36,8 @@ subcommands:
             - input:
                 short: i
                 long: input
-                help: Input filename with binary code
-                required: false
+                help: Input filename with binary/assembly code
+                required: true
                 takes_value: true
                 value_name: INPUT_FILE
             - output:

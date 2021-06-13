@@ -12,11 +12,11 @@ pub struct Compile {
 }
 
 impl Compile {
-    pub fn new (input_filename: String, output_filename: String) -> Compile {
+    pub fn new () -> Compile {
         Compile{
             dictionary: dictionary::Dictionary::new(),
-            asm_code: Compile::read_file(input_filename),
-            output: output_filename
+            asm_code: vec!(String::new()),
+            output: String::new()
         }   
     }
 
@@ -29,6 +29,10 @@ impl Compile {
             data.push(line);
         };
         data
+    }
+    pub fn precompile(&mut self, input_filename: String, output_filename: String) {
+        self.asm_code = Compile::read_file(input_filename);
+        self.output = output_filename;
     }
 
     pub fn compile(&mut self, verbose: bool) -> Result<Vec<u8>, u8> {
