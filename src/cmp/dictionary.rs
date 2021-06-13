@@ -5,6 +5,12 @@ pub struct Dictionary {
     opcode_length: [Vec<String>; 3],
 }
 
+impl Default for Dictionary {
+    fn default() -> Self {
+        Dictionary::new()
+    }
+}
+
 impl Dictionary {
     pub fn new() -> Dictionary {
         Dictionary {

@@ -69,7 +69,7 @@ fn main() {
     // INITIALIZING PART
     let mut cpu: Cpu = Cpu::new();
     let mut mem: Mem = Mem::new();
-    let mut translator: Compile = Compile::new();
+    let mut translator: Compile = Compile::default();
 
     if "build".eq(command) {
         build(&mut translator, verbosity, input_filename, output_filename);
@@ -86,7 +86,7 @@ fn main() {
     } else if "help".eq(command) {
         help();
     }
-    
+
     println!();
 }
 

@@ -11,10 +11,16 @@ pub struct Compile {
     output: String,
 }
 
+impl Default for Compile {
+    fn default() -> Self {
+        Compile::new()
+    }
+}
+
 impl Compile {
     pub fn new() -> Compile {
         Compile {
-            dictionary: dictionary::Dictionary::new(),
+            dictionary: dictionary::Dictionary::default(),
             asm_code: vec![String::new()],
             output: String::new(),
         }
@@ -41,10 +47,8 @@ impl Compile {
         //
         if verbose {
             println!("Assembly code:");
-            let mut c = 0;
-            for asm_str in self.asm_code.iter() {
+            for (c, asm_str) in self.asm_code.iter().enumerate() {
                 println!("{:>0wid$X}\t{}", c, asm_str, wid = 2);
-                c += 1;
             }
         }
 
@@ -66,16 +70,13 @@ impl Compile {
 
         if verbose {
             println!("\nAssembly code:");
-            let mut c = 0;
-            for mac_str in _machine_code.iter() {
+            for (c, mac_str) in _machine_code.iter().enumerate() {
                 println!("{:>0wid$X}\t{:>0wid$X}", c, mac_str, wid = 2);
-                c += 1;
             }
         }
 
-        match self.write_bin(&_machine_code) {
-            Ok(_) => (),
-            Err(_) => (),
+        if let Ok(_) = self.write_bin(&_machine_code) {
+            ();
         }
 
         Ok(_machine_code)
@@ -95,10 +96,9 @@ impl Compile {
 
     fn check_for_proc(&mut self) -> Result<(), u8> {
         let first_str: String = self.asm_code[0].clone();
-        let mut i = 0;
         let mut cpu: bool = false;
         let mut proc: bool = false;
-        for word in first_str.split(" ") {
+        for (i, word) in first_str.split(" ").enumerate() {
             //println!("{}", word);
             if i == 4 {
                 if word == "CPU".to_string() {
@@ -113,12 +113,11 @@ impl Compile {
                     proc = false
                 }
             }
-            i += 1;
         }
         if cpu && proc {
-            return Ok(());
+            Ok(())
         } else {
-            return Err(1);
+            Err(1)
         }
     }
 
