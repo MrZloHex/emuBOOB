@@ -12,7 +12,7 @@ impl Default for Dictionary {
 }
 
 impl Dictionary {
-    pub fn new() -> Dictionary {
+    fn new() -> Dictionary {
         Dictionary {
             opcode_set: Dictionary::opcodes(),
             opcode_length: Dictionary::length_opcode(),

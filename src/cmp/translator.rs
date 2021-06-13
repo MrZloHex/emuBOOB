@@ -18,7 +18,7 @@ impl Default for Compile {
 }
 
 impl Compile {
-    pub fn new() -> Compile {
+    fn new() -> Compile {
         Compile {
             dictionary: dictionary::Dictionary::default(),
             asm_code: vec![String::new()],

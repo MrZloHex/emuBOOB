@@ -7,8 +7,14 @@ pub struct Instruction {
     instr_type: [Vec<String>; 4],
 }
 
+impl Default for Instruction {
+    fn default() -> Self {
+        Instruction::new()
+    }
+}
+
 impl Instruction {
-    pub fn new() -> Instruction {
+    fn new() -> Instruction {
         let instrucitions: Instruction = Instruction {
             instr_set: Instruction::opcodes(),
             instr_time: Instruction::time_instr(),

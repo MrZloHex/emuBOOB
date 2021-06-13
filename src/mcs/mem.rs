@@ -10,8 +10,14 @@ pub struct Mem {
     data: [u8; MAX_DATA],
 }
 
+impl Default for Mem {
+    fn default() -> Self {
+        Mem::new()
+    }
+}
+
 impl Mem {
-    pub fn new() -> Mem {
+    fn new() -> Mem {
         Mem {
             prom: [0; MAX_PROM],
             data: [0; MAX_DATA],
@@ -22,10 +28,8 @@ impl Mem {
         let mut f = File::open(&filename).expect("no file found");
         let metadata = fs::metadata(&filename).expect("unable to read metadata");
         let mut buffer = vec![0; metadata.len() as usize];
-        f.read(&mut buffer).expect("buffer overflow");
-        for i in 0..buffer.len() {
-            self.prom[i] = buffer[i];
-        }
+        f.read_exact(&mut buffer).expect("buffer overflow");
+        self.prom[..buffer.len()].clone_from_slice(&buffer[..]);
     }
 
     pub fn get_byte_prom(&mut self, addres: usize) -> u8 {

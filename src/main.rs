@@ -37,7 +37,7 @@ fn main() {
                 output_filename = out_f.to_string();
             };
         } else {
-            output_filename = input_filename.clone().replace(".asm", "");
+            output_filename = input_filename.replace(".asm", "");
         }
         if matches.is_present("verbose") {
             verbosity = true;
@@ -55,7 +55,7 @@ fn main() {
                 output_filename = out_f.to_string();
             };
         } else {
-            output_filename = input_filename.clone().replace(".asm", "");
+            output_filename = input_filename.replace(".asm", "");
         }
         if matches.is_present("build") {
             build_f = true;
@@ -68,7 +68,7 @@ fn main() {
 
     // INITIALIZING PART
     let mut cpu: Cpu = Cpu::default();
-    let mut mem: Mem = Mem::new();
+    let mut mem: Mem = Mem::default();
     let mut translator: Compile = Compile::default();
 
     if "build".eq(command) {

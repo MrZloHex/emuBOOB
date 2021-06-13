@@ -54,7 +54,7 @@ impl Cpu {
             f_s: false,
             f_p: false,
             stack: [0; 7],
-            instruct: instructions::Instruction::new(),
+            instruct: instructions::Instruction::default(),
         }
     }
 
