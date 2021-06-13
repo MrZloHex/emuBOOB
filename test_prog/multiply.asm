@@ -1,9 +1,9 @@
 	CPU 8008
     LDI 12
     LEI 8
-    CAL &mul
+    CAL &MUL
     CAL &exit
-mul:
+MUL:
     LCI 0
 loop:
     CAL &adon
