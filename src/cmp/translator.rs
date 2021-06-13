@@ -309,7 +309,7 @@ impl Compile {
             for index in 0..self.asm_code.len() {
                 if ['d', 'h', 'o', 'b'].iter().any(|ch| Some(*ch) == self.asm_code[index].chars().last()) && self.asm_code[index].chars().nth(0) != Some('&') {
                     number_line = index.clone() as isize;
-                    number_base_ch = self.asm_code[index].pop().unwrap();   
+                    number_base_ch = self.asm_code[index].pop().unwrap();
                     number_value = self.asm_code[index].clone();
                     number_f = true;
                     break
