@@ -1,23 +1,23 @@
 use std::fs::File;
-use std::io::{BufRead, BufReader};
-use std::io::Write;
 use std::io::prelude::*;
+use std::io::Write;
+use std::io::{BufRead, BufReader};
 
 use super::dictionary;
 
 pub struct Compile {
     dictionary: dictionary::Dictionary,
     asm_code: Vec<String>,
-    output: String
+    output: String,
 }
 
 impl Compile {
-    pub fn new () -> Compile {
-        Compile{
+    pub fn new() -> Compile {
+        Compile {
             dictionary: dictionary::Dictionary::new(),
-            asm_code: vec!(String::new()),
-            output: String::new()
-        }   
+            asm_code: vec![String::new()],
+            output: String::new(),
+        }
     }
 
     fn read_file(filename: String) -> Vec<String> {
@@ -27,7 +27,7 @@ impl Compile {
         for (_index, line) in reader.lines().enumerate() {
             let line = line.unwrap();
             data.push(line);
-        };
+        }
         data
     }
     pub fn precompile(&mut self, input_filename: String, output_filename: String) {
@@ -38,23 +38,23 @@ impl Compile {
     pub fn compile(&mut self, verbose: bool) -> Result<Vec<u8>, u8> {
         let mut _machine_code: Vec<u8> = Vec::new();
         //
-        // 
+        //
         if verbose {
             println!("Assembly code:");
             let mut c = 0;
             for asm_str in self.asm_code.iter() {
-                println!("{:>0wid$X}\t{}", c, asm_str, wid=2);
+                println!("{:>0wid$X}\t{}", c, asm_str, wid = 2);
                 c += 1;
             }
         }
-        
+
         self.tabs_into_spaces();
-        
+
         match self.check_for_proc() {
             Ok(_) => (),
-            Err(v) => return Err(v)
+            Err(v) => return Err(v),
         }
-        
+
         self.delete_cpu();
         self.carry_value();
         self.delete_spaces();
@@ -68,18 +68,18 @@ impl Compile {
             println!("\nAssembly code:");
             let mut c = 0;
             for mac_str in _machine_code.iter() {
-                println!("{:>0wid$X}\t{:>0wid$X}", c, mac_str, wid=2);
+                println!("{:>0wid$X}\t{:>0wid$X}", c, mac_str, wid = 2);
                 c += 1;
             }
         }
 
         match self.write_bin(&_machine_code) {
             Ok(_) => (),
-            Err(_) => ()
+            Err(_) => (),
         }
 
         Ok(_machine_code)
-    } 
+    }
 
     fn tabs_into_spaces(&mut self) {
         for index in 0..self.asm_code.len() {
@@ -101,19 +101,24 @@ impl Compile {
         for word in first_str.split(" ") {
             //println!("{}", word);
             if i == 4 {
-                if word == "CPU".to_string() {cpu = true}
-                else {cpu = false}
-            }
-            else if i == 5 {
-                if word == "8008".to_string() {proc = true}
-                else {proc = false}
+                if word == "CPU".to_string() {
+                    cpu = true
+                } else {
+                    cpu = false
+                }
+            } else if i == 5 {
+                if word == "8008".to_string() {
+                    proc = true
+                } else {
+                    proc = false
+                }
             }
             i += 1;
         }
         if cpu && proc {
-            return Ok(())
+            return Ok(());
         } else {
-            return Err(1)
+            return Err(1);
         }
     }
 
@@ -138,7 +143,7 @@ impl Compile {
                 if self.asm_code[index].chars().nth(0).unwrap() == ' ' {
                     if self.asm_code[index].split(" ").count() == 5 {
                         carry_f = false;
-                        continue
+                        continue;
                     } else {
                         carry_f = true;
                         let mut c = 0;
@@ -147,7 +152,7 @@ impl Compile {
                                 carry_value = word.to_string();
                                 carry_line = index.clone() as isize;
                                 self.asm_code[index] = self.asm_code[index].replace(word, "");
-                                self.asm_code[index].pop(); 
+                                self.asm_code[index].pop();
                                 break 'asm;
                             }
                             c += 1;
@@ -170,7 +175,6 @@ impl Compile {
         }
     }
 
-
     fn add_zero(&mut self) {
         let mut line_lab: isize = -1;
         let mut ampresand: bool = true;
@@ -179,7 +183,7 @@ impl Compile {
                 if self.asm_code[index].chars().nth(0) == Some('&') {
                     line_lab = index.clone() as isize;
                     self.asm_code[index] = self.asm_code[index].replace("&", "%");
-                    break
+                    break;
                 }
             }
             let mut new_code: Vec<String> = Vec::new();
@@ -198,7 +202,7 @@ impl Compile {
             for i in 0..self.asm_code.len() {
                 if self.asm_code[i].chars().nth(0) == Some('&') {
                     ampresand = true;
-                    break
+                    break;
                 } else {
                     ampresand = false;
                 }
@@ -217,7 +221,7 @@ impl Compile {
                     label = self.asm_code[index].clone();
                     label.pop();
                     self.asm_code.remove(index);
-                    break
+                    break;
                 }
             }
             let mut new_code: Vec<String> = Vec::new();
@@ -226,8 +230,9 @@ impl Compile {
                     let mut _new_str: String = String::new();
                     if line_lab as usize == line {
                         _new_str = format!("@{}@", label);
+                    } else {
+                        _new_str = "".to_string()
                     }
-                    else {_new_str = "".to_string()}
                     new_code.push(format!("{}{}", _new_str, self.asm_code[line].clone()))
                 }
             }
@@ -238,7 +243,7 @@ impl Compile {
             for i in 0..self.asm_code.len() {
                 if self.asm_code[i].chars().last() == Some(':') {
                     colon = true;
-                    break
+                    break;
                 } else {
                     colon = false;
                 }
@@ -256,15 +261,18 @@ impl Compile {
                     let split = self.asm_code[index].split("@");
                     let mut c: u8 = 0;
                     for s in split {
-                        if c == 1 {label = s.to_string()}
+                        if c == 1 {
+                            label = s.to_string()
+                        }
                         c += 1;
-                    };
+                    }
                     label_line = index.clone() as isize;
-                    self.asm_code[index] = self.asm_code[index].replace(format!("@{}@", label).as_str(), "");
-                    break
+                    self.asm_code[index] =
+                        self.asm_code[index].replace(format!("@{}@", label).as_str(), "");
+                    break;
                 }
             }
-            
+
             if label_line != -1 {
                 for line in 0..self.asm_code.len() {
                     if self.asm_code[line].chars().nth(0) == Some('%') {
@@ -272,11 +280,16 @@ impl Compile {
                         let mut c: u8 = 0;
                         let mut p_l: String = String::new();
                         for s in split {
-                            if c == 1 {p_l = s.to_string()}
+                            if c == 1 {
+                                p_l = s.to_string()
+                            }
                             c += 1;
-                        };
+                        }
                         if p_l == label {
-                            self.asm_code[line] = self.asm_code[line].replace(self.asm_code[line].as_str(), label_line.to_string().as_str());
+                            self.asm_code[line] = self.asm_code[line].replace(
+                                self.asm_code[line].as_str(),
+                                label_line.to_string().as_str(),
+                            );
                         }
                     }
                 }
@@ -285,7 +298,7 @@ impl Compile {
             for i in 0..self.asm_code.len() {
                 if self.asm_code[i].chars().nth(0) == Some('@') {
                     label_f = true;
-                    break
+                    break;
                 } else {
                     label_f = false;
                 }
@@ -301,7 +314,7 @@ impl Compile {
             } else {
                 code.push(self.instr_decode(self.asm_code[index].clone()));
             }
-        };
+        }
 
         code
     }
@@ -309,7 +322,7 @@ impl Compile {
     fn instr_decode(&mut self, instr: String) -> u8 {
         match self.dictionary.get_opcode_set().get(&instr) {
             Some(opcode) => *opcode,
-            None => 0xC0
+            None => 0xC0,
         }
     }
 
@@ -325,12 +338,16 @@ impl Compile {
         let mut number_value: String = String::new();
         while number_f {
             for index in 0..self.asm_code.len() {
-                if ['d', 'h', 'o', 'b'].iter().any(|ch| Some(*ch) == self.asm_code[index].chars().last()) && self.asm_code[index].chars().nth(0) != Some('&') {
+                if ['d', 'h', 'o', 'b']
+                    .iter()
+                    .any(|ch| Some(*ch) == self.asm_code[index].chars().last())
+                    && self.asm_code[index].chars().nth(0) != Some('&')
+                {
                     number_line = index.clone() as isize;
                     number_base_ch = self.asm_code[index].pop().unwrap();
                     number_value = self.asm_code[index].clone();
                     number_f = true;
-                    break
+                    break;
                 } else {
                     number_f = false;
                 }
@@ -341,13 +358,16 @@ impl Compile {
                 'h' => _number_base_num = 16,
                 'o' => _number_base_num = 8,
                 'b' => _number_base_num = 2,
-                _ => _number_base_num = 10
+                _ => _number_base_num = 10,
             };
 
             if number_line != -1 {
                 for line in 0..self.asm_code.len() {
                     if line == number_line as usize {
-                        self.asm_code[line] = (u8::from_str_radix(number_value.as_str(), _number_base_num as u32).unwrap()).to_string()
+                        self.asm_code[line] =
+                            (u8::from_str_radix(number_value.as_str(), _number_base_num as u32)
+                                .unwrap())
+                            .to_string()
                     }
                 }
             }

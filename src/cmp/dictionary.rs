@@ -2,14 +2,14 @@ use std::collections::HashMap;
 
 pub struct Dictionary {
     opcode_set: HashMap<String, u8>,
-    opcode_length: [Vec<String>; 3]
+    opcode_length: [Vec<String>; 3],
 }
 
 impl Dictionary {
     pub fn new() -> Dictionary {
-        Dictionary{
+        Dictionary {
             opcode_set: Dictionary::opcodes(),
-            opcode_length: Dictionary::length_opcode()
+            opcode_length: Dictionary::length_opcode(),
         }
     }
 
@@ -38,7 +38,7 @@ impl Dictionary {
                                     4 => opcode_set.insert("LAE".to_string(), op),
                                     5 => opcode_set.insert("LAH".to_string(), op),
                                     6 => opcode_set.insert("LAL".to_string(), op),
-                                    _ => continue
+                                    _ => continue,
                                 };
                             } else if reg1 == 200 {
                                 match reg2 {
@@ -48,7 +48,7 @@ impl Dictionary {
                                     4 => opcode_set.insert("LBE".to_string(), op),
                                     5 => opcode_set.insert("LBH".to_string(), op),
                                     6 => opcode_set.insert("LBL".to_string(), op),
-                                    _ => continue
+                                    _ => continue,
                                 };
                             } else if reg1 == 208 {
                                 match reg2 {
@@ -58,7 +58,7 @@ impl Dictionary {
                                     4 => opcode_set.insert("LCE".to_string(), op),
                                     5 => opcode_set.insert("LCH".to_string(), op),
                                     6 => opcode_set.insert("LCL".to_string(), op),
-                                    _ => continue
+                                    _ => continue,
                                 };
                             } else if reg1 == 216 {
                                 match reg2 {
@@ -68,7 +68,7 @@ impl Dictionary {
                                     4 => opcode_set.insert("LDE".to_string(), op),
                                     5 => opcode_set.insert("LDH".to_string(), op),
                                     6 => opcode_set.insert("LDL".to_string(), op),
-                                    _ => continue
+                                    _ => continue,
                                 };
                             } else if reg1 == 224 {
                                 match reg2 {
@@ -78,7 +78,7 @@ impl Dictionary {
                                     3 => opcode_set.insert("LED".to_string(), op),
                                     5 => opcode_set.insert("LEH".to_string(), op),
                                     6 => opcode_set.insert("LEL".to_string(), op),
-                                    _ => continue
+                                    _ => continue,
                                 };
                             } else if reg1 == 232 {
                                 match reg2 {
@@ -88,7 +88,7 @@ impl Dictionary {
                                     3 => opcode_set.insert("LHD".to_string(), op),
                                     4 => opcode_set.insert("LHE".to_string(), op),
                                     6 => opcode_set.insert("LHL".to_string(), op),
-                                    _ => continue
+                                    _ => continue,
                                 };
                             } else if reg1 == 240 {
                                 match reg2 {
@@ -98,12 +98,12 @@ impl Dictionary {
                                     3 => opcode_set.insert("LLD".to_string(), op),
                                     4 => opcode_set.insert("LLE".to_string(), op),
                                     5 => opcode_set.insert("LLH".to_string(), op),
-                                    _ => continue
+                                    _ => continue,
                                 };
                             };
                         };
-                    };
-                };
+                    }
+                }
             }
             // LOAD REG <- MEM
             {
@@ -116,13 +116,13 @@ impl Dictionary {
                         231 => opcode_set.insert("LEM".to_string(), reg),
                         239 => opcode_set.insert("LHM".to_string(), reg),
                         248 => opcode_set.insert("LLM".to_string(), reg),
-                        _ => continue
+                        _ => continue,
                     };
-                };
+                }
             };
             // LOAD MEM <- REG
             {
-                for reg in 248..255{
+                for reg in 248..255 {
                     match reg {
                         248 => opcode_set.insert("LMA".to_string(), reg),
                         249 => opcode_set.insert("LMB".to_string(), reg),
@@ -131,61 +131,60 @@ impl Dictionary {
                         252 => opcode_set.insert("LME".to_string(), reg),
                         253 => opcode_set.insert("LMH".to_string(), reg),
                         254 => opcode_set.insert("LML".to_string(), reg),
-                        _ => continue
+                        _ => continue,
                     };
-                };
+                }
             };
             // LOAD REG <- DATA IMMEDIATE
             {
                 for reg in (6..55).step_by(8) {
                     match reg {
-                        6 =>  opcode_set.insert("LAI".to_string(), reg),
+                        6 => opcode_set.insert("LAI".to_string(), reg),
                         14 => opcode_set.insert("LBI".to_string(), reg),
                         22 => opcode_set.insert("LCI".to_string(), reg),
                         30 => opcode_set.insert("LDI".to_string(), reg),
                         38 => opcode_set.insert("LEI".to_string(), reg),
                         46 => opcode_set.insert("LHI".to_string(), reg),
                         54 => opcode_set.insert("LLI".to_string(), reg),
-                        _ => continue
+                        _ => continue,
                     };
-                };
+                }
             };
             // LOAD MEM <- DATA IMEDIATE
             {
-                opcode_set.insert("LMI".to_string(), 0x3E); 
+                opcode_set.insert("LMI".to_string(), 0x3E);
             };
             // INCREMENT / DECREMENT INSTRUCTION
             {
                 for reg in (8..49).step_by(8) {
                     match reg {
                         8 => {
-                            opcode_set.insert("INB".to_string(), reg  );
-                            opcode_set.insert("DCB".to_string(), reg+1);
-                        },
+                            opcode_set.insert("INB".to_string(), reg);
+                            opcode_set.insert("DCB".to_string(), reg + 1);
+                        }
                         16 => {
-                            opcode_set.insert("INC".to_string(), reg  );
-                            opcode_set.insert("DCC".to_string(), reg+1);
-                        },
+                            opcode_set.insert("INC".to_string(), reg);
+                            opcode_set.insert("DCC".to_string(), reg + 1);
+                        }
                         24 => {
-                            opcode_set.insert("IND".to_string(), reg  );
-                            opcode_set.insert("DCD".to_string(), reg+1);
-                        },
+                            opcode_set.insert("IND".to_string(), reg);
+                            opcode_set.insert("DCD".to_string(), reg + 1);
+                        }
                         32 => {
-                            opcode_set.insert("INE".to_string(), reg  );
-                            opcode_set.insert("DCE".to_string(), reg+1);
-                        },
+                            opcode_set.insert("INE".to_string(), reg);
+                            opcode_set.insert("DCE".to_string(), reg + 1);
+                        }
                         40 => {
-                            opcode_set.insert("INH".to_string(), reg  );
-                            opcode_set.insert("DCH".to_string(), reg+1);
-                        },
+                            opcode_set.insert("INH".to_string(), reg);
+                            opcode_set.insert("DCH".to_string(), reg + 1);
+                        }
                         48 => {
-                            opcode_set.insert("INL".to_string(), reg  );
-                            opcode_set.insert("DCL".to_string(), reg+1);
-                        },
+                            opcode_set.insert("INL".to_string(), reg);
+                            opcode_set.insert("DCL".to_string(), reg + 1);
+                        }
                         _ => {}
                     };
-
-                };
+                }
             };
         };
         // ACCUMULATOR INSTRUCTIONS
@@ -201,7 +200,7 @@ impl Dictionary {
                         131 => opcode_set.insert("ADD".to_string(), reg),
                         132 => opcode_set.insert("ADE".to_string(), reg),
                         133 => opcode_set.insert("ADH".to_string(), reg),
-                        _ => continue
+                        _ => continue,
                     };
                 }
                 // ADD REG A <- REG A + reg + CARRY
@@ -213,7 +212,7 @@ impl Dictionary {
                         139 => opcode_set.insert("ACD".to_string(), reg),
                         140 => opcode_set.insert("ACE".to_string(), reg),
                         141 => opcode_set.insert("ACH".to_string(), reg),
-                        _ => continue, 
+                        _ => continue,
                     };
                 }
                 // SUBSTRACT REG A <- REG A - reg
@@ -331,13 +330,12 @@ impl Dictionary {
             {
                 // ROTATE LEFT CONTENT
                 opcode_set.insert("RLC".to_string(), 0x02);
-                // ROATATE RIGHT CONTENT 
+                // ROATATE RIGHT CONTENT
                 opcode_set.insert("RRC".to_string(), 0x0A);
-                // ROTATE LEFT ACCUMULATOR 
+                // ROTATE LEFT ACCUMULATOR
                 opcode_set.insert("RAL".to_string(), 0x12);
                 // ROTATE RIGHT ACCUMULATOR
                 opcode_set.insert("RAR".to_string(), 0x1A);
-
             };
         };
         // PROGRAM COUNTER AND STACK CONTROL INSTRUCTIONS
@@ -347,7 +345,7 @@ impl Dictionary {
                 // JMP
                 for x in (68..125).step_by(8) {
                     opcode_set.insert("JMP".to_string(), x);
-                };
+                }
                 // JFc
                 for flag in (64..89).step_by(8) {
                     match flag {
@@ -355,9 +353,9 @@ impl Dictionary {
                         72 => opcode_set.insert("JFZ".to_string(), flag),
                         80 => opcode_set.insert("JFS".to_string(), flag),
                         88 => opcode_set.insert("JFP".to_string(), flag),
-                        _ => continue
+                        _ => continue,
                     };
-                };
+                }
                 // JTc
                 for flag in (96..121).step_by(8) {
                     match flag {
@@ -365,9 +363,9 @@ impl Dictionary {
                         104 => opcode_set.insert("JTZ".to_string(), flag),
                         112 => opcode_set.insert("JTS".to_string(), flag),
                         120 => opcode_set.insert("JTP".to_string(), flag),
-                        _ => continue
+                        _ => continue,
                     };
-                };
+                }
             };
             // CALL INSTRUCTIONS
             {
@@ -382,9 +380,9 @@ impl Dictionary {
                         74 => opcode_set.insert("CFZ".to_string(), flag),
                         82 => opcode_set.insert("CFS".to_string(), flag),
                         90 => opcode_set.insert("CFP".to_string(), flag),
-                        _ => continue
+                        _ => continue,
                     };
-                };
+                }
                 // CTc
                 for flag in (98..123).step_by(8) {
                     match flag {
@@ -392,9 +390,9 @@ impl Dictionary {
                         106 => opcode_set.insert("CTZ".to_string(), flag),
                         114 => opcode_set.insert("CTS".to_string(), flag),
                         122 => opcode_set.insert("CTP".to_string(), flag),
-                        _ => continue
+                        _ => continue,
                     };
-                };
+                }
             };
             // RETURN INSTRUCTIONS
             {
@@ -409,9 +407,9 @@ impl Dictionary {
                         11 => opcode_set.insert("RFZ".to_string(), flag),
                         19 => opcode_set.insert("RFS".to_string(), flag),
                         27 => opcode_set.insert("RFP".to_string(), flag),
-                        _ => continue
+                        _ => continue,
                     };
-                };
+                }
                 // RTc
                 for flag in (35..60).step_by(8) {
                     match flag {
@@ -419,11 +417,11 @@ impl Dictionary {
                         43 => opcode_set.insert("RTZ".to_string(), flag),
                         51 => opcode_set.insert("RTS".to_string(), flag),
                         59 => opcode_set.insert("RTP".to_string(), flag),
-                        _ => continue
+                        _ => continue,
                     };
-                };
+                }
             };
-            // RESART 
+            // RESART
             {
                 for address in (5..62).step_by(8) {
                     match address {
@@ -442,33 +440,130 @@ impl Dictionary {
         };
         // MACHINE INSTRUCTION
         {
-            opcode_set.insert("HLT".to_string(), 0);   // 0b00_000_000
-            opcode_set.insert("HLT".to_string(), 1);   // 0b00_000_001
+            opcode_set.insert("HLT".to_string(), 0); // 0b00_000_000
+            opcode_set.insert("HLT".to_string(), 1); // 0b00_000_001
             opcode_set.insert("HLT".to_string(), 0xFF); // 0b11_111_111
         };
         opcode_set
     }
     fn length_opcode() -> [Vec<String>; 3] {
         let one_byte_instrs: Vec<String> = vec![
-            "LAB".to_string(),"LAC".to_string(),"LAD".to_string(),"LAE".to_string(),"LAH".to_string(),"LAL".to_string(),
-            "LBA".to_string(),"LBC".to_string(),"LBD".to_string(),"LBE".to_string(),"LBH".to_string(),"LBL".to_string(),
-            "LCA".to_string(),"LCB".to_string(),"LCD".to_string(),"LCE".to_string(),"LCH".to_string(),"LCL".to_string(),
-            "LDA".to_string(),"LDB".to_string(),"LDC".to_string(),"LDE".to_string(),"LDH".to_string(),"LDL".to_string(),
-            "LEA".to_string(),"LEB".to_string(),"LEC".to_string(),"LED".to_string(),"LEH".to_string(),"LEL".to_string(),
-            "LHA".to_string(),"LHB".to_string(),"LHC".to_string(),"LHD".to_string(),"LHE".to_string(),"LHL".to_string(),
-            "LLA".to_string(),"LLB".to_string(),"LLC".to_string(),"LLD".to_string(),"LLE".to_string(),"LLH".to_string(),
-            "LAM".to_string(),"LBM".to_string(),"LCM".to_string(),"LDM".to_string(),"LEM".to_string(),"LHM".to_string(),"LLM".to_string(),
-            "LMA".to_string(),"LMB".to_string(),"LMC".to_string(),"LMD".to_string(),"LME".to_string(),"LMH".to_string(),"LML".to_string(),
-            "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
-            "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
-            "ADB".to_string(),"ADC".to_string(),"ADD".to_string(),"ADE".to_string(),"ADH".to_string(),"ADL".to_string(),
-            "ACB".to_string(),"ACC".to_string(),"ACD".to_string(),"ACE".to_string(),"ACH".to_string(),"ACL".to_string(),
-            "SUB".to_string(),"SUC".to_string(),"SUD".to_string(),"SUE".to_string(),"SUH".to_string(),"SUL".to_string(),
-            "SBB".to_string(),"SBC".to_string(),"SBD".to_string(),"SBE".to_string(),"SBH".to_string(),"SBL".to_string(),
-            "NDB".to_string(),"NDC".to_string(),"NDD".to_string(),"NDE".to_string(),"NDH".to_string(),"NDL".to_string(),
-            "XRB".to_string(),"XRC".to_string(),"XRD".to_string(),"XRE".to_string(),"XRH".to_string(),"XRL".to_string(),
-            "ORB".to_string(),"ORC".to_string(),"ORD".to_string(),"ORE".to_string(),"ORH".to_string(),"ORL".to_string(),
-            "CPB".to_string(),"CPC".to_string(),"CPD".to_string(),"CPE".to_string(),"CPH".to_string(),"CPL".to_string(),
+            "LAB".to_string(),
+            "LAC".to_string(),
+            "LAD".to_string(),
+            "LAE".to_string(),
+            "LAH".to_string(),
+            "LAL".to_string(),
+            "LBA".to_string(),
+            "LBC".to_string(),
+            "LBD".to_string(),
+            "LBE".to_string(),
+            "LBH".to_string(),
+            "LBL".to_string(),
+            "LCA".to_string(),
+            "LCB".to_string(),
+            "LCD".to_string(),
+            "LCE".to_string(),
+            "LCH".to_string(),
+            "LCL".to_string(),
+            "LDA".to_string(),
+            "LDB".to_string(),
+            "LDC".to_string(),
+            "LDE".to_string(),
+            "LDH".to_string(),
+            "LDL".to_string(),
+            "LEA".to_string(),
+            "LEB".to_string(),
+            "LEC".to_string(),
+            "LED".to_string(),
+            "LEH".to_string(),
+            "LEL".to_string(),
+            "LHA".to_string(),
+            "LHB".to_string(),
+            "LHC".to_string(),
+            "LHD".to_string(),
+            "LHE".to_string(),
+            "LHL".to_string(),
+            "LLA".to_string(),
+            "LLB".to_string(),
+            "LLC".to_string(),
+            "LLD".to_string(),
+            "LLE".to_string(),
+            "LLH".to_string(),
+            "LAM".to_string(),
+            "LBM".to_string(),
+            "LCM".to_string(),
+            "LDM".to_string(),
+            "LEM".to_string(),
+            "LHM".to_string(),
+            "LLM".to_string(),
+            "LMA".to_string(),
+            "LMB".to_string(),
+            "LMC".to_string(),
+            "LMD".to_string(),
+            "LME".to_string(),
+            "LMH".to_string(),
+            "LML".to_string(),
+            "INB".to_string(),
+            "INC".to_string(),
+            "IND".to_string(),
+            "INE".to_string(),
+            "INH".to_string(),
+            "INL".to_string(),
+            "DCB".to_string(),
+            "DCC".to_string(),
+            "DCD".to_string(),
+            "DCE".to_string(),
+            "DCH".to_string(),
+            "DCL".to_string(),
+            "ADB".to_string(),
+            "ADC".to_string(),
+            "ADD".to_string(),
+            "ADE".to_string(),
+            "ADH".to_string(),
+            "ADL".to_string(),
+            "ACB".to_string(),
+            "ACC".to_string(),
+            "ACD".to_string(),
+            "ACE".to_string(),
+            "ACH".to_string(),
+            "ACL".to_string(),
+            "SUB".to_string(),
+            "SUC".to_string(),
+            "SUD".to_string(),
+            "SUE".to_string(),
+            "SUH".to_string(),
+            "SUL".to_string(),
+            "SBB".to_string(),
+            "SBC".to_string(),
+            "SBD".to_string(),
+            "SBE".to_string(),
+            "SBH".to_string(),
+            "SBL".to_string(),
+            "NDB".to_string(),
+            "NDC".to_string(),
+            "NDD".to_string(),
+            "NDE".to_string(),
+            "NDH".to_string(),
+            "NDL".to_string(),
+            "XRB".to_string(),
+            "XRC".to_string(),
+            "XRD".to_string(),
+            "XRE".to_string(),
+            "XRH".to_string(),
+            "XRL".to_string(),
+            "ORB".to_string(),
+            "ORC".to_string(),
+            "ORD".to_string(),
+            "ORE".to_string(),
+            "ORH".to_string(),
+            "ORL".to_string(),
+            "CPB".to_string(),
+            "CPC".to_string(),
+            "CPD".to_string(),
+            "CPE".to_string(),
+            "CPH".to_string(),
+            "CPL".to_string(),
             "ADM".to_string(),
             "ACM".to_string(),
             "SUM".to_string(),
@@ -477,15 +572,31 @@ impl Dictionary {
             "XRM".to_string(),
             "ORM".to_string(),
             "CPM".to_string(),
-            "RLC".to_string(),"RRC".to_string(),"RAL".to_string(),"RAR".to_string(),
-            "NOP".to_string(),"HLT".to_string(),
+            "RLC".to_string(),
+            "RRC".to_string(),
+            "RAL".to_string(),
+            "RAR".to_string(),
+            "NOP".to_string(),
+            "HLT".to_string(),
             "RET".to_string(),
-            "RFC".to_string(),"RFZ".to_string(),"RFS".to_string(),"RFP".to_string(),
-            "RTC".to_string(),"RTZ".to_string(),"RTS".to_string(),"RTP".to_string(),
+            "RFC".to_string(),
+            "RFZ".to_string(),
+            "RFS".to_string(),
+            "RFP".to_string(),
+            "RTC".to_string(),
+            "RTZ".to_string(),
+            "RTS".to_string(),
+            "RTP".to_string(),
             "RST".to_string(),
         ];
         let two_byte_instrs: Vec<String> = vec![
-            "LAI".to_string(),"LBI".to_string(),"LCI".to_string(),"LDI".to_string(),"LEI".to_string(),"LHI".to_string(),"LLI".to_string(),
+            "LAI".to_string(),
+            "LBI".to_string(),
+            "LCI".to_string(),
+            "LDI".to_string(),
+            "LEI".to_string(),
+            "LHI".to_string(),
+            "LLI".to_string(),
             "LMI".to_string(),
             "ADI".to_string(),
             "ACI".to_string(),
@@ -498,16 +609,32 @@ impl Dictionary {
         ];
         let three_byte_instrs: Vec<String> = vec![
             "JMP".to_string(),
-            "JFC".to_string(),"JFZ".to_string(),"JFS".to_string(),"JFP".to_string(),
-            "JTC".to_string(),"JTZ".to_string(),"JTS".to_string(),"JTP".to_string(),
-            "CFC".to_string(),"CFZ".to_string(),"CFS".to_string(),"CFP".to_string(),
-            "CTC".to_string(),"CTZ".to_string(),"CTS".to_string(),"CTP".to_string(),
+            "JFC".to_string(),
+            "JFZ".to_string(),
+            "JFS".to_string(),
+            "JFP".to_string(),
+            "JTC".to_string(),
+            "JTZ".to_string(),
+            "JTS".to_string(),
+            "JTP".to_string(),
+            "CFC".to_string(),
+            "CFZ".to_string(),
+            "CFS".to_string(),
+            "CFP".to_string(),
+            "CTC".to_string(),
+            "CTZ".to_string(),
+            "CTS".to_string(),
+            "CTP".to_string(),
             "CAL".to_string(),
         ];
         let instrs: [Vec<String>; 3] = [one_byte_instrs, two_byte_instrs, three_byte_instrs];
         instrs
     }
 
-    pub fn get_opcode_set(&self) -> &HashMap<String, u8> {&self.opcode_set}
-    pub fn get_opcode_length(&self) -> &[Vec<String>; 3] {&self.opcode_length}
+    pub fn get_opcode_set(&self) -> &HashMap<String, u8> {
+        &self.opcode_set
+    }
+    pub fn get_opcode_length(&self) -> &[Vec<String>; 3] {
+        &self.opcode_length
+    }
 }

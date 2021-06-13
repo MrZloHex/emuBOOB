@@ -4,17 +4,16 @@
 #![allow(clippy::collapsible_else_if)] // TRY TO FIX IT!!!
 #![allow(unused_imports)]
 
-use std::{thread::sleep, time::Duration};
 use clap::{load_yaml, App};
+use std::{thread::sleep, time::Duration};
 
-pub mod mcs;
 pub mod cmp;
+pub mod mcs;
 
-use mcs::cpu::Cpu;
-use mcs::mem::Mem;
-use mcs::dump::Dump;
 use cmp::translator::Compile;
-
+use mcs::cpu::Cpu;
+use mcs::dump::Dump;
+use mcs::mem::Mem;
 
 fn main() {
     let mut input_filename: String = String::new();
@@ -71,89 +70,109 @@ fn main() {
     let mut cpu: Cpu = Cpu::new();
     let mut mem: Mem = Mem::new();
     let mut translator: Compile = Compile::new();
-    
+
     if "build".eq(command) {
         build(&mut translator, verbosity, input_filename, output_filename);
     } else if "run".eq(command) {
-        run(&mut cpu, &mut mem, &mut translator, verbosity, build_f, input_filename, output_filename);
+        run(
+            &mut cpu,
+            &mut mem,
+            &mut translator,
+            verbosity,
+            build_f,
+            input_filename,
+            output_filename,
+        );
     } else if "help".eq(command) {
         help();
     }
-    /*
-    // COMPILE PART
-    let machine_code = translator.compile().unwrap();
-
-    // PROGRAMMING PART
-    mem.programme_insert(machine_code);
     
-    // EXECUTE PART
-    cpu.reset();
-    // for test ROM
-    //mem.print_dump(); 
-    //cpu.print_dump();
-    //println!();
-    //execute commands
-    //println!("Instructions:");
-    //println!("Mnem\tCycle\tBytes\tType\t\tPC");
-    'main_loop: loop {
-        if let Ok(res) = cpu.execute(&mut mem) {  // halt - returns true
-            if res {
-                //println!("\nExecuting finished!");
-                break 'main_loop
-            }
-            else {if cpu.get_r_pc() as usize == mem.get_length_prom() {/*println!("\nPROCESSOR WASN'T HALTED")*/}}
-        }
-        sleep(Duration::from_millis(10));
-        /*let mut line = String::new();   //      MANUAL CYCLE
-        let b1 = std::io::stdin().read_line(&mut line).unwrap();
-        cpu.print_dump();*/
-    }
-    //cpu.print_dump();
-    //mem.print_dump();*/
-    //println!();
+    println!();
 }
 
-fn build(translator: &mut Compile, verbosity: bool, input_filename: String, output_filename: String) {
+fn build(
+    translator: &mut Compile,
+    verbosity: bool,
+    input_filename: String,
+    output_filename: String,
+) {
     translator.precompile(input_filename, output_filename);
     match translator.compile(verbosity) {
         Ok(_) => (),
-        Err(e) => panic!("{}", e)
+        Err(e) => panic!("{}", e),
     };
 }
 
-fn run(cpu: &mut Cpu, mem: &mut Mem, translator: &mut Compile, verbosity: bool, build_f: bool, input_filename: String, output_filename: String) {
+fn run(
+    cpu: &mut Cpu,
+    mem: &mut Mem,
+    translator: &mut Compile,
+    verbosity: bool,
+    build_f: bool,
+    input_filename: String,
+    output_filename: String,
+) {
     if build_f {
         translator.precompile(input_filename, output_filename.clone());
         match translator.compile(verbosity.clone()) {
             Ok(_) => (),
-            Err(e) => panic!("{}", e)
+            Err(e) => panic!("{}", e),
         }
         mem.programme_insert(output_filename);
     } else {
         mem.programme_insert(input_filename);
     }
-    if verbosity {mem.print_dump(); cpu.print_dump()}
+    if verbosity {
+        mem.print_dump();
+        cpu.print_dump()
+    }
     println!("Instructions:");
-    if verbosity {println!("Mnem\tCycle\tBytes\tType\t\tPC");}
-    else {println!("Mnem\tPC")}
+    if verbosity {
+        println!("Mnem\tCycle\tBytes\tType\t\tPC");
+    } else {
+        println!("Mnem\tPC")
+    }
     'main_loop: loop {
-        if let Ok(res) = cpu.execute(mem, verbosity.clone()) {  // halt - returns true
+        if let Ok(res) = cpu.execute(mem, verbosity.clone()) {
+            // halt - returns true
             if res {
                 println!("\nExecuting finished!");
-                break 'main_loop
+                break 'main_loop;
+            } else {
+                if cpu.get_r_pc() as usize == mem.get_length_prom() {
+                    println!("\nPROCESSOR WASN'T HALTED")
+                }
             }
-            else {if cpu.get_r_pc() as usize == mem.get_length_prom() {println!("\nPROCESSOR WASN'T HALTED")}}
         }
         sleep(Duration::from_millis(10));
         /*let mut line = String::new();   //      MANUAL CYCLE
         let b1 = std::io::stdin().read_line(&mut line).unwrap();
         cpu.print_dump();*/
     }
-    if verbosity {mem.print_dump()}
+    if verbosity {
+        mem.print_dump()
+    }
     cpu.print_dump();
-
 }
 
 fn help() {
-
+    println!(
+        "sp_3-bit-run 1.8.6
+    MrZloHex <zlo.alex.it@gmail.com>
+    Execute binary file
+    
+    USAGE:
+        sp_3-bit run [FLAGS] [OPTIONS] --input <INPUT_FILE>
+    
+    FLAGS:
+        -b, --build      Before run program build input file
+        -h, --help       Prints help information
+        -V, --version    Prints version information
+        -v, --verbose    Displaying dumps and executing instructions
+    
+    OPTIONS:
+        -i, --input <INPUT_FILE>      Input filename with binary/assembly code
+        -o, --output <OUTPUT_FILE>    Name of filename if is set flag build
+    "
+    )
 }

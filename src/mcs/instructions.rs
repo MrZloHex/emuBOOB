@@ -4,16 +4,16 @@ pub struct Instruction {
     instr_set: HashMap<u8, String>,
     instr_time: [Vec<String>; 3],
     instr_length: [Vec<String>; 3],
-    instr_type: [Vec<String>; 4]
+    instr_type: [Vec<String>; 4],
 }
 
 impl Instruction {
     pub fn new() -> Instruction {
-        let instrucitions: Instruction = Instruction{
+        let instrucitions: Instruction = Instruction {
             instr_set: Instruction::opcodes(),
             instr_time: Instruction::time_instr(),
             instr_length: Instruction::length_instr(),
-            instr_type: Instruction::type_instr()
+            instr_type: Instruction::type_instr(),
         };
         instrucitions
     }
@@ -43,7 +43,7 @@ impl Instruction {
                                     4 => instr_set.insert(op, "LAE".to_string()),
                                     5 => instr_set.insert(op, "LAH".to_string()),
                                     6 => instr_set.insert(op, "LAL".to_string()),
-                                    _ => continue
+                                    _ => continue,
                                 };
                             } else if reg1 == 200 {
                                 match reg2 {
@@ -53,7 +53,7 @@ impl Instruction {
                                     4 => instr_set.insert(op, "LBE".to_string()),
                                     5 => instr_set.insert(op, "LBH".to_string()),
                                     6 => instr_set.insert(op, "LBL".to_string()),
-                                    _ => continue
+                                    _ => continue,
                                 };
                             } else if reg1 == 208 {
                                 match reg2 {
@@ -63,7 +63,7 @@ impl Instruction {
                                     4 => instr_set.insert(op, "LCE".to_string()),
                                     5 => instr_set.insert(op, "LCH".to_string()),
                                     6 => instr_set.insert(op, "LCL".to_string()),
-                                    _ => continue
+                                    _ => continue,
                                 };
                             } else if reg1 == 216 {
                                 match reg2 {
@@ -73,7 +73,7 @@ impl Instruction {
                                     4 => instr_set.insert(op, "LDE".to_string()),
                                     5 => instr_set.insert(op, "LDH".to_string()),
                                     6 => instr_set.insert(op, "LDL".to_string()),
-                                    _ => continue
+                                    _ => continue,
                                 };
                             } else if reg1 == 224 {
                                 match reg2 {
@@ -83,7 +83,7 @@ impl Instruction {
                                     3 => instr_set.insert(op, "LED".to_string()),
                                     5 => instr_set.insert(op, "LEH".to_string()),
                                     6 => instr_set.insert(op, "LEL".to_string()),
-                                    _ => continue
+                                    _ => continue,
                                 };
                             } else if reg1 == 232 {
                                 match reg2 {
@@ -93,7 +93,7 @@ impl Instruction {
                                     3 => instr_set.insert(op, "LHD".to_string()),
                                     4 => instr_set.insert(op, "LHE".to_string()),
                                     6 => instr_set.insert(op, "LHL".to_string()),
-                                    _ => continue
+                                    _ => continue,
                                 };
                             } else if reg1 == 240 {
                                 match reg2 {
@@ -103,12 +103,12 @@ impl Instruction {
                                     3 => instr_set.insert(op, "LLD".to_string()),
                                     4 => instr_set.insert(op, "LLE".to_string()),
                                     5 => instr_set.insert(op, "LLH".to_string()),
-                                    _ => continue
+                                    _ => continue,
                                 };
                             };
                         };
-                    };
-                };
+                    }
+                }
             }
             // LOAD REG <- MEM
             {
@@ -121,13 +121,13 @@ impl Instruction {
                         231 => instr_set.insert(reg, "LEM".to_string()),
                         239 => instr_set.insert(reg, "LHM".to_string()),
                         248 => instr_set.insert(reg, "LLM".to_string()),
-                        _ => continue
+                        _ => continue,
                     };
-                };
+                }
             };
             // LOAD MEM <- REG
             {
-                for reg in 248..255{
+                for reg in 248..255 {
                     match reg {
                         248 => instr_set.insert(reg, "LMA".to_string()),
                         249 => instr_set.insert(reg, "LMB".to_string()),
@@ -136,9 +136,9 @@ impl Instruction {
                         252 => instr_set.insert(reg, "LME".to_string()),
                         253 => instr_set.insert(reg, "LMH".to_string()),
                         254 => instr_set.insert(reg, "LML".to_string()),
-                        _ => continue
+                        _ => continue,
                     };
-                };
+                }
             };
             // LOAD REG <- DATA IMMEDIATE
             {
@@ -151,9 +151,9 @@ impl Instruction {
                         38 => instr_set.insert(reg, "LEI".to_string()),
                         46 => instr_set.insert(reg, "LHI".to_string()),
                         54 => instr_set.insert(reg, "LLI".to_string()),
-                        _ => continue
+                        _ => continue,
                     };
-                };
+                }
             };
             // LOAD MEM <- DATA IMEDIATE
             {
@@ -165,32 +165,31 @@ impl Instruction {
                     match reg {
                         8 => {
                             instr_set.insert(reg, "INB".to_string());
-                            instr_set.insert(reg+1, "DCB".to_string());
-                        },
+                            instr_set.insert(reg + 1, "DCB".to_string());
+                        }
                         16 => {
                             instr_set.insert(reg, "INC".to_string());
-                            instr_set.insert(reg+1, "DCC".to_string());
-                        },
+                            instr_set.insert(reg + 1, "DCC".to_string());
+                        }
                         24 => {
                             instr_set.insert(reg, "IND".to_string());
-                            instr_set.insert(reg+1, "DCD".to_string());
-                        },
+                            instr_set.insert(reg + 1, "DCD".to_string());
+                        }
                         32 => {
                             instr_set.insert(reg, "INE".to_string());
-                            instr_set.insert(reg+1, "DCE".to_string());
-                        },
+                            instr_set.insert(reg + 1, "DCE".to_string());
+                        }
                         40 => {
                             instr_set.insert(reg, "INH".to_string());
-                            instr_set.insert(reg+1, "DCH".to_string());
-                        },
+                            instr_set.insert(reg + 1, "DCH".to_string());
+                        }
                         48 => {
                             instr_set.insert(reg, "INL".to_string());
-                            instr_set.insert(reg+1, "DCL".to_string());
-                        },
+                            instr_set.insert(reg + 1, "DCL".to_string());
+                        }
                         _ => {}
                     };
-
-                };
+                }
             };
         };
         // ACCUMULATOR INSTRUCTIONS
@@ -206,7 +205,7 @@ impl Instruction {
                         131 => instr_set.insert(reg, "ADD".to_string()),
                         132 => instr_set.insert(reg, "ADE".to_string()),
                         133 => instr_set.insert(reg, "ADH".to_string()),
-                        _ => continue
+                        _ => continue,
                     };
                 }
                 // ADD REG A <- REG A + reg + CARRY
@@ -218,7 +217,7 @@ impl Instruction {
                         139 => instr_set.insert(reg, "ACD".to_string()),
                         140 => instr_set.insert(reg, "ACE".to_string()),
                         141 => instr_set.insert(reg, "ACH".to_string()),
-                        _ => continue, 
+                        _ => continue,
                     };
                 }
                 // SUBSTRACT REG A <- REG A - reg
@@ -336,13 +335,12 @@ impl Instruction {
             {
                 // ROTATE LEFT CONTENT
                 instr_set.insert(0b00_000_010, "RLC".to_string());
-                // ROATATE RIGHT CONTENT 
+                // ROATATE RIGHT CONTENT
                 instr_set.insert(0b00_001_010, "RRC".to_string());
-                // ROTATE LEFT ACCUMULATOR 
+                // ROTATE LEFT ACCUMULATOR
                 instr_set.insert(0b00_010_010, "RAL".to_string());
                 // ROTATE RIGHT ACCUMULATOR
                 instr_set.insert(0b00_011_010, "RAR".to_string());
-
             };
         };
         // PROGRAM COUNTER AND STACK CONTROL INSTRUCTIONS
@@ -352,7 +350,7 @@ impl Instruction {
                 // JMP
                 for x in (68..125).step_by(8) {
                     instr_set.insert(x, "JMP".to_string());
-                };
+                }
                 // JFc
                 for flag in (64..89).step_by(8) {
                     match flag {
@@ -360,9 +358,9 @@ impl Instruction {
                         72 => instr_set.insert(flag, "JFZ".to_string()),
                         80 => instr_set.insert(flag, "JFS".to_string()),
                         88 => instr_set.insert(flag, "JFP".to_string()),
-                        _ => continue
+                        _ => continue,
                     };
-                };
+                }
                 // JTc
                 for flag in (96..121).step_by(8) {
                     match flag {
@@ -370,9 +368,9 @@ impl Instruction {
                         104 => instr_set.insert(flag, "JTZ".to_string()),
                         112 => instr_set.insert(flag, "JTS".to_string()),
                         120 => instr_set.insert(flag, "JTP".to_string()),
-                        _ => continue
+                        _ => continue,
                     };
-                };
+                }
             };
             // CALL INSTRUCTIONS
             {
@@ -387,9 +385,9 @@ impl Instruction {
                         74 => instr_set.insert(flag, "CFZ".to_string()),
                         82 => instr_set.insert(flag, "CFS".to_string()),
                         90 => instr_set.insert(flag, "CFP".to_string()),
-                        _ => continue
+                        _ => continue,
                     };
-                };
+                }
                 // CTc
                 for flag in (98..123).step_by(8) {
                     match flag {
@@ -397,9 +395,9 @@ impl Instruction {
                         106 => instr_set.insert(flag, "CTZ".to_string()),
                         114 => instr_set.insert(flag, "CTS".to_string()),
                         122 => instr_set.insert(flag, "CTP".to_string()),
-                        _ => continue
+                        _ => continue,
                     };
-                };
+                }
             };
             // RETURN INSTRUCTIONS
             {
@@ -414,9 +412,9 @@ impl Instruction {
                         11 => instr_set.insert(flag, "RFZ".to_string()),
                         19 => instr_set.insert(flag, "RFS".to_string()),
                         27 => instr_set.insert(flag, "RFP".to_string()),
-                        _ => continue
+                        _ => continue,
                     };
-                };
+                }
                 // RTc
                 for flag in (35..60).step_by(8) {
                     match flag {
@@ -424,11 +422,11 @@ impl Instruction {
                         43 => instr_set.insert(flag, "RTZ".to_string()),
                         51 => instr_set.insert(flag, "RTS".to_string()),
                         59 => instr_set.insert(flag, "RTP".to_string()),
-                        _ => continue
+                        _ => continue,
                     };
-                };
+                }
             };
-            // RESART 
+            // RESART
             {
                 for address in (5..62).step_by(8) {
                     match address {
@@ -447,8 +445,8 @@ impl Instruction {
         };
         // MACHINE INSTRUCTION
         {
-            instr_set.insert(0, "HLT".to_string());   // 0b00_000_000
-            instr_set.insert(1, "HLT".to_string());   // 0b00_000_001
+            instr_set.insert(0, "HLT".to_string()); // 0b00_000_000
+            instr_set.insert(1, "HLT".to_string()); // 0b00_000_001
             instr_set.insert(255, "HLT".to_string()); // 0b11_111_111
         };
         instr_set
@@ -456,34 +454,147 @@ impl Instruction {
 
     fn time_instr() -> [Vec<String>; 3] {
         let one_cycle_instrs: Vec<String> = vec![
-            "LAB".to_string(),"LAC".to_string(),"LAD".to_string(),"LAE".to_string(),"LAH".to_string(),"LAL".to_string(),
-            "LBA".to_string(),"LBC".to_string(),"LBD".to_string(),"LBE".to_string(),"LBH".to_string(),"LBL".to_string(),
-            "LCA".to_string(),"LCB".to_string(),"LCD".to_string(),"LCE".to_string(),"LCH".to_string(),"LCL".to_string(),
-            "LDA".to_string(),"LDB".to_string(),"LDC".to_string(),"LDE".to_string(),"LDH".to_string(),"LDL".to_string(),
-            "LEA".to_string(),"LEB".to_string(),"LEC".to_string(),"LED".to_string(),"LEH".to_string(),"LEL".to_string(),
-            "LHA".to_string(),"LHB".to_string(),"LHC".to_string(),"LHD".to_string(),"LHE".to_string(),"LHL".to_string(),
-            "LLA".to_string(),"LLB".to_string(),"LLC".to_string(),"LLD".to_string(),"LLE".to_string(),"LLH".to_string(),
-            "NOP".to_string(),"HLT".to_string(),
-            "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
-            "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
-            "ADB".to_string(),"ADC".to_string(),"ADD".to_string(),"ADE".to_string(),"ADH".to_string(),"ADL".to_string(),
-            "ACB".to_string(),"ACC".to_string(),"ACD".to_string(),"ACE".to_string(),"ACH".to_string(),"ACL".to_string(),
-            "SUB".to_string(),"SUC".to_string(),"SUD".to_string(),"SUE".to_string(),"SUH".to_string(),"SUL".to_string(),
-            "SBB".to_string(),"SBC".to_string(),"SBD".to_string(),"SBE".to_string(),"SBH".to_string(),"SBL".to_string(),
-            "NDB".to_string(),"NDC".to_string(),"NDD".to_string(),"NDE".to_string(),"NDH".to_string(),"NDL".to_string(),
-            "XRB".to_string(),"XRC".to_string(),"XRD".to_string(),"XRE".to_string(),"XRH".to_string(),"XRL".to_string(),
-            "ORB".to_string(),"ORC".to_string(),"ORD".to_string(),"ORE".to_string(),"ORH".to_string(),"ORL".to_string(),
-            "CPB".to_string(),"CPC".to_string(),"CPD".to_string(),"CPE".to_string(),"CPH".to_string(),"CPL".to_string(),
-            "RLC".to_string(),"RRC".to_string(),"RAL".to_string(),"RAR".to_string(),
+            "LAB".to_string(),
+            "LAC".to_string(),
+            "LAD".to_string(),
+            "LAE".to_string(),
+            "LAH".to_string(),
+            "LAL".to_string(),
+            "LBA".to_string(),
+            "LBC".to_string(),
+            "LBD".to_string(),
+            "LBE".to_string(),
+            "LBH".to_string(),
+            "LBL".to_string(),
+            "LCA".to_string(),
+            "LCB".to_string(),
+            "LCD".to_string(),
+            "LCE".to_string(),
+            "LCH".to_string(),
+            "LCL".to_string(),
+            "LDA".to_string(),
+            "LDB".to_string(),
+            "LDC".to_string(),
+            "LDE".to_string(),
+            "LDH".to_string(),
+            "LDL".to_string(),
+            "LEA".to_string(),
+            "LEB".to_string(),
+            "LEC".to_string(),
+            "LED".to_string(),
+            "LEH".to_string(),
+            "LEL".to_string(),
+            "LHA".to_string(),
+            "LHB".to_string(),
+            "LHC".to_string(),
+            "LHD".to_string(),
+            "LHE".to_string(),
+            "LHL".to_string(),
+            "LLA".to_string(),
+            "LLB".to_string(),
+            "LLC".to_string(),
+            "LLD".to_string(),
+            "LLE".to_string(),
+            "LLH".to_string(),
+            "NOP".to_string(),
+            "HLT".to_string(),
+            "INB".to_string(),
+            "INC".to_string(),
+            "IND".to_string(),
+            "INE".to_string(),
+            "INH".to_string(),
+            "INL".to_string(),
+            "DCB".to_string(),
+            "DCC".to_string(),
+            "DCD".to_string(),
+            "DCE".to_string(),
+            "DCH".to_string(),
+            "DCL".to_string(),
+            "ADB".to_string(),
+            "ADC".to_string(),
+            "ADD".to_string(),
+            "ADE".to_string(),
+            "ADH".to_string(),
+            "ADL".to_string(),
+            "ACB".to_string(),
+            "ACC".to_string(),
+            "ACD".to_string(),
+            "ACE".to_string(),
+            "ACH".to_string(),
+            "ACL".to_string(),
+            "SUB".to_string(),
+            "SUC".to_string(),
+            "SUD".to_string(),
+            "SUE".to_string(),
+            "SUH".to_string(),
+            "SUL".to_string(),
+            "SBB".to_string(),
+            "SBC".to_string(),
+            "SBD".to_string(),
+            "SBE".to_string(),
+            "SBH".to_string(),
+            "SBL".to_string(),
+            "NDB".to_string(),
+            "NDC".to_string(),
+            "NDD".to_string(),
+            "NDE".to_string(),
+            "NDH".to_string(),
+            "NDL".to_string(),
+            "XRB".to_string(),
+            "XRC".to_string(),
+            "XRD".to_string(),
+            "XRE".to_string(),
+            "XRH".to_string(),
+            "XRL".to_string(),
+            "ORB".to_string(),
+            "ORC".to_string(),
+            "ORD".to_string(),
+            "ORE".to_string(),
+            "ORH".to_string(),
+            "ORL".to_string(),
+            "CPB".to_string(),
+            "CPC".to_string(),
+            "CPD".to_string(),
+            "CPE".to_string(),
+            "CPH".to_string(),
+            "CPL".to_string(),
+            "RLC".to_string(),
+            "RRC".to_string(),
+            "RAL".to_string(),
+            "RAR".to_string(),
             "RET".to_string(),
             "RST".to_string(),
-            "RFC".to_string(),"RFZ".to_string(),"RFS".to_string(),"RFP".to_string(),
-            "RTC".to_string(),"RTZ".to_string(),"RTS".to_string(),"RTP".to_string(),
+            "RFC".to_string(),
+            "RFZ".to_string(),
+            "RFS".to_string(),
+            "RFP".to_string(),
+            "RTC".to_string(),
+            "RTZ".to_string(),
+            "RTS".to_string(),
+            "RTP".to_string(),
         ];
         let two_cycle_instrs: Vec<String> = vec![
-            "LAM".to_string(),"LBM".to_string(),"LCM".to_string(),"LDM".to_string(),"LEM".to_string(),"LHM".to_string(),"LLM".to_string(),
-            "LMA".to_string(),"LMB".to_string(),"LMC".to_string(),"LMD".to_string(),"LME".to_string(),"LMH".to_string(),"LML".to_string(),
-            "LAI".to_string(),"LBI".to_string(),"LCI".to_string(),"LDI".to_string(),"LEI".to_string(),"LHI".to_string(),"LLI".to_string(),
+            "LAM".to_string(),
+            "LBM".to_string(),
+            "LCM".to_string(),
+            "LDM".to_string(),
+            "LEM".to_string(),
+            "LHM".to_string(),
+            "LLM".to_string(),
+            "LMA".to_string(),
+            "LMB".to_string(),
+            "LMC".to_string(),
+            "LMD".to_string(),
+            "LME".to_string(),
+            "LMH".to_string(),
+            "LML".to_string(),
+            "LAI".to_string(),
+            "LBI".to_string(),
+            "LCI".to_string(),
+            "LDI".to_string(),
+            "LEI".to_string(),
+            "LHI".to_string(),
+            "LLI".to_string(),
             "ADM".to_string(),
             "ACM".to_string(),
             "SUM".to_string(),
@@ -504,37 +615,146 @@ impl Instruction {
         let three_cycle_instrs: Vec<String> = vec![
             "LMI".to_string(),
             "JMP".to_string(),
-            "JFC".to_string(),"JFZ".to_string(),"JFS".to_string(),"JFP".to_string(),
-            "JTC".to_string(),"JTZ".to_string(),"JTS".to_string(),"JTP".to_string(),
-            "CFC".to_string(),"CFZ".to_string(),"CFS".to_string(),"CFP".to_string(),
-            "CTC".to_string(),"CTZ".to_string(),"CTS".to_string(),"CTP".to_string(),
+            "JFC".to_string(),
+            "JFZ".to_string(),
+            "JFS".to_string(),
+            "JFP".to_string(),
+            "JTC".to_string(),
+            "JTZ".to_string(),
+            "JTS".to_string(),
+            "JTP".to_string(),
+            "CFC".to_string(),
+            "CFZ".to_string(),
+            "CFS".to_string(),
+            "CFP".to_string(),
+            "CTC".to_string(),
+            "CTZ".to_string(),
+            "CTS".to_string(),
+            "CTP".to_string(),
             "CAL".to_string(),
         ];
         let instrs: [Vec<String>; 3] = [one_cycle_instrs, two_cycle_instrs, three_cycle_instrs];
         instrs
     }
-    
+
     fn length_instr() -> [Vec<String>; 3] {
         let one_byte_instrs: Vec<String> = vec![
-            "LAB".to_string(),"LAC".to_string(),"LAD".to_string(),"LAE".to_string(),"LAH".to_string(),"LAL".to_string(),
-            "LBA".to_string(),"LBC".to_string(),"LBD".to_string(),"LBE".to_string(),"LBH".to_string(),"LBL".to_string(),
-            "LCA".to_string(),"LCB".to_string(),"LCD".to_string(),"LCE".to_string(),"LCH".to_string(),"LCL".to_string(),
-            "LDA".to_string(),"LDB".to_string(),"LDC".to_string(),"LDE".to_string(),"LDH".to_string(),"LDL".to_string(),
-            "LEA".to_string(),"LEB".to_string(),"LEC".to_string(),"LED".to_string(),"LEH".to_string(),"LEL".to_string(),
-            "LHA".to_string(),"LHB".to_string(),"LHC".to_string(),"LHD".to_string(),"LHE".to_string(),"LHL".to_string(),
-            "LLA".to_string(),"LLB".to_string(),"LLC".to_string(),"LLD".to_string(),"LLE".to_string(),"LLH".to_string(),
-            "LAM".to_string(),"LBM".to_string(),"LCM".to_string(),"LDM".to_string(),"LEM".to_string(),"LHM".to_string(),"LLM".to_string(),
-            "LMA".to_string(),"LMB".to_string(),"LMC".to_string(),"LMD".to_string(),"LME".to_string(),"LMH".to_string(),"LML".to_string(),
-            "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
-            "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
-            "ADB".to_string(),"ADC".to_string(),"ADD".to_string(),"ADE".to_string(),"ADH".to_string(),"ADL".to_string(),
-            "ACB".to_string(),"ACC".to_string(),"ACD".to_string(),"ACE".to_string(),"ACH".to_string(),"ACL".to_string(),
-            "SUB".to_string(),"SUC".to_string(),"SUD".to_string(),"SUE".to_string(),"SUH".to_string(),"SUL".to_string(),
-            "SBB".to_string(),"SBC".to_string(),"SBD".to_string(),"SBE".to_string(),"SBH".to_string(),"SBL".to_string(),
-            "NDB".to_string(),"NDC".to_string(),"NDD".to_string(),"NDE".to_string(),"NDH".to_string(),"NDL".to_string(),
-            "XRB".to_string(),"XRC".to_string(),"XRD".to_string(),"XRE".to_string(),"XRH".to_string(),"XRL".to_string(),
-            "ORB".to_string(),"ORC".to_string(),"ORD".to_string(),"ORE".to_string(),"ORH".to_string(),"ORL".to_string(),
-            "CPB".to_string(),"CPC".to_string(),"CPD".to_string(),"CPE".to_string(),"CPH".to_string(),"CPL".to_string(),
+            "LAB".to_string(),
+            "LAC".to_string(),
+            "LAD".to_string(),
+            "LAE".to_string(),
+            "LAH".to_string(),
+            "LAL".to_string(),
+            "LBA".to_string(),
+            "LBC".to_string(),
+            "LBD".to_string(),
+            "LBE".to_string(),
+            "LBH".to_string(),
+            "LBL".to_string(),
+            "LCA".to_string(),
+            "LCB".to_string(),
+            "LCD".to_string(),
+            "LCE".to_string(),
+            "LCH".to_string(),
+            "LCL".to_string(),
+            "LDA".to_string(),
+            "LDB".to_string(),
+            "LDC".to_string(),
+            "LDE".to_string(),
+            "LDH".to_string(),
+            "LDL".to_string(),
+            "LEA".to_string(),
+            "LEB".to_string(),
+            "LEC".to_string(),
+            "LED".to_string(),
+            "LEH".to_string(),
+            "LEL".to_string(),
+            "LHA".to_string(),
+            "LHB".to_string(),
+            "LHC".to_string(),
+            "LHD".to_string(),
+            "LHE".to_string(),
+            "LHL".to_string(),
+            "LLA".to_string(),
+            "LLB".to_string(),
+            "LLC".to_string(),
+            "LLD".to_string(),
+            "LLE".to_string(),
+            "LLH".to_string(),
+            "LAM".to_string(),
+            "LBM".to_string(),
+            "LCM".to_string(),
+            "LDM".to_string(),
+            "LEM".to_string(),
+            "LHM".to_string(),
+            "LLM".to_string(),
+            "LMA".to_string(),
+            "LMB".to_string(),
+            "LMC".to_string(),
+            "LMD".to_string(),
+            "LME".to_string(),
+            "LMH".to_string(),
+            "LML".to_string(),
+            "INB".to_string(),
+            "INC".to_string(),
+            "IND".to_string(),
+            "INE".to_string(),
+            "INH".to_string(),
+            "INL".to_string(),
+            "DCB".to_string(),
+            "DCC".to_string(),
+            "DCD".to_string(),
+            "DCE".to_string(),
+            "DCH".to_string(),
+            "DCL".to_string(),
+            "ADB".to_string(),
+            "ADC".to_string(),
+            "ADD".to_string(),
+            "ADE".to_string(),
+            "ADH".to_string(),
+            "ADL".to_string(),
+            "ACB".to_string(),
+            "ACC".to_string(),
+            "ACD".to_string(),
+            "ACE".to_string(),
+            "ACH".to_string(),
+            "ACL".to_string(),
+            "SUB".to_string(),
+            "SUC".to_string(),
+            "SUD".to_string(),
+            "SUE".to_string(),
+            "SUH".to_string(),
+            "SUL".to_string(),
+            "SBB".to_string(),
+            "SBC".to_string(),
+            "SBD".to_string(),
+            "SBE".to_string(),
+            "SBH".to_string(),
+            "SBL".to_string(),
+            "NDB".to_string(),
+            "NDC".to_string(),
+            "NDD".to_string(),
+            "NDE".to_string(),
+            "NDH".to_string(),
+            "NDL".to_string(),
+            "XRB".to_string(),
+            "XRC".to_string(),
+            "XRD".to_string(),
+            "XRE".to_string(),
+            "XRH".to_string(),
+            "XRL".to_string(),
+            "ORB".to_string(),
+            "ORC".to_string(),
+            "ORD".to_string(),
+            "ORE".to_string(),
+            "ORH".to_string(),
+            "ORL".to_string(),
+            "CPB".to_string(),
+            "CPC".to_string(),
+            "CPD".to_string(),
+            "CPE".to_string(),
+            "CPH".to_string(),
+            "CPL".to_string(),
             "ADM".to_string(),
             "ACM".to_string(),
             "SUM".to_string(),
@@ -543,15 +763,31 @@ impl Instruction {
             "XRM".to_string(),
             "ORM".to_string(),
             "CPM".to_string(),
-            "RLC".to_string(),"RRC".to_string(),"RAL".to_string(),"RAR".to_string(),
-            "NOP".to_string(),"HLT".to_string(),
+            "RLC".to_string(),
+            "RRC".to_string(),
+            "RAL".to_string(),
+            "RAR".to_string(),
+            "NOP".to_string(),
+            "HLT".to_string(),
             "RET".to_string(),
-            "RFC".to_string(),"RFZ".to_string(),"RFS".to_string(),"RFP".to_string(),
-            "RTC".to_string(),"RTZ".to_string(),"RTS".to_string(),"RTP".to_string(),
+            "RFC".to_string(),
+            "RFZ".to_string(),
+            "RFS".to_string(),
+            "RFP".to_string(),
+            "RTC".to_string(),
+            "RTZ".to_string(),
+            "RTS".to_string(),
+            "RTP".to_string(),
             "RST".to_string(),
         ];
         let two_byte_instrs: Vec<String> = vec![
-            "LAI".to_string(),"LBI".to_string(),"LCI".to_string(),"LDI".to_string(),"LEI".to_string(),"LHI".to_string(),"LLI".to_string(),
+            "LAI".to_string(),
+            "LBI".to_string(),
+            "LCI".to_string(),
+            "LDI".to_string(),
+            "LEI".to_string(),
+            "LHI".to_string(),
+            "LLI".to_string(),
             "LMI".to_string(),
             "ADI".to_string(),
             "ACI".to_string(),
@@ -564,41 +800,156 @@ impl Instruction {
         ];
         let three_byte_instrs: Vec<String> = vec![
             "JMP".to_string(),
-            "JFC".to_string(),"JFZ".to_string(),"JFS".to_string(),"JFP".to_string(),
-            "JTC".to_string(),"JTZ".to_string(),"JTS".to_string(),"JTP".to_string(),
-            "CFC".to_string(),"CFZ".to_string(),"CFS".to_string(),"CFP".to_string(),
-            "CTC".to_string(),"CTZ".to_string(),"CTS".to_string(),"CTP".to_string(),
+            "JFC".to_string(),
+            "JFZ".to_string(),
+            "JFS".to_string(),
+            "JFP".to_string(),
+            "JTC".to_string(),
+            "JTZ".to_string(),
+            "JTS".to_string(),
+            "JTP".to_string(),
+            "CFC".to_string(),
+            "CFZ".to_string(),
+            "CFS".to_string(),
+            "CFP".to_string(),
+            "CTC".to_string(),
+            "CTZ".to_string(),
+            "CTS".to_string(),
+            "CTP".to_string(),
             "CAL".to_string(),
         ];
         let instrs: [Vec<String>; 3] = [one_byte_instrs, two_byte_instrs, three_byte_instrs];
         instrs
     }
-    
+
     fn type_instr() -> [Vec<String>; 4] {
         let index_register_instrs: Vec<String> = vec![
-            "LAB".to_string(),"LAC".to_string(),"LAD".to_string(),"LAE".to_string(),"LAH".to_string(),"LAL".to_string(),
-            "LBA".to_string(),"LBC".to_string(),"LBD".to_string(),"LBE".to_string(),"LBH".to_string(),"LBL".to_string(),
-            "LCA".to_string(),"LCB".to_string(),"LCD".to_string(),"LCE".to_string(),"LCH".to_string(),"LCL".to_string(),
-            "LDA".to_string(),"LDB".to_string(),"LDC".to_string(),"LDE".to_string(),"LDH".to_string(),"LDL".to_string(),
-            "LEA".to_string(),"LEB".to_string(),"LEC".to_string(),"LED".to_string(),"LEH".to_string(),"LEL".to_string(),
-            "LHA".to_string(),"LHB".to_string(),"LHC".to_string(),"LHD".to_string(),"LHE".to_string(),"LHL".to_string(),
-            "LLA".to_string(),"LLB".to_string(),"LLC".to_string(),"LLD".to_string(),"LLE".to_string(),"LLH".to_string(),
-            "LAM".to_string(),"LBM".to_string(),"LCM".to_string(),"LDM".to_string(),"LEM".to_string(),"LHM".to_string(),"LLM".to_string(),
-            "LMA".to_string(),"LMB".to_string(),"LMC".to_string(),"LMD".to_string(),"LME".to_string(),"LMH".to_string(),"LML".to_string(),
-            "LAI".to_string(),"LBI".to_string(),"LCI".to_string(),"LDI".to_string(),"LEI".to_string(),"LHI".to_string(),"LLI".to_string(),
+            "LAB".to_string(),
+            "LAC".to_string(),
+            "LAD".to_string(),
+            "LAE".to_string(),
+            "LAH".to_string(),
+            "LAL".to_string(),
+            "LBA".to_string(),
+            "LBC".to_string(),
+            "LBD".to_string(),
+            "LBE".to_string(),
+            "LBH".to_string(),
+            "LBL".to_string(),
+            "LCA".to_string(),
+            "LCB".to_string(),
+            "LCD".to_string(),
+            "LCE".to_string(),
+            "LCH".to_string(),
+            "LCL".to_string(),
+            "LDA".to_string(),
+            "LDB".to_string(),
+            "LDC".to_string(),
+            "LDE".to_string(),
+            "LDH".to_string(),
+            "LDL".to_string(),
+            "LEA".to_string(),
+            "LEB".to_string(),
+            "LEC".to_string(),
+            "LED".to_string(),
+            "LEH".to_string(),
+            "LEL".to_string(),
+            "LHA".to_string(),
+            "LHB".to_string(),
+            "LHC".to_string(),
+            "LHD".to_string(),
+            "LHE".to_string(),
+            "LHL".to_string(),
+            "LLA".to_string(),
+            "LLB".to_string(),
+            "LLC".to_string(),
+            "LLD".to_string(),
+            "LLE".to_string(),
+            "LLH".to_string(),
+            "LAM".to_string(),
+            "LBM".to_string(),
+            "LCM".to_string(),
+            "LDM".to_string(),
+            "LEM".to_string(),
+            "LHM".to_string(),
+            "LLM".to_string(),
+            "LMA".to_string(),
+            "LMB".to_string(),
+            "LMC".to_string(),
+            "LMD".to_string(),
+            "LME".to_string(),
+            "LMH".to_string(),
+            "LML".to_string(),
+            "LAI".to_string(),
+            "LBI".to_string(),
+            "LCI".to_string(),
+            "LDI".to_string(),
+            "LEI".to_string(),
+            "LHI".to_string(),
+            "LLI".to_string(),
             "LMI".to_string(),
-            "INB".to_string(),"INC".to_string(),"IND".to_string(),"INE".to_string(),"INH".to_string(),"INL".to_string(),
-            "DCB".to_string(),"DCC".to_string(),"DCD".to_string(),"DCE".to_string(),"DCH".to_string(),"DCL".to_string(),
+            "INB".to_string(),
+            "INC".to_string(),
+            "IND".to_string(),
+            "INE".to_string(),
+            "INH".to_string(),
+            "INL".to_string(),
+            "DCB".to_string(),
+            "DCC".to_string(),
+            "DCD".to_string(),
+            "DCE".to_string(),
+            "DCH".to_string(),
+            "DCL".to_string(),
         ];
         let accumulator_instr: Vec<String> = vec![
-            "ADB".to_string(),"ADC".to_string(),"ADD".to_string(),"ADE".to_string(),"ADH".to_string(),"ADL".to_string(),
-            "ACB".to_string(),"ACC".to_string(),"ACD".to_string(),"ACE".to_string(),"ACH".to_string(),"ACL".to_string(),
-            "SUB".to_string(),"SUC".to_string(),"SUD".to_string(),"SUE".to_string(),"SUH".to_string(),"SUL".to_string(),
-            "SBB".to_string(),"SBC".to_string(),"SBD".to_string(),"SBE".to_string(),"SBH".to_string(),"SBL".to_string(),
-            "NDB".to_string(),"NDC".to_string(),"NDD".to_string(),"NDE".to_string(),"NDH".to_string(),"NDL".to_string(),
-            "XRB".to_string(),"XRC".to_string(),"XRD".to_string(),"XRE".to_string(),"XRH".to_string(),"XRL".to_string(),
-            "ORB".to_string(),"ORC".to_string(),"ORD".to_string(),"ORE".to_string(),"ORH".to_string(),"ORL".to_string(),
-            "CPB".to_string(),"CPC".to_string(),"CPD".to_string(),"CPE".to_string(),"CPH".to_string(),"CPL".to_string(),
+            "ADB".to_string(),
+            "ADC".to_string(),
+            "ADD".to_string(),
+            "ADE".to_string(),
+            "ADH".to_string(),
+            "ADL".to_string(),
+            "ACB".to_string(),
+            "ACC".to_string(),
+            "ACD".to_string(),
+            "ACE".to_string(),
+            "ACH".to_string(),
+            "ACL".to_string(),
+            "SUB".to_string(),
+            "SUC".to_string(),
+            "SUD".to_string(),
+            "SUE".to_string(),
+            "SUH".to_string(),
+            "SUL".to_string(),
+            "SBB".to_string(),
+            "SBC".to_string(),
+            "SBD".to_string(),
+            "SBE".to_string(),
+            "SBH".to_string(),
+            "SBL".to_string(),
+            "NDB".to_string(),
+            "NDC".to_string(),
+            "NDD".to_string(),
+            "NDE".to_string(),
+            "NDH".to_string(),
+            "NDL".to_string(),
+            "XRB".to_string(),
+            "XRC".to_string(),
+            "XRD".to_string(),
+            "XRE".to_string(),
+            "XRH".to_string(),
+            "XRL".to_string(),
+            "ORB".to_string(),
+            "ORC".to_string(),
+            "ORD".to_string(),
+            "ORE".to_string(),
+            "ORH".to_string(),
+            "ORL".to_string(),
+            "CPB".to_string(),
+            "CPC".to_string(),
+            "CPD".to_string(),
+            "CPE".to_string(),
+            "CPH".to_string(),
+            "CPL".to_string(),
             "ADM".to_string(),
             "ACM".to_string(),
             "SUM".to_string(),
@@ -615,28 +966,62 @@ impl Instruction {
             "XRI".to_string(),
             "ORI".to_string(),
             "CPI".to_string(),
-            "RLC".to_string(),"RRC".to_string(),"RAL".to_string(),"RAR".to_string(),
+            "RLC".to_string(),
+            "RRC".to_string(),
+            "RAL".to_string(),
+            "RAR".to_string(),
         ];
         let pc_stack_instr: Vec<String> = vec![
             "JMP".to_string(),
-            "JFC".to_string(),"JFZ".to_string(),"JFS".to_string(),"JFP".to_string(),
-            "JTC".to_string(),"JTZ".to_string(),"JTS".to_string(),"JTP".to_string(),
-            "CFC".to_string(),"CFZ".to_string(),"CFS".to_string(),"CFP".to_string(),
-            "CTC".to_string(),"CTZ".to_string(),"CTS".to_string(),"CTP".to_string(),
+            "JFC".to_string(),
+            "JFZ".to_string(),
+            "JFS".to_string(),
+            "JFP".to_string(),
+            "JTC".to_string(),
+            "JTZ".to_string(),
+            "JTS".to_string(),
+            "JTP".to_string(),
+            "CFC".to_string(),
+            "CFZ".to_string(),
+            "CFS".to_string(),
+            "CFP".to_string(),
+            "CTC".to_string(),
+            "CTZ".to_string(),
+            "CTS".to_string(),
+            "CTP".to_string(),
             "CAL".to_string(),
             "RET".to_string(),
-            "RFC".to_string(),"RFZ".to_string(),"RFS".to_string(),"RFP".to_string(),
-            "RTC".to_string(),"RTZ".to_string(),"RTS".to_string(),"RTP".to_string(),
+            "RFC".to_string(),
+            "RFZ".to_string(),
+            "RFS".to_string(),
+            "RFP".to_string(),
+            "RTC".to_string(),
+            "RTZ".to_string(),
+            "RTS".to_string(),
+            "RTP".to_string(),
             "RST".to_string(),
         ];
         let machine_instr: Vec<String> = vec!["NOP".to_string(), "HLT".to_string()];
-        let instrs: [Vec<String>; 4] = [index_register_instrs, accumulator_instr, pc_stack_instr, machine_instr];
+        let instrs: [Vec<String>; 4] = [
+            index_register_instrs,
+            accumulator_instr,
+            pc_stack_instr,
+            machine_instr,
+        ];
         instrs
     }
 
     // ffunctions for getting all fields
-    pub fn get_instr_set(&mut self) -> &HashMap<u8, String> {&self.instr_set}
-    pub fn get_instr_time(&mut self) -> &[Vec<String>; 3] {&self.instr_time}
-    pub fn get_instr_length(&mut self) -> &[Vec<String>; 3] {&self.instr_length}
-    pub fn get_instr_type(&mut self) -> &[Vec<String>; 4] {&self.instr_type}
+    pub fn get_instr_set(&mut self) -> &HashMap<u8, String> {
+        &self.instr_set
+    }
+    pub fn get_instr_time(&mut self) -> &[Vec<String>; 3] {
+        &self.instr_time
+    }
+    pub fn get_instr_length(&mut self) -> &[Vec<String>; 3] {
+        &self.instr_length
+    }
+    pub fn get_instr_type(&mut self) -> &[Vec<String>; 4] {
+        &self.instr_type
+    }
 }

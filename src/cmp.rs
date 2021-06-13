@@ -1,2 +1,2 @@
-pub mod translator;
 pub mod dictionary;
+pub mod translator;
