@@ -8,7 +8,6 @@ use clap::{load_yaml, App};
 // Sleep instructions for delay
 use std::{thread::sleep, time::Duration};
 
-
 // Files for build assembly code
 pub mod cmp;
 use cmp::translator::Compile;
@@ -18,7 +17,6 @@ pub mod mcs;
 use mcs::cpu::Cpu;
 use mcs::dump::Dump;
 use mcs::mem::Mem;
-
 
 fn main() {
     // Allocating memory for files' names
@@ -75,8 +73,9 @@ fn main() {
             verbosity = true;
         }
         command = "run";
-    } else {command = ""}
-
+    } else {
+        command = ""
+    }
 
     // initializing All needful classes
     let mut cpu: Cpu = Cpu::default();
@@ -100,7 +99,6 @@ fn main() {
 
     println!();
 }
-
 
 // BUILD SUBCOMMAND
 fn build(
@@ -170,7 +168,7 @@ fn run(
         }
         // Frequency 200 kHz
         sleep(Duration::from_micros(5));
-        
+
         /*let mut line = String::new();   //      MANUAL CYCLE future feature
         let b1 = std::io::stdin().read_line(&mut line).unwrap();
         cpu.print_dump();*/

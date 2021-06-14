@@ -3,7 +3,6 @@
 use super::instructions;
 use super::mem;
 
-
 pub struct Cpu {
     // programme counter 14-bit
     r_pc: u16,
