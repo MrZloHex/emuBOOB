@@ -59,3 +59,9 @@ subcommands:
                 help: Displaying dumps and executing instructions
                 required: false
                 takes_value: false
+            - manual:
+                short: m
+                long: manual
+                help: Manually cycle managment
+                required: false
+                takes_value: false

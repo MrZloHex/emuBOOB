@@ -27,6 +27,7 @@ fn main() {
     let command: &str;
     let mut verbosity: bool = false;
     let mut build_f: bool = false;
+    let mut manual: bool = false;
 
     // Config file of parsing CLI options
     let yaml = load_yaml!("cli.yaml");
@@ -72,6 +73,9 @@ fn main() {
         if matches.is_present("verbose") {
             verbosity = true;
         }
+        if matches.is_present("manual") {
+            manual = true;
+        }
         command = "run";
     } else {
         command = ""
@@ -92,6 +96,7 @@ fn main() {
             &mut translator,
             verbosity,
             build_f,
+            manual,
             input_filename,
             output_filename,
         )
@@ -123,6 +128,7 @@ fn run(
     translator: &mut Compile,
     verbosity: bool,
     build_f: bool,
+    manual: bool,
     input_filename: String,
     output_filename: String,
 ) {
@@ -166,12 +172,15 @@ fn run(
                 println!("\nPROCESSOR WASN'T HALTED")
             }
         }
-        // Frequency 200 kHz
-        sleep(Duration::from_micros(5));
-
-        /*let mut line = String::new();   //      MANUAL CYCLE future feature
-        let b1 = std::io::stdin().read_line(&mut line).unwrap();
-        cpu.print_dump();*/
+        if manual {
+            let mut line = String::new();   //      MANUAL CYCLE future feature
+            let _b1 = std::io::stdin().read_line(&mut line).unwrap();
+            cpu.print_dump();
+        }
+        else {
+            // Frequency 200 kHz
+            sleep(Duration::from_micros(5));
+        }
     }
     if verbosity {
         mem.print_dump()
