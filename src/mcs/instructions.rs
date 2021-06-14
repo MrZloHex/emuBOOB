@@ -1,7 +1,9 @@
 use std::collections::HashMap;
 
 pub struct Instruction {
+    // Instructions Set (IS)
     instr_set: HashMap<u8, String>,
+    // Seperate instruction by their qualities
     instr_time: [Vec<String>; 3],
     instr_length: [Vec<String>; 3],
     instr_type: [Vec<String>; 4],
@@ -14,6 +16,7 @@ impl Default for Instruction {
 }
 
 impl Instruction {
+    // Constructor
     fn new() -> Instruction {
         let instrucitions: Instruction = Instruction {
             instr_set: Instruction::opcodes(),
@@ -1017,7 +1020,7 @@ impl Instruction {
         instrs
     }
 
-    // ffunctions for getting all fields
+    // Functions for getting all fields
     pub fn get_instr_set(&mut self) -> &HashMap<u8, String> {
         &self.instr_set
     }
