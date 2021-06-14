@@ -5,6 +5,7 @@ use std::io::{BufRead, BufReader};
 use super::dictionary;
 
 pub struct Compile {
+    // Dictionary to translate Instruction into Opcode
     dictionary: dictionary::Dictionary,
     asm_code: Vec<String>,
     output: String,
@@ -17,6 +18,7 @@ impl Default for Compile {
 }
 
 impl Compile {
+    // Constructor
     fn new() -> Compile {
         Compile {
             dictionary: dictionary::Dictionary::default(),
@@ -25,6 +27,7 @@ impl Compile {
         }
     }
 
+    // Read source file
     fn read_file(filename: String) -> Vec<String> {
         let file = File::open(filename).unwrap();
         let reader = BufReader::new(file);
@@ -35,15 +38,17 @@ impl Compile {
         }
         data
     }
+
+    // Obtaining source file to compile
     pub fn precompile(&mut self, input_filename: String, output_filename: String) {
         self.asm_code = Compile::read_file(input_filename);
         self.output = output_filename;
     }
 
+    // Translate of read file and writing it into another file
     pub fn compile(&mut self, verbose: bool) -> Result<Vec<u8>, u8> {
         let mut _machine_code: Vec<u8> = Vec::new();
-        //
-        //
+        // Displey additional inforamtion
         if verbose {
             println!("Assembly code:");
             for (c, asm_str) in self.asm_code.iter().enumerate() {
@@ -53,6 +58,7 @@ impl Compile {
 
         self.tabs_into_spaces();
 
+        // Check for right proccessor
         match self.check_for_proc() {
             Ok(_) => (),
             Err(v) => return Err(v),
@@ -65,6 +71,7 @@ impl Compile {
         self.add_zero();
         self.transform_labels();
         self.decompose_labels();
+        // Translation
         _machine_code = self.turn_into_opcode();
 
         if verbose {
@@ -74,6 +81,7 @@ impl Compile {
             }
         }
 
+        // Writnig output in binary file
         if let Err(e) = self.write_bin(&_machine_code) {
             panic!("{}", e);
         }
@@ -81,18 +89,21 @@ impl Compile {
         Ok(_machine_code)
     }
 
+    // Morphing tabs into whitespaces
     fn tabs_into_spaces(&mut self) {
         for index in 0..self.asm_code.len() {
             self.asm_code[index] = self.asm_code[index].replace("\t", "    ");
         }
     }
 
+    // Deleting all whitespaces
     fn delete_spaces(&mut self) {
         for index in 0..self.asm_code.len() {
             self.asm_code[index] = self.asm_code[index].replace(" ", "");
         }
     }
 
+    // Test on right model of proccessor
     fn check_for_proc(&mut self) -> Result<(), u8> {
         let first_str: String = self.asm_code[0].clone();
         let mut cpu: bool = false;
@@ -120,6 +131,7 @@ impl Compile {
         }
     }
 
+    // Remove cpu specification
     fn delete_cpu(&mut self) {
         let mut new_code: Vec<String> = Vec::new();
         for index in 1..self.asm_code.len() {
@@ -130,6 +142,7 @@ impl Compile {
         self.asm_code.pop();
     }
 
+    // Transferring all values and labels on next line
     fn carry_value(&mut self) {
         let mut carry_f: bool = true;
         let mut carry_value: String = String::new();
@@ -169,6 +182,7 @@ impl Compile {
         }
     }
 
+    // Adding zero address
     fn add_zero(&mut self) {
         let mut line_lab: isize = -1;
         let mut ampresand: bool = true;
@@ -204,6 +218,7 @@ impl Compile {
         }
     }
 
+    // Transferring and morphing labels
     fn transform_labels(&mut self) {
         let mut line_lab: isize = -1;
         let mut label: String = String::new();
@@ -245,6 +260,7 @@ impl Compile {
         }
     }
 
+    // Morphing labels into numerical value
     fn decompose_labels(&mut self) {
         let mut label_line: isize = -1;
         let mut label: String = String::new();
@@ -296,6 +312,7 @@ impl Compile {
         }
     }
 
+    // Translate into opcodes
     fn turn_into_opcode(&mut self) -> Vec<u8> {
         let mut code: Vec<u8> = Vec::new();
         for index in 0..self.asm_code.len() {
@@ -309,6 +326,7 @@ impl Compile {
         code
     }
 
+    // Translate instruction
     fn instr_decode(&mut self, instr: String) -> u8 {
         match self.dictionary.get_opcode_set().get(&instr) {
             Some(opcode) => *opcode,
@@ -316,10 +334,12 @@ impl Compile {
         }
     }
 
+    // Translate numbers
     fn number_decode(&mut self, number: String) -> u8 {
         number.parse::<u8>().unwrap()
     }
 
+    // Morhping numbers in decimal base
     fn base_switch(&mut self) {
         let mut number_f: bool = true;
         let mut number_line: isize = -1;
@@ -364,6 +384,7 @@ impl Compile {
         }
     }
 
+    // Write opcodes into binary file
     fn write_bin(&mut self, data: &Vec<u8>) -> std::io::Result<()> {
         let mut file = File::create(self.output.clone())?;
         // Write a slice of bytes to the file
