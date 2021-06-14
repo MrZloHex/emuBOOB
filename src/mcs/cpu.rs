@@ -3,6 +3,7 @@
 use super::instructions;
 use super::mem;
 
+
 pub struct Cpu {
     // programme counter 14-bit
     r_pc: u16,
@@ -28,9 +29,11 @@ pub struct Cpu {
     // stack  14-bit
     stack: [u16; 7],
 
+    // Instruction Set (IS)
     instruct: instructions::Instruction,
 }
 
+// Generic
 impl Default for Cpu {
     fn default() -> Self {
         Cpu::new()
@@ -38,7 +41,8 @@ impl Default for Cpu {
 }
 
 impl Cpu {
-    pub fn new() -> Cpu {
+    // Constructor
+    fn new() -> Cpu {
         Cpu {
             r_pc: 0,
             r_sp: 0,
@@ -58,18 +62,22 @@ impl Cpu {
         }
     }
 
+    // Initializing CPU
     pub fn reset(&mut self) {
         self.r_pc = 0;
         self.r_sp = 0;
     }
 
+    // Execute ONE istruction
     pub fn execute(&mut self, mem: &mut mem::Mem, verbose: bool) -> bool {
+        // All information about parsed instruction
         let instr: u8 = self.fetch_opcode(mem);
         let instr: String = self.decode(instr);
         let mut cycles: u8 = self.cycles(&instr);
         let length: u8 = self.length(&instr);
         let kind: String = self.kind(&instr);
 
+        // Display information about instruction
         if verbose {
             println!(
                 "{}\t{}\t{}\t{}\t\t{:>0wid$X}",
@@ -84,7 +92,9 @@ impl Cpu {
             println!("{}\t{:>0wid$X}", instr, self.r_pc, wid = 3);
         }
 
+        // Memory cycle loop
         while cycles > 0 {
+            // Distribution by instruction's type
             if &kind == "index" {
                 self.index_command(&instr, &mut cycles, &length, mem)
             } else if &kind == "accum" {
@@ -100,16 +110,19 @@ impl Cpu {
         false
     }
 
+    // Get data from RAM by address
     fn fetch_byte(&mut self, mem: &mut mem::Mem, addres: &usize) -> u8 {
         let byte: u8 = mem.get_byte_data(*addres);
         byte
     }
 
+    // Get opcode from PROM by PC register
     fn fetch_opcode(&mut self, mem: &mut mem::Mem) -> u8 {
         let opcode: u8 = mem.get_byte_prom(self.r_pc as usize);
         opcode
     }
 
+    // Decode opcode into instruction with IS
     fn decode(&mut self, opcode: u8) -> String {
         match self.instruct.get_instr_set().get(&opcode) {
             Some(instr) => instr.to_string(),
@@ -117,6 +130,7 @@ impl Cpu {
         }
     }
 
+    // Get quantity of cycle of instruction
     fn cycles(&mut self, instr: &String) -> u8 {
         if self.instruct.get_instr_time()[0].contains(instr) {
             1
@@ -126,6 +140,7 @@ impl Cpu {
             3
         }
     }
+    // Get length in bytes of instruction
     fn length(&mut self, instr: &String) -> u8 {
         if self.instruct.get_instr_length()[0].contains(instr) {
             1
@@ -135,6 +150,7 @@ impl Cpu {
             3
         }
     }
+    // Get type of instruction
     fn kind(&mut self, instr: &String) -> String {
         if self.instruct.get_instr_type()[0].contains(instr) {
             "index".to_string()
@@ -147,6 +163,7 @@ impl Cpu {
         }
     }
 
+    // Process INDEX instructions
     fn index_command(&mut self, instr: &String, cycle: &mut u8, length: &u8, mem: &mut mem::Mem) {
         if *cycle == 1 {
             // LOAD REG REG
@@ -360,6 +377,7 @@ impl Cpu {
         self.r_pc += 1;
     }
 
+    // Process ACCUMULATOR instructions
     fn accumulator_command(
         &mut self,
         instr: &String,
@@ -624,6 +642,7 @@ impl Cpu {
         self.r_pc += 1;
     }
 
+    // Different ALU operations
     fn add(&mut self, b: &i16) -> u8 {
         let result: i16 = (self.r_a as i16) + (*b);
         self.set_flags(&result);
@@ -682,6 +701,7 @@ impl Cpu {
         result
     }
 
+    // Process STACK instructions
     fn stack_command(&mut self, instr: &String, cycle: &mut u8, _length: &u8, mem: &mut mem::Mem) {
         if *cycle == 3 {
             self.r_pc += 1;
@@ -909,12 +929,15 @@ impl Cpu {
         }
     }
 
+    // Set all flags in FALSE
     fn reset_flags(&mut self) {
         self.f_c = false;
         self.f_z = false;
         self.f_s = false;
         self.f_p = false;
     }
+
+    // Set flags depending on result
     pub fn set_flags(&mut self, result: &i16) {
         self.reset_flags();
         // PARITY

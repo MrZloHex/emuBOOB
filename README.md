@@ -14,6 +14,7 @@ And it has 3-bit length stack pointer, that's why there are such name.
  - [X] Real memory as in MCS-8
  - [X] Translator for assembly code
  - [ ] Normal usage
+ - [ ] Try to make SP - 3 bit and PC - 4 bit
  - [ ] TUI / GUI
 
 ## References
