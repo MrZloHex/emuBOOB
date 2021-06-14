@@ -1,10 +1,12 @@
 use super::cpu::Cpu;
 use super::mem::Mem;
 
+// Generic trait for CPU and MEM
 pub trait Dump {
     fn print_dump(&mut self);
 }
 
+// Display dump of CPU
 impl Dump for Cpu {
     fn print_dump(&mut self) {
         println!("\nCPU DUMP");
@@ -33,6 +35,7 @@ impl Dump for Cpu {
     }
 }
 
+// Display dump of MEM
 impl Dump for Mem {
     fn print_dump(&mut self) {
         println!("\nMEM DUMP");
