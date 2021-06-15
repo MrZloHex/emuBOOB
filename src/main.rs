@@ -7,7 +7,6 @@
 use clap::{load_yaml, App};
 // Sleep instructions for delay
 use std::{thread::sleep, time::Duration};
-use std::io::Read;
 
 // Files for build assembly code
 pub mod cmp;
