@@ -19,6 +19,8 @@ use mcs::dump::Dump;
 use mcs::mem::Mem;
 
 fn main() {
+    
+
     // Allocating memory for files' names
     let mut input_filename: String = String::new();
     let mut output_filename: String = String::new();

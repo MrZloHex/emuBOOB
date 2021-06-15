@@ -4,6 +4,7 @@ use super::mem::Mem;
 // Generic trait for CPU and MEM
 pub trait Dump {
     fn print_dump(&mut self);
+    fn print_dunp(&mut self);
 }
 
 // Display dump of CPU
@@ -33,11 +34,13 @@ impl Dump for Cpu {
             );
         }
     }
+
+    fn print_dunp(&mut self) {}
 }
 
 // Display dump of MEM
 impl Dump for Mem {
-    fn print_dump(&mut self) {
+    fn print_dunp(&mut self) {
         println!("\nMEM DUMP");
         println!("PROM:");
         let offset: usize = self.get_length_prom() / 8;
@@ -94,6 +97,61 @@ impl Dump for Mem {
                 ad_8 = i + 7 * offset,
                 data_8 = self.get_byte_data(i + 7 * offset),
             );
+        }
+    }
+
+    fn print_dump(&mut self) {
+        println!("\nMem dump:");
+        println!("PROM:\t\t\t\t\t\t\t\t\t\t\t\t\t\t  RAM:");
+        let offset: usize = self.get_length_data() / 32;
+        let ad_of: usize = 32;
+        for i in 0..(self.get_length_prom() / 32) {
+            println!(
+                "\t{address:>0wi_a$x}:\t{d1:>0w$X} {d2:>0w$X} {d3:>0w$X} {d4:>0w$X} \
+                {d5:>0w$X} {d6:>0w$X} {d7:>0w$X} {d8:>0w$X} \
+                {d9:>0w$X} {d10:>0w$X} {d11:>0w$X} {d12:>0w$X} \
+                {d13:>0w$X} {d14:>0w$X} {d15:>0w$X} {d16:>0w$X}   \
+                {d17:>0w$X} {d18:>0w$X} {d19:>0w$X} {d20:>0w$X} \
+                {d21:>0w$X} {d22:>0w$X} {d23:>0w$X} {d24:>0w$X} \
+                {d25:>0w$X} {d26:>0w$X} {d27:>0w$X} {d28:>0w$X} \
+                {d29:>0w$X} {d30:>0w$X} {d31:>0w$X} {d32:>0w$X}",
+                address=i*ad_of,
+                wi_a=3,
+                w=2,
+                d1=self.get_byte_prom(i*offset),
+                d2=self.get_byte_prom(i*offset+1),
+                d3=self.get_byte_prom(i*offset+2),
+                d4=self.get_byte_prom(i*offset+3),
+                d5=self.get_byte_prom(i*offset+4),
+                d6=self.get_byte_prom(i*offset+5),
+                d7=self.get_byte_prom(i*offset+6),
+                d8=self.get_byte_prom(i*offset+7),
+                d9=self.get_byte_prom(i*offset+8),
+                d10=self.get_byte_prom(i*offset+9),
+                d11=self.get_byte_prom(i*offset+10),
+                d12=self.get_byte_prom(i*offset+11),
+                d13=self.get_byte_prom(i*offset+12),
+                d14=self.get_byte_prom(i*offset+13),
+                d15=self.get_byte_prom(i*offset+14),
+                d16=self.get_byte_prom(i*offset+15),
+
+                d17=self.get_byte_prom(i*offset+16),
+                d18=self.get_byte_prom(i*offset+17),
+                d19=self.get_byte_prom(i*offset+18),
+                d20=self.get_byte_prom(i*offset+19),
+                d21=self.get_byte_prom(i*offset+20),
+                d22=self.get_byte_prom(i*offset+21),
+                d23=self.get_byte_prom(i*offset+22),
+                d24=self.get_byte_prom(i*offset+23),
+                d25=self.get_byte_prom(i*offset+24),
+                d26=self.get_byte_prom(i*offset+25),
+                d27=self.get_byte_prom(i*offset+26),
+                d28=self.get_byte_prom(i*offset+27),
+                d29=self.get_byte_prom(i*offset+28),
+                d30=self.get_byte_prom(i*offset+29),
+                d31=self.get_byte_prom(i*offset+30),
+                d32=self.get_byte_prom(i*offset+31),
+            )
         }
     }
 }
