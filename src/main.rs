@@ -179,7 +179,7 @@ fn run(
             // MANUAL CYCLE
             // FLOW CONTROL
             let mut input = String::new();
-            let string = std::io::stdin().read_line(&mut input).ok().expect("Failed to read line");
+            let _string = std::io::stdin().read_line(&mut input).ok().expect("Failed to read line");
             let bytes = input.bytes().nth(0).expect("no byte read");
             if bytes == 113 {break 'main_loop;}
 
