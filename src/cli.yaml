@@ -1,5 +1,5 @@
-name: sp_3-bit
-version: "0.25.3"
+name: emuBOOB
+version: "0.25.8"
 author: MrZloHex <zlo.alex.it@gmail.com>
 about: Emulator of i8008
 subcommands:
