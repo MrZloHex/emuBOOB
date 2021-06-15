@@ -7,6 +7,7 @@
 use clap::{load_yaml, App};
 // Sleep instructions for delay
 use std::{thread::sleep, time::Duration};
+use std::io::Read;
 
 // Files for build assembly code
 pub mod cmp;
@@ -175,9 +176,14 @@ fn run(
             }
         }
         if manual {
-            let mut line = String::new();   //      MANUAL CYCLE future feature
-            let _b1 = std::io::stdin().read_line(&mut line).unwrap();
-            cpu.print_dump();
+            // MANUAL CYCLE
+            // FLOW CONTROL
+            let mut input = String::new();
+            let string = std::io::stdin().read_line(&mut input).ok().expect("Failed to read line");
+            let bytes = input.bytes().nth(0).expect("no byte read");
+            if bytes == 113 {break 'main_loop;}
+
+            if verbosity {cpu.print_dump();}
         }
         else {
             // Frequency 200 kHz
