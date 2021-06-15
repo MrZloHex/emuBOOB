@@ -1,3 +1,4 @@
+#![allow(non_snake_case)]
 #![allow(clippy::unusual_byte_groupings)]
 #![allow(clippy::clone_on_copy)]
 #![allow(clippy::ptr_arg)]

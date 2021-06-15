@@ -43,6 +43,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "emuBOOB"
+version = "0.25.3"
+dependencies = [
+ "clap",
+]
+
+[[package]]
 name = "hermit-abi"
 version = "0.1.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -56,13 +63,6 @@ name = "libc"
 version = "0.2.97"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "12b8adadd720df158f4d70dfe7ccc6adb0472d7c55ca83445f6a5ab3e36f8fb6"
-
-[[package]]
-name = "sp_3-bit"
-version = "0.25.3"
-dependencies = [
- "clap",
-]
 
 [[package]]
 name = "strsim"
