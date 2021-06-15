@@ -44,7 +44,7 @@ dependencies = [
 
 [[package]]
 name = "emuBOOB"
-version = "0.25.3"
+version = "0.25.8"
 dependencies = [
  "clap",
 ]

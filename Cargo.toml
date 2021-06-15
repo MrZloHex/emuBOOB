@@ -1,6 +1,6 @@
 [package]
 name = "emuBOOB"
-version = "0.25.3"
+version = "0.25.8"
 authors = ["MrZloHex <zlo.alex.it@gmail.com>"]
 edition = "2018"
 
