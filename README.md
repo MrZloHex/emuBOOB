@@ -1,9 +1,8 @@
-# 3-bit Stack Pointer
+# emuBOOB
 
-## What is 3-bit SP?
+## What is emuBOOB?
 
-It's an emulator of INTeL processor 8008.</br>
-And it has 3-bit length stack pointer, that's why there are such name.
+It's an emulator of INTeL processor 8008.
 
 ## RoadMap
 
@@ -13,8 +12,7 @@ And it has 3-bit length stack pointer, that's why there are such name.
  - [X] Implementation of all Instructions (46/46)
  - [X] Real memory as in MCS-8
  - [X] Translator for assembly code
- - [ ] Normal usage
- - [ ] Try to make SP - 3 bit and PC - 4 bit
+ - [X] Normal usage
  - [ ] TUI / GUI
 
 ## References
