@@ -1,8 +1,19 @@
 #!/bin/bash
 
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+compile() {
+	echo >&6 -n "Compiling"
+
+	load &
+	PID=$!
+	echo >&6 ""
+
+	kill $PID
+}
+
 main() {
-    install
+	exec 6>&1 >/dev/null
+	
+	compile
 }
 
 # FOR ON ENTRY ROOT PASSWORD
