@@ -13,6 +13,7 @@ It's an emulator of INTeL processor **i8008**.
             * [Registers](#registers)
             * [Flags](#flags)
             * [ALU](#alu)
+            * [Stack](#stack)
             * [IS](#instruction-set)
          * [Memory](#memory)
             * [PROM](#prom)
@@ -86,6 +87,12 @@ But `INCREMENT` and `DECREMENT` don't touch `C` (carry) flag.
 
 ##### Stack
 
+Stack in 8008 is located in proccessor. Subsequently, it has only 7 levels of deepnest.</br>
+*SP* is 3 bit length and you can't change its value.
+
+If you overflow stack level it would erase first levels.
+Try to prevent this overflow!
+
 ##### Instruction Set
 
 ![InstructionSet](https://github.com/MrZloHex/emuBOOB/blob/master/manuls/instuctions.png)
@@ -151,4 +158,4 @@ After finishing executing programme all data from **RAM** would be erased.
 
 <a name="GPR">1</a>: **GPR**- General Purpose Register. This registers can be used for contain any data</br>
 <a name="MI">2</a>: **MI** - Memory Instruction. This instruction addressing to RAM for write or read</br>
-<a name="PC">3</a>: **PC** - Program Counter (Modern: **IS** - Instruction Pointer). This register is used to point address of next opcode in memory</br>
+<a name="PC">3</a>: **PC** - Program Counter (Modern: **IP** - Instruction Pointer). This register is used to point address of next opcode in memory</br>
