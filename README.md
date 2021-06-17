@@ -8,22 +8,24 @@ It's an emulator of INTeL processor **i8008**.
 
  * [Roadmap](#roadmap)
  * [Description](#description)
-    * [Basement](#basement)
-        * [CPU](#cpu)
-            * [Registers](#registers)
-            * [Flags](#flags)
-            * [ALU](#alu)
-            * [Stack](#stack)
-            * [IS](#instruction-set)
-         * [Memory](#memory)
-            * [PROM](#prom)
-            * [RAM](#ram)
-    * [Emulator](#emulator)
-    * [Compiler](#compiler)
+ 	* [Basement](#basement)
+ 		* [CPU](#cpu)
+ 			* [Registers](#registers)
+ 			* [Flags](#flags)
+ 			* [ALU](#alu)
+ 			* [Stack](#stack)
+ 			* [IS](#instruction-set)
+ 		* [Memory](#memory)
+ 			* [PROM](#prom)
+ 			* [RAM](#ram)
+ 	* [Emulator](#emulator)
+ 	* [Compiler](#compiler)
+ 		* [Specification](#compiler-specification)
+ 		* [Rules](#assembler-syntax-rules)
  * [Deployment](#deployment)
-    * [Rust](#rust-installation)
-    * [Installation](#installation)
-    * [Uninstallation](#uninstallation)
+ 	* [Rust](#rust-installation)
+ 	* [Installation](#installation)
+ 	* [Uninstallation](#uninstallation)
  * [Usage](#usage)
  * [References and manuals](#references)
 
@@ -130,6 +132,10 @@ See more information:
  - `$ man emuBOOB`
 
 ### Compiler
+
+#### Compiler Specification
+
+#### Assembler Syntax Rules
 
 ## Deployment
 
