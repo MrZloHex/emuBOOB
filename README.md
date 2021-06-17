@@ -121,13 +121,39 @@ After finishing executing programme all data from **RAM** would be erased.
 
 ### Emulator
 
+#### 
+
 ### Compiler
 
 ## Deployment
 
+**NOTE**</br>
+YOU SHOULD HAVE RUST TO INSTALL THIS EMULATOR
+
+### Rust
+
+Try run: `$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+
+And see official [guide](https://www.rust-lang.org/tools/install).
+
 ### Installation
 
+1. Download or clone this repo:
+	- Git: `$ git clone https://github.com/MrZloHex/emuBOOB.git`
+2. Change working directory to *lscc*:
+	- `$ cd emuBOOB`
+3. Run *installation* script:
+	- `$ ./deployment.sh -i`
+	- **NOTE** You need to have **sudo** access.
+
 ### Uninstallation
+
+1. Change working directory to *lscc*:
+	- `$ cd emuBOOB`
+2. Run *uninstallation* script:
+	- `$ ./deployment.sh -u`
+3. Go out from directory:
+	- `$ cd ..`
 
 ## Usage
 
