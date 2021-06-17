@@ -4,6 +4,19 @@
 
 It's an emulator of INTeL processor 8008.
 
+## Table of contents
+
+ * [Roadmap](#roadmap)
+ * [Description](#description)
+    * [Emulator](#emulator)
+    * [Compiler](#compiler)
+ * [Deployment](#deployment)
+    * [Installation](#installation)
+    * [Uninstallation](#uninstallation)
+ * [Usage](#usage)
+ * [References and manuals](#references)
+
+
 ## RoadMap
 
  - [X] Main implementations of ALU and Instruction Decoder
@@ -14,6 +27,20 @@ It's an emulator of INTeL processor 8008.
  - [X] Translator for assembly code
  - [X] Normal usage
  - [ ] TUI / GUI
+
+## Description
+
+### Emulator
+
+### Compiler
+
+## Deployment
+
+### Installation
+
+### Uninstallation
+
+## Usage
 
 ## References
 
