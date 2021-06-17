@@ -139,9 +139,9 @@ See more information:
 
  - No comments
  - No free lines
- - First line is with `CPU` command and value `8008` (see examples)
+ - First line is with `CPU` command and value `8008` (see [examples](https://github.com/MrZloHex/emuBOOB/blob/master/examples/multiply.asm))
  - All instructions should be shifted on one tab of 4 spaces
- - Labels should be whitout shift
+ - Labels should be without shift
  - After label should be colon `:`
  - Label should be before labaled block on another line
  - All values/labels which is needful for the instruction should be on same line and separated with whitespace from instruction
