@@ -32,7 +32,7 @@ It's an emulator of INTeL processor **i8008**.
 
 ### Emulator
 
-Emulator is based on [*MCS-8*](https://en.wikichip.org/wiki/intel/mcs-8).
+Emulator is based on [*MCS-8*](https://en.wikichip.org/wiki/intel/mcs-8).</br>
 Parametres of it:
  - CPU:     i8008-1
  - Memory:
