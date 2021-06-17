@@ -9,6 +9,8 @@ It's an emulator of INTeL processor **i8008**.
  * [Roadmap](#roadmap)
  * [Description](#description)
     * [Basement](#basement)
+        * [CPU](#cpu)
+            * [Registers](#registers)
     * [Emulator](#emulator)
     * [Compiler](#compiler)
  * [Deployment](#deployment)
@@ -35,18 +37,29 @@ It's an emulator of INTeL processor **i8008**.
 
 This project is based on [*MCS-8*](https://en.wikichip.org/wiki/intel/mcs-8).</br>
 Parametres of MCS-8:
- - CPU:     i8008-1
- - Memory:
-    - PROM  2 KB
-    - RAM   1 KB
+ - **CPU**:     i8008-1
+ - **Memory**:
+    - *PROM*:  2 KB
+    - *RAM*:   1 KB
 
 #### CPU
 
 **i8008-1** is impoved version of standart i8008 with decreased cycle time (from 20 µs to 12.5 µs).</br>
 *Futher in the text i8008-1 will be named just **8008***
 
-8008's reegisters:
+##### Registers
 
+| Name | Length | Description          |
+|------|--------|----------------------|
+| A    | 8  bit | Accumulator          |
+| B    | 8  bit | GPR[^GPR]            |
+| C    | 8  bit | GPR                  |
+| D    | 8  bit | GPR                  |
+| E    | 8  bit | GPR                  |
+| H    | 8  bit | GPR                  |
+| L    | 8  bit | GPR                  |
+| PC   | 14 bit | Program Counter[^PC] |
+| SP   | 3  bit | Stack Pointer        |
 
 ### Emulator
 
