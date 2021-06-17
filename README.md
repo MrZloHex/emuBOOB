@@ -74,7 +74,11 @@ Parametres of MCS-8:
 
 ##### ALU
 
+ALU can do arithmetic and logical operations:
+`ADD, ADD with carry, SUBTRACT, SUBSTRACT with borrow, AND, EXCLUSIVE OR, OR, COMPARE, INCREMENT, DECREMENT`
 
+All ALU operations have influence on flags' flip-flops.</br>
+But `INCREMENT` and `DECREMENT` don't touch `C` (carry) flag.
 
 ### Emulator
 
