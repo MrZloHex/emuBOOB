@@ -137,6 +137,18 @@ See more information:
 
 #### Assembler Syntax Rules
 
+ - No comments
+ - No free lines
+ - First line is with `CPU` command and value `8008` (see examples)
+ - All instructions should be shifted on one tab of 4 spaces
+ - Labels should be whitout shift
+ - After label should be colon `:`
+ - Label should be before labaled block on another line
+ - All values/labels which is needful for the instruction should be on same line and separated with whitespace from instruction
+ - Values should be in decimal form
+ - Calling or jumping to a label, the label name should starts from ampersand (`&`)
+ - You can write values in different bases, for specify base you should write after value (`'d'`, `'h'`, `'o'`, `'b'`) for decimal, hexadecimal, octal and binary accordingly
+
 ## Deployment
 
 **NOTE**</br>
@@ -176,22 +188,6 @@ And see official [guide](https://www.rust-lang.org/tools/install).
  - [INTeL's original reference for i8008](https://github.com/MrZloHex/emuBOOB/blob/master/manuls/8008-Intel.pdf)
  - [MCS-8 datasheet](https://github.com/MrZloHex/emuBOOB/blob/master/manuls/MCS-8_User_Manual_(Rev_2)_(Nov_1972).pdf)
 
-## ASM Rules
-
-**THEY ARE CHANGING OFTEN**
-
- - No comments
- - No free lines
- - First line is with `CPU` command and value `8008` (see examples)
- - All instructions should be shifted on one tab of 4 spaces
- - Labels should be whitout shift
- - After label should be colon `:`
- - Label should be before labaled block on another line
- - All values/labels which is needful for the instruction should be on same line and separated with whitespace from instruction
- - Values should be in decimal form
- - Calling or jumping to a label, the label name should starts from ampersand (`&`)
- - You can write values in different bases, for specify base you should write after value (`'d'`, `'h'`, `'o'`, `'b'`) for decimal, hexadecimal, octal and binary accordingly
- 
 ## Footnotes
 
 <a name="GPR">1</a>: **GPR**- General Purpose Register. This registers can be used for contain any data</br>
