@@ -14,6 +14,9 @@ It's an emulator of INTeL processor **i8008**.
             * [Flags](#flags)
             * [ALU](#alu)
             * [IS](#instruction-set)
+         * [Memory](#memory)
+            * [PROM](#prom)
+            * [RAM](#ram)
     * [Emulator](#emulator)
     * [Compiler](#compiler)
  * [Deployment](#deployment)
@@ -86,6 +89,20 @@ But `INCREMENT` and `DECREMENT` don't touch `C` (carry) flag.
 ![InstructionSet](https://github.com/MrZloHex/emuBOOB/blob/master/manuls/instuctions.png)
 
 *Took from page 8-9 of 8008 [manual](https://github.com/MrZloHex/emuBOOB/blob/master/manuls/8008-Intel.pdf)*
+
+#### Memory
+
+In *MCS-8* memory block is separated into 2 parts.
+
+##### PROM
+
+Capacity of **PROM** is 2 KB.</br>
+One *word* length is 1 Byte.
+
+**PROM** is used to contain programme's code.</br>
+You CAN'T write in PROM in runtime. For this use [RAM](#ram)
+
+##### RAM
 
 ### Emulator
 
