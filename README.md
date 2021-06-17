@@ -99,6 +99,7 @@ Parametres of MCS-8:
  - Calling or jumping to a label, the label name should starts from ampersand (`&`)
  - You can write values in different bases, for specify base you should write after value (`'d'`, `'h'`, `'o'`, `'b'`) for decimal, hexadecimal, octal and binary accordingly
  
+## Footnotes
 
-<a name="GPR">1</a>: GPR</br>
-<a name="PC">2</a>: PC
+<a name="GPR">1</a>: GPR - General Purpose Register. This registers can be used for contain any data</br>
+<a name="PC">2</a>: PC - Program Counter (Modern: IS - Instruction Pointer). This register is used to point address of next opcode in memory
