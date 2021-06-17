@@ -21,6 +21,7 @@ It's an emulator of INTeL processor **i8008**.
     * [Emulator](#emulator)
     * [Compiler](#compiler)
  * [Deployment](#deployment)
+    * [Rust](#rust-installation)
     * [Installation](#installation)
     * [Uninstallation](#uninstallation)
  * [Usage](#usage)
@@ -130,7 +131,7 @@ After finishing executing programme all data from **RAM** would be erased.
 **NOTE**</br>
 YOU SHOULD HAVE RUST TO INSTALL THIS EMULATOR
 
-### Rust
+### Rust Installation
 
 Try run: `$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
 
