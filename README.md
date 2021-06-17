@@ -13,6 +13,7 @@ It's an emulator of INTeL processor **i8008**.
             * [Registers](#registers)
             * [Flags](#flags)
             * [ALU](#alu)
+            * [IS](#instruction-set)
     * [Emulator](#emulator)
     * [Compiler](#compiler)
  * [Deployment](#deployment)
@@ -79,6 +80,8 @@ ALU can do arithmetic and logical operations:
 
 All ALU operations have influence on flags' flip-flops.</br>
 But `INCREMENT` and `DECREMENT` don't touch `C` (carry) flag.
+
+##### Instruction Set
 
 ### Emulator
 
