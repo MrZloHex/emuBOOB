@@ -11,6 +11,7 @@ It's an emulator of INTeL processor **i8008**.
     * [Basement](#basement)
         * [CPU](#cpu)
             * [Registers](#registers)
+            * [Flags](#flags)
     * [Emulator](#emulator)
     * [Compiler](#compiler)
  * [Deployment](#deployment)
@@ -61,10 +62,16 @@ Parametres of MCS-8:
 | PC   | 14 bit | Program Counter<sup>[2](#PC)</sup> |
 | SP   | 3  bit | Stack Pointer        |
 
+##### Flags
+
+| Name | Description |
+|------|-------------|
+| C    | Carry       |
+| Z    | Zero        |
+| S    | Sign        |
+| P    | Parity      |
+
 ### Emulator
-
-
-
 
 ### Compiler
 
@@ -102,4 +109,4 @@ Parametres of MCS-8:
 ## Footnotes
 
 <a name="GPR">1</a>: **GPR**- General Purpose Register. This registers can be used for contain any data</br>
-<a name="PC">2</a>: **PC** - Program Counter (Modern: IS - Instruction Pointer). This register is used to point address of next opcode in memory
+<a name="PC">2</a>: **PC** - Program Counter (Modern: **IS** - Instruction Pointer). This register is used to point address of next opcode in memory
