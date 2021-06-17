@@ -84,6 +84,8 @@ ALU can do arithmetic and logical operations:
 All ALU operations have influence on flags' flip-flops.</br>
 But `INCREMENT` and `DECREMENT` don't touch `C` (carry) flag.
 
+##### Stack
+
 ##### Instruction Set
 
 ![InstructionSet](https://github.com/MrZloHex/emuBOOB/blob/master/manuls/instuctions.png)
@@ -103,6 +105,12 @@ One *word* length is 1 Byte.
 You CAN'T write in PROM in runtime. For this use [RAM](#ram)
 
 ##### RAM
+
+Capacity of **RAM** is 1 KB.</br>
+One *word* length is 1 Byte
+
+**RAM** is used to save data in runtime.</br>
+After finishing executing programme all data from **RAM** would be erased.
 
 ### Emulator
 
