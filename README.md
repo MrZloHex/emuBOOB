@@ -2,7 +2,7 @@
 
 ## What is emuBOOB?
 
-It's an emulator of INTeL processor 8008.
+It's an emulator of INTeL processor **i8008**.
 
 ## Table of contents
 
@@ -31,6 +31,9 @@ It's an emulator of INTeL processor 8008.
 ## Description
 
 ### Emulator
+
+Emulator is based on *MCS-8* ![MicroComputerSet - 8 bit](https://en.wikichip.org/wiki/intel/mcs-8)
+
 
 ### Compiler
 
