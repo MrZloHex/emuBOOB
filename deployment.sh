@@ -58,6 +58,21 @@ install() {
 	kill $PID
 }
 
+uninstall() {
+	echo >&6 -n "Uninstalling"
+
+	load &
+	PID=$!
+
+	sudo rm /usr/local/bin/$NAME
+	sudo rm $MAN_PATH/$NAME.1
+
+	sleep 1
+	echo >&6 ""
+
+	kill $PID
+}
+
 main() {
 	exec 6>&1 >/dev/null
 	exec 2>/dev/null
