@@ -152,7 +152,7 @@ See more information:
 ## Deployment
 
 **NOTE**</br>
-YOU SHOULD HAVE RUST TO INSTALL THIS EMULATOR
+YOU SHOULD HAVE RUST AND CARGO TO INSTALL THIS EMULATOR
 
 ### Rust Installation
 
