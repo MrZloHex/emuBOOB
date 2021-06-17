@@ -87,7 +87,7 @@ But `INCREMENT` and `DECREMENT` don't touch `C` (carry) flag.
 
 ##### Stack
 
-Stack in 8008 is located in proccessor. Subsequently, it has only 7 levels of deepnest.</br>
+Stack in 8008 is located in proccessor. Subsequently, it has only **7 levels** of deepnest.</br>
 *SP* is 3 bit length and you can't change its value.
 
 If you overflow stack level it would erase first levels.
