@@ -79,11 +79,11 @@ main() {
 
 	sudo ls
 
-	compile
-	check_exec
 
 	case $1 in
 		"-i" | "--install") 
+			compile
+			check_exec
 			install
 			echo >&6 "DONE!!!"
 			;;
