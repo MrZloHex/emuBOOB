@@ -122,7 +122,12 @@ After finishing executing programme all data from **RAM** would be erased.
 
 ### Emulator
 
-#### 
+Emulator is very close to real structure and ecosystem of MCS-8.</br>
+Emualator has pretty dump output of *CPU* and *Memory*.
+
+See more information:
+ - `$ emuBOOB run help`
+ - `$ man emuBOOB`
 
 ### Compiler
 

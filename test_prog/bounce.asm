@@ -1,22 +1,8 @@
-	;
-	; bounce.asm
-	;
-	; Intel 8008 source code file.  
-	;
-	; Copyright 2015 by Len Bayles
-	;
-	; Just a fun little test program for my MARK 8
-	;
-
-
-	; page 0
-
 	CPU 8008
-
 init:
-	lbi	00001110B		; Preload reg b
-	lci	01110000B		; Preload reg c
-	ldi	0x00			; Start direction IN
+	lbi	00001110B
+	lci	01110000B
+	ldi	0x00
 
 loop:
 	lab				; Copy reg b to acc
