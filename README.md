@@ -83,6 +83,10 @@ But `INCREMENT` and `DECREMENT` don't touch `C` (carry) flag.
 
 ##### Instruction Set
 
+![InstructionSet](https://github.com/MrZloHex/3-bit_SP/blob/master/manuls/instructions.png)
+
+*Took from page 8-9 of 8008 [manual](https://github.com/MrZloHex/3-bit_SP/blob/master/manuls/8008-Intel.pdf)*
+
 ### Emulator
 
 ### Compiler
