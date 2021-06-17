@@ -57,9 +57,9 @@ Parametres of MCS-8:
 | C    | 8  bit | GPR                  |
 | D    | 8  bit | GPR                  |
 | E    | 8  bit | GPR                  |
-| H    | 8  bit | GPR                  |
-| L    | 8  bit | GPR                  |
-| PC   | 14 bit | Program Counter<sup>[2](#PC)</sup> |
+| H    | 8  bit | GPR/High byte of address for MI<sup>[2](#MI)</sup>                  |
+| L    | 8  bit | GPR/Low byte of address for MI                  |
+| PC   | 14 bit | Program Counter<sup>[3](#PC)</sup> |
 | SP   | 3  bit | Stack Pointer        |
 
 ##### Flags
