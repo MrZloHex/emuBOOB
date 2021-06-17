@@ -52,7 +52,7 @@ Parametres of MCS-8:
 | Name | Length | Description          |
 |------|--------|----------------------|
 | A    | 8  bit | Accumulator          |
-| B    | 8  bit | GPR[^GPR]            |
+| B    | 8  bit | GPR<sup>[1](#GPR)</sup>           |
 | C    | 8  bit | GPR                  |
 | D    | 8  bit | GPR                  |
 | E    | 8  bit | GPR                  |
@@ -60,6 +60,8 @@ Parametres of MCS-8:
 | L    | 8  bit | GPR                  |
 | PC   | 14 bit | Program Counter[^PC] |
 | SP   | 3  bit | Stack Pointer        |
+
+<a name="GPR">1</a>: GPR
 
 ### Emulator
 
