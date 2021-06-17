@@ -58,10 +58,11 @@ Parametres of MCS-8:
 | E    | 8  bit | GPR                  |
 | H    | 8  bit | GPR                  |
 | L    | 8  bit | GPR                  |
-| PC   | 14 bit | Program Counter[^PC] |
+| PC   | 14 bit | Program Counter<sup>[1](#PC)</sup> |
 | SP   | 3  bit | Stack Pointer        |
 
 <a name="GPR">1</a>: GPR
+<a name="PC">2</a>: PC
 
 ### Emulator
 
