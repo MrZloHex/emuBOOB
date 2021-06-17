@@ -101,5 +101,5 @@ Parametres of MCS-8:
  
 ## Footnotes
 
-<a name="GPR">1</a>: GPR - General Purpose Register. This registers can be used for contain any data</br>
-<a name="PC">2</a>: PC - Program Counter (Modern: IS - Instruction Pointer). This register is used to point address of next opcode in memory
+<a name="GPR">1</a>: **GPR**- General Purpose Register. This registers can be used for contain any data</br>
+<a name="PC">2</a>: **PC** - Program Counter (Modern: IS - Instruction Pointer). This register is used to point address of next opcode in memory
