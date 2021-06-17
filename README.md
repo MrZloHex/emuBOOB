@@ -12,6 +12,7 @@ It's an emulator of INTeL processor **i8008**.
         * [CPU](#cpu)
             * [Registers](#registers)
             * [Flags](#flags)
+            * [ALU](#alu)
     * [Emulator](#emulator)
     * [Compiler](#compiler)
  * [Deployment](#deployment)
@@ -70,6 +71,10 @@ Parametres of MCS-8:
 | Z    | Zero        |
 | S    | Sign        |
 | P    | Parity      |
+
+##### ALU
+
+
 
 ### Emulator
 
