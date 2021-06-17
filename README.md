@@ -83,9 +83,9 @@ But `INCREMENT` and `DECREMENT` don't touch `C` (carry) flag.
 
 ##### Instruction Set
 
-![InstructionSet](https://github.com/MrZloHex/3-bit_SP/blob/master/manuls/instructions.png)
+![InstructionSet](https://github.com/MrZloHex/emuBOOB/blob/master/manuls/instuctions.png)
 
-*Took from page 8-9 of 8008 [manual](https://github.com/MrZloHex/3-bit_SP/blob/master/manuls/8008-Intel.pdf)*
+*Took from page 8-9 of 8008 [manual](https://github.com/MrZloHex/emuBOOB/blob/master/manuls/8008-Intel.pdf)*
 
 ### Emulator
 
@@ -103,8 +103,8 @@ But `INCREMENT` and `DECREMENT` don't touch `C` (carry) flag.
 
  - [Wiki with general info about](https://en.wikipedia.org/wiki/Intel_8008)
  - [Wiki with internal system of i8008](https://en.wikichip.org/wiki/intel/mcs-8/isa)
- - [INTeL's original reference for i8008](https://github.com/MrZloHex/3-bit_SP/blob/master/manuls/8008-Intel.pdf)
- - [MCS-8 datasheet](https://github.com/MrZloHex/3-bit_SP/blob/master/manuls/MCS-8_User_Manual_(Rev_2)_(Nov_1972).pdf)
+ - [INTeL's original reference for i8008](https://github.com/MrZloHex/emuBOOB/blob/master/manuls/8008-Intel.pdf)
+ - [MCS-8 datasheet](https://github.com/MrZloHex/emuBOOB/blob/master/manuls/MCS-8_User_Manual_(Rev_2)_(Nov_1972).pdf)
 
 ## ASM Rules
 
