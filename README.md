@@ -61,9 +61,6 @@ Parametres of MCS-8:
 | PC   | 14 bit | Program Counter<sup>[2](#PC)</sup> |
 | SP   | 3  bit | Stack Pointer        |
 
-<a name="GPR">1</a>: GPR</br>
-<a name="PC">2</a>: PC
-
 ### Emulator
 
 
@@ -102,3 +99,6 @@ Parametres of MCS-8:
  - Calling or jumping to a label, the label name should starts from ampersand (`&`)
  - You can write values in different bases, for specify base you should write after value (`'d'`, `'h'`, `'o'`, `'b'`) for decimal, hexadecimal, octal and binary accordingly
  
+
+<a name="GPR">1</a>: GPR</br>
+<a name="PC">2</a>: PC
