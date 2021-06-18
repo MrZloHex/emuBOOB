@@ -205,7 +205,7 @@ Options for `build` subcommand:
 	With this option you can specify path and name of output bianry file.</br>
 	E. g. `$ emuBOOB build --input="project8008/src/main.asm" --output="target/my_app"`
 
-
+</br>
 
 Flags for `build` subcommand:
  - **-v**, **--verbose**:</br>
