@@ -199,11 +199,12 @@ This would make bianry file in same directory, which after you can execute in em
 
 Options for `build` subcommand:
  - **-i**,  **--input**:</br>
-	This is obligatory fie, where you specify the path to the source file.</br>
+	This is obligatory option, where you specify the path to the source file.</br>
 	E. g. `$ emuBOOB build --input="project8008/src/main.asm"`
  - **-o**,  **--output**:</br>
 	With this option you can specify path and name of output bianry file.</br>
 	E. g. `$ emuBOOB build --input="project8008/src/main.asm" --output="target/my_app"`
+
 
 Flags for `build` subcommand:
  - **-v**, **--verbose**:</br>
@@ -212,6 +213,20 @@ Flags for `build` subcommand:
 	You will see version of compiler for 8008.
  - **-h**, **--help**:</br>
 	Display help information about `build`.
+
+### Running
+
+Emulator can execute binary made obly by emuBOOB's compiler.</br>
+To run compiled binary on i8008 run:</br>
+	`$ emuBOOB run --input="<PATH TO BINARY>"`
+
+Options for `run` subcommand:
+ - **-i**, **--input**:</br>
+	This is obligatory option, where you specify the path to the binary file or source code (see `-b` flag)</br>
+	E. g. `$ emuBOOB run --input="target/my_app"`
+ - **-o**, **--ouput**:</br>
+	This option is usefull only with `-b` flag, when you building before executing.</br>
+	E. g. `$ emuBOOB run --input="project/src/main.asm" --output="target/my_app" --build`
 
 ## References
 
