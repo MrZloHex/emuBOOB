@@ -203,6 +203,14 @@ Options for `build` subcommand:
 	With this option you can specify path and name of output bianry file.</br>
 	E. g. `$ emuBOOB build --input="project8008/src/main.asm" --output="target/my_app"`
 
+Flags for `build` subcommand:
+ - **-v**, **--verbose**:</br>
+	Will be displayed your assembly code and after opcodes for i8008.
+ - **-V**, **--version**:</br>
+	You will see version of compiler for 8008.
+ - **-h**, **--help**:</br>
+	Display help information about `build`.
+
 ## References
 
  - [Wiki with general info about](https://en.wikipedia.org/wiki/Intel_8008)
