@@ -160,6 +160,12 @@ Try run: `$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
 
 And see official [guide](https://www.rust-lang.org/tools/install).
 
+For `cargo` try this:
+ - Ubuntu / Debian `$ sudo apt-get install cargo`
+ - Arch `$ sudo pacman -S cargo`
+
+Or see official [guide](https://github.com/rust-lang/cargo)
+
 ### Installation
 
 1. Download or clone this repo:
