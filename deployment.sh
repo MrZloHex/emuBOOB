@@ -77,8 +77,8 @@ uninstall() {
 }
 
 main() {
-	#exec 6>&1 >/dev/null
-	#exec 2>/dev/null
+	exec 6>&1 >/dev/null
+	exec 2>/dev/null
 
 	sudo ls
 
