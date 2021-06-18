@@ -238,8 +238,8 @@ Flags for `run` subcommand:
 	This flag specifying that you would **build** *input* file and after that execute *output* file in emulator.
  - **-m**, **--manual**:</br>
 	This flag giving opportunity to execute instructions one by one with control</br>
-	Press `enter` to execute next instruction</br> 
-	Press `q` to stop executing
+	 * Press `enter` to execute next instruction</br> 
+	 * Press `q` to stop executing
  - **-V**, **--version**:</br>
 	You will see version of emulator of 8008.
  - **-h**, **--help**:</br>
