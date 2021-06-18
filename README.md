@@ -196,11 +196,11 @@ For build your assembly code for i8008 run this:</br>
 This would make bianry file in same directory, which after you can execute in emulator
 
 Options for `build` subcommand:
- - **-i**,  **--input**:
-	This is obligatory file, where you specify the path to the source file.
+ - **-i**,  **--input**:</br>
+	This is obligatory fie, where you specify the path to the source file.</br>
 	E. g. `$ emuBOOB build --input="project8008/src/main.asm"`
- - **-o**,  **--output**:
-	With this option you can specify path and name of output bianry file.
+ - **-o**,  **--output**:</br>
+	With this option you can specify path and name of output bianry file.</br>
 	E. g. `$ emuBOOB build --input="project8008/src/main.asm" --output="target/my_app"`
 
 ## References
