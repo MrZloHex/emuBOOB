@@ -229,6 +229,18 @@ Options for `run` subcommand:
 	This option is usefull only with `-b` flag, when you building before executing.</br>
 	E. g. `$ emuBOOB run --input="project/src/main.asm" --output="target/my_app" --build`
 
+</br>
+
+Flags for `run` subcommand:
+ - **-v**, **--verbose**:</br>
+	Will be displayed more information about instructions and will display memory dump.
+ - **-b**, **--build**:</br>
+	This flag specifying that you would **build** *input* file and after that execute *output* file in emulator.
+ - **-m**, **--manual**:</br>
+	This flag giving opportunity to execute instructions one by one with control</br>
+	Press `enter` to execute next instruction</br> 
+	Press `q` to stop executing
+
 ## References
 
  - [Wiki with general info about](https://en.wikipedia.org/wiki/Intel_8008)
