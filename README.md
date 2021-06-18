@@ -187,6 +187,22 @@ Or see official [guide](https://github.com/rust-lang/cargo)
 
 ## Usage
 
+### Building
+
+emuBOOB's compiler supporting only `.asm` files with very strcit rules.</br>
+For build your assembly code for i8008 run this:</br>
+	`$ emuBOOB build --input="<PATH TO YOUR CODE>" </br>
+
+This would make bianry file in same directory, which after you can execute in emulator
+
+Options for `build` subcommand:
+ - **-i**,  **--input**:
+	This is obligatory file, where you specify the path to the source file.
+	E. g. `$ emuBOOB build --input="project8008/src/main.asm"`
+ - **-o**,  **--output**:
+	With this option you can specify path and name of output bianry file.
+	E. g. `$ emuBOOB build --input="project8008/src/main.asm" --output="target/my_app"`
+
 ## References
 
  - [Wiki with general info about](https://en.wikipedia.org/wiki/Intel_8008)
