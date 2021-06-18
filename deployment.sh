@@ -50,7 +50,9 @@ install() {
 
 	sudo mkdir $MAN_PATH
 	sudo cp $NAME.1 $MAN_PATH
-	sudo gzip $MAN_PATH/$NAME.1
+	sudo gzip "$MAN_PATH/$NAME.1"
+
+	sudo mandb
 
 	sleep 1	
 	echo >&6 ""
@@ -65,7 +67,7 @@ uninstall() {
 	PID=$!
 
 	sudo rm /usr/local/bin/$NAME
-	sudo rm $MAN_PATH/$NAME.1
+	sudo rm "$MAN_PATH/$NAME.1"
 
 	sleep 1
 	echo >&6 ""
