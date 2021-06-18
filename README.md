@@ -27,6 +27,8 @@ It's an emulator of INTeL processor **i8008**.
  	* [Installation](#installation)
  	* [Uninstallation](#uninstallation)
  * [Usage](#usage)
+	* [Building](#building)
+	* [Running](#running)
  * [References and manuals](#references)
 
 
@@ -191,7 +193,7 @@ Or see official [guide](https://github.com/rust-lang/cargo)
 
 emuBOOB's compiler supporting only `.asm` files with very strcit rules.</br>
 For build your assembly code for i8008 run this:</br>
-	`$ emuBOOB build --input="<PATH TO YOUR CODE>" </br>
+	`$ emuBOOB build --input="<PATH TO YOUR CODE>"`</br>
 
 This would make bianry file in same directory, which after you can execute in emulator
 
