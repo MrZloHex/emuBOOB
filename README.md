@@ -213,7 +213,7 @@ Flags for `build` subcommand:
  - **-V**, **--version**:</br>
 	You will see version of compiler for 8008.
  - **-h**, **--help**:</br>
-	Display help information about `build`.
+	Display help information about compiler.
 
 ### Running
 
@@ -240,6 +240,10 @@ Flags for `run` subcommand:
 	This flag giving opportunity to execute instructions one by one with control</br>
 	Press `enter` to execute next instruction</br> 
 	Press `q` to stop executing
+ - **-V**, **--version**:</br>
+	You will see version of emulator of 8008.
+ - **-h**, **--help**:</br>
+	Display help information about emulator.
 
 ## References
 
