@@ -49,7 +49,7 @@ install() {
 	sudo cp "${COMP_PATH}${NAME}" /usr/local/bin
 
 	sudo mkdir $MAN_PATH
-	sudo cp $NAME.1 $MAN_PATH
+	sudo cp $NAME.1 "$MAN_PATH/"
 	sudo gzip "$MAN_PATH/$NAME.1"
 
 	sudo mandb
@@ -68,6 +68,7 @@ uninstall() {
 
 	sudo rm /usr/local/bin/$NAME
 	sudo rm "$MAN_PATH/$NAME.1"
+	sudo rm "$MAN_PATH/$NAME.1.gz"
 
 	sleep 1
 	echo >&6 ""
