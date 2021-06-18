@@ -206,6 +206,7 @@ Options for `build` subcommand:
 	E. g. `$ emuBOOB build --input="project8008/src/main.asm" --output="target/my_app"`
 
 
+
 Flags for `build` subcommand:
  - **-v**, **--verbose**:</br>
 	Will be displayed your assembly code and after opcodes for i8008.
