@@ -20,7 +20,6 @@ It's an emulator of INTeL processor **i8008**.
  			* [RAM](#ram)
  	* [Emulator](#emulator)
  	* [Compiler](#compiler)
- 		* [Specification](#compiler-specification)
  		* [Rules](#assembler-syntax-rules)
  * [Deployment](#deployment)
  	* [Rust](#rust-installation)
@@ -134,8 +133,6 @@ See more information:
  - `$ man emuBOOB`
 
 ### Compiler
-
-#### Compiler Specification
 
 #### Assembler Syntax Rules
 
