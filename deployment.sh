@@ -5,7 +5,6 @@
 #     16.06.2021     #
 ######################
 
-MAN_PATH="/usr/local/man/man1"
 NAME="emuBOOB"
 COMP_PATH="./target/release/"
 
@@ -48,12 +47,6 @@ install() {
 
 	sudo cp "${COMP_PATH}${NAME}" /usr/local/bin
 
-	sudo mkdir $MAN_PATH
-	sudo cp $NAME.1 "$MAN_PATH/"
-	sudo gzip "$MAN_PATH/$NAME.1"
-
-	sudo mandb
-
 	sleep 1	
 	echo >&6 ""
 
@@ -67,9 +60,7 @@ uninstall() {
 	PID=$!
 
 	sudo rm /usr/local/bin/$NAME
-	sudo rm "$MAN_PATH/$NAME.1"
-	sudo rm "$MAN_PATH/$NAME.1.gz"
-
+	
 	sleep 1
 	echo >&6 ""
 
