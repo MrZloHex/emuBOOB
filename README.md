@@ -28,6 +28,7 @@ It's an emulator of INTeL processor **i8008**.
  * [Usage](#usage)
 	* [Building](#building)
 	* [Running](#running)
+ * [Examples](#examples)
  * [References and manuals](#references)
 
 
@@ -241,6 +242,13 @@ Flags for `run` subcommand:
 	You will see version of emulator of 8008.
  - **-h**, **--help**:</br>
 	Display help information about emulator.
+
+## Examples
+
+There are some examples of programs in [exaples](https://github.com/MrZloHex/emuBOOB/tree/master/examples) directory.
+
+Try emulate `multiply.asm` in emuBOOB. For this run:</br>
+`$ emuBOOB run --input="examples/multiply.asm" --output="exaples_target/multiply" --build`
 
 ## References
 
