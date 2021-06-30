@@ -245,7 +245,7 @@ Flags for `run` subcommand:
 
 ## Examples
 
-There are some examples of programs in [exaples](https://github.com/MrZloHex/emuBOOB/tree/master/examples) directory.
+There are some examples of programs in [examples](https://github.com/MrZloHex/emuBOOB/tree/master/examples) directory.
 
 Try emulate `multiply.asm` in emuBOOB. For this run:</br>
 `$ emuBOOB run --input="examples/multiply.asm" --output="exaples_target/multiply" --build`
