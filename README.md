@@ -8,6 +8,7 @@ It's an emulator of INTeL processor **i8008**.
 
  * [Roadmap](#roadmap)
  * [Description](#description)
+ 	* [Diagram](#diagram)
  	* [Basement](#basement)
  		* [CPU](#cpu)
  			* [Registers](#registers)
@@ -44,6 +45,27 @@ It's an emulator of INTeL processor **i8008**.
  - [ ] TUI / GUI
 
 ## Description
+
+### Diagram
+
+```
++---------------+    +-------+       +--------+    +-----------------+
+| dictionary.rs |    | INPUT |       | cpu.rs | <- | instructions.rs |
++---------------+    +-------+       +--------+    +-----------------+
+  |                      |            ^   ^  |
+  |                      |            |   |  \-------------\
+  |                      V            V   \------\         V
+  |  +--------+     +---------+      +--------+  |    +---------+
+  |  | cmp.rs | <-- | main.rs | <--> | mcs.rs |  |    | dump.rs |
+  |  +--------+     +---------+      +--------+  |    +---------+
+  |       |             ^   ^         |   /------/         ^
+  \---\   |             |   \----\    |   |  /-------------/
+      V   V             |        |    V   V  |
++---------------+    +--------+  |   +--------+      +----------+
+| translator.rs | -> | OUTPUT |  |   | mem.rs |   /- | cli.yaml |
++---------------+    +--------+  |   +--------+   |  +----------+
+                                 \----------------/
+```
 
 ### Basement
 
